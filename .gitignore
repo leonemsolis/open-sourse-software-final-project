@@ -38,11 +38,7 @@ captures/
 
 # Intellij
 *.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/dictionaries
-.idea/libraries
+.idea
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
@@ -208,3 +204,4 @@ OSS_Project.ipr
 OSS_Project.iws
 settings.gradle
 proguard.append.cfg
+
