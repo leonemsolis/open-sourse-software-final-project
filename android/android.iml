@@ -87,5 +87,6 @@
     <orderEntry type="library" exported="" name="gdx-box2d-1.9.6" level="project" />
     <orderEntry type="library" exported="" name="gdx-1.9.6" level="project" />
     <orderEntry type="module" module-name="core" exported="" />
+    <orderEntry type="library" exported="" name="android-android-25" level="project" />
   </component>
 </module>
