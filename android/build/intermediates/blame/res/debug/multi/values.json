@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/Users/leonemsolis/Documents/university/2017-2/OSS_Project/OSS_Project/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+        "outputFile": "C:\\Users\\kmusw\\Documents\\OSS_Project_FightGame\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -11,142 +11,7 @@
                     "endOffset": 99
                 },
                 "from": {
-                    "file": "/Users/leonemsolis/Documents/university/2017-2/OSS_Project/OSS_Project/android/res/values/strings.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 56,
-                        "endColumn": 48,
-                        "endOffset": 100
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 104,
-                    "endLine": 10,
-                    "endColumn": 12,
-                    "endOffset": 562
-                },
-                "from": {
-                    "file": "/Users/leonemsolis/Documents/university/2017-2/OSS_Project/OSS_Project/android/res/values/styles.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 17,
-                        "endLine": 9,
-                        "endColumn": 12,
-                        "endOffset": 475
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "/Users/leonemsolis/Documents/university/2017-2/OSS_Project_FightGame/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 48,
-                    "endOffset": 99
-                },
-                "from": {
-                    "file": "/Users/leonemsolis/Documents/university/2017-2/OSS_Project_FightGame/android/res/values/strings.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 56,
-                        "endColumn": 48,
-                        "endOffset": 100
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 104,
-                    "endLine": 10,
-                    "endColumn": 12,
-                    "endOffset": 562
-                },
-                "from": {
-                    "file": "/Users/leonemsolis/Documents/university/2017-2/OSS_Project_FightGame/android/res/values/styles.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 17,
-                        "endLine": 9,
-                        "endColumn": 12,
-                        "endOffset": 475
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "/Users/leonemsolis/Documents/university/2017-2/OSS_Project/OSS_Project/C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 48,
-                    "endOffset": 99
-                },
-                "from": {
-                    "file": "/Users/leonemsolis/Documents/university/2017-2/OSS_Project/OSS_Project/C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\android\\res\\values\\strings.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 56,
-                        "endColumn": 48,
-                        "endOffset": 100
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 104,
-                    "endLine": 10,
-                    "endColumn": 12,
-                    "endOffset": 562
-                },
-                "from": {
-                    "file": "/Users/leonemsolis/Documents/university/2017-2/OSS_Project/OSS_Project/C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\android\\res\\values\\styles.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 17,
-                        "endLine": 9,
-                        "endColumn": 12,
-                        "endOffset": 475
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "/Users/leonemsolis/Documents/university/2017-2/OSS_Project/OSS_Project/C:\\Users\\kmusw\\Documents\\OSS_Project\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 48,
-                    "endOffset": 99
-                },
-                "from": {
-                    "file": "/Users/leonemsolis/Documents/university/2017-2/OSS_Project/OSS_Project/C:\\Users\\kmusw\\Documents\\OSS_Project\\android\\res\\values\\strings.xml",
+                    "file": "C:\\Users\\kmusw\\Documents\\OSS_Project_FightGame\\android\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -166,7 +31,7 @@
                     "endOffset": 562
                 },
                 "from": {
-                    "file": "/Users/leonemsolis/Documents/university/2017-2/OSS_Project/OSS_Project/C:\\Users\\kmusw\\Documents\\OSS_Project\\android\\res\\values\\styles.xml",
+                    "file": "C:\\Users\\kmusw\\Documents\\OSS_Project_FightGame\\android\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -174,6 +39,186 @@
                         "endLine": 9,
                         "endColumn": 12,
                         "endOffset": 484
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 48,
+                    "endOffset": 99
+                },
+                "from": {
+                    "file": "C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\android\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 56,
+                        "endColumn": 48,
+                        "endOffset": 100
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 104,
+                    "endLine": 10,
+                    "endColumn": 12,
+                    "endOffset": 562
+                },
+                "from": {
+                    "file": "C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\android\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 17,
+                        "endLine": 9,
+                        "endColumn": 12,
+                        "endOffset": 475
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\C:\\Users\\kmusw\\Documents\\OSS_Project\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 48,
+                    "endOffset": 99
+                },
+                "from": {
+                    "file": "C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\C:\\Users\\kmusw\\Documents\\OSS_Project\\android\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 59,
+                        "endColumn": 48,
+                        "endOffset": 103
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 104,
+                    "endLine": 10,
+                    "endColumn": 12,
+                    "endOffset": 562
+                },
+                "from": {
+                    "file": "C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\C:\\Users\\kmusw\\Documents\\OSS_Project\\android\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 19,
+                        "endLine": 9,
+                        "endColumn": 12,
+                        "endOffset": 484
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 48,
+                    "endOffset": 99
+                },
+                "from": {
+                    "file": "C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\android\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 56,
+                        "endColumn": 48,
+                        "endOffset": 100
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 104,
+                    "endLine": 10,
+                    "endColumn": 12,
+                    "endOffset": 562
+                },
+                "from": {
+                    "file": "C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project\\OSS_Project\\android\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 17,
+                        "endLine": 9,
+                        "endColumn": 12,
+                        "endOffset": 475
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project_FightGame\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 48,
+                    "endOffset": 99
+                },
+                "from": {
+                    "file": "C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project_FightGame\\android\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 56,
+                        "endColumn": 48,
+                        "endOffset": 100
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 104,
+                    "endLine": 10,
+                    "endColumn": 12,
+                    "endOffset": 562
+                },
+                "from": {
+                    "file": "C:\\Users\\leonemsolis\\Documents\\university\\2017-2\\OSS_Project_FightGame\\android\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 17,
+                        "endLine": 9,
+                        "endColumn": 12,
+                        "endOffset": 475
                     }
                 }
             }
