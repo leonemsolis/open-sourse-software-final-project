@@ -38,7 +38,11 @@ captures/
 
 # Intellij
 *.iml
-.idea
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/dictionaries
+.idea/libraries
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
@@ -190,18 +194,3 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 # End of https://www.gitignore.io/api/java,gradle,android,androidstudio
-
-# Ignore all but CORE ANDROID and DESKTOP
-build.gradle
-gradle.properties
-gradlew
-gradlew.bat
-html/
-ios/
-ios-moe/
-OSS_Project_FightGame.iml
-OSS_Project.ipr
-OSS_Project.iws
-settings.gradle
-proguard.append.cfg
-
