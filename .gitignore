@@ -199,3 +199,5 @@ gradle-app.setting
 ios-moe/
 proguard.append.cfg
 OSS_Project_FightGame.iml
+ios-moe/
+ios/
