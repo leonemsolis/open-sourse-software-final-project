@@ -196,8 +196,17 @@ gradle-app.setting
 
 .idea/misc.xml
 .idea/workspace.xml
-ios-moe/
 proguard.append.cfg
 OSS_Project_FightGame.iml
 ios-moe/
 ios/
+android/build
+android/libs/
+android/res/
+android/src/
+android/android.iml
+android/build.gradle
+android/ic_lancher-web.png
+android/proguard-rules.pro
+android/project.properties
+
