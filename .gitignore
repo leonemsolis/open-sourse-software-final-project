@@ -192,5 +192,21 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
-
 # End of https://www.gitignore.io/api/java,gradle,android,androidstudio
+
+.idea/misc.xml
+.idea/workspace.xml
+proguard.append.cfg
+OSS_Project_FightGame.iml
+ios-moe/
+ios/
+android/build
+android/libs/
+android/res/
+android/src/
+android/android.iml
+android/build.gradle
+android/ic_lancher-web.png
+android/proguard-rules.pro
+android/project.properties
+
