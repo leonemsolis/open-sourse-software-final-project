@@ -1,5 +1,7 @@
 package com.leonemsolis.screens.inputprocessors;
 
+import com.badlogic.gdx.Gdx;
+import com.leonemsolis.main.MainGameClass;
 import com.leonemsolis.screens.objecthandlers.objects.InteractiveObjects;
 import com.leonemsolis.screens.objecthandlers.objects.Object;
 
@@ -32,14 +34,21 @@ public abstract class InputProcessor implements com.badlogic.gdx.InputProcessor 
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        screenX = convertCoordinate(screenX);
+        screenY = convertCoordinate(screenY);
+
         for (InteractiveObjects o: interactiveObjects) {
             o.touchDown(screenX, screenY, pointer, button);
         }
+
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        screenX = convertCoordinate(screenX);
+        screenY = convertCoordinate(screenY);
+
         for (InteractiveObjects o: interactiveObjects) {
             o.touchUp(screenX, screenY, pointer, button);
         }
@@ -48,6 +57,9 @@ public abstract class InputProcessor implements com.badlogic.gdx.InputProcessor 
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+        screenX = convertCoordinate(screenX);
+        screenY = convertCoordinate(screenY);
+
         for (InteractiveObjects o: interactiveObjects) {
             o.touchDragged(screenX, screenY, pointer);
         }
@@ -62,5 +74,9 @@ public abstract class InputProcessor implements com.badlogic.gdx.InputProcessor 
     @Override
     public boolean scrolled(int amount) {
         return false;
+    }
+
+    protected int convertCoordinate(int initial) {
+        return (int)(initial / MainGameClass.GAME_SCALE);
     }
 }

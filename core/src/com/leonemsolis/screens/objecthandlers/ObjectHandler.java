@@ -14,12 +14,8 @@ public abstract class ObjectHandler {
     List<Object>renderingObjects;
     List<InteractiveObjects>interactiveObjects;
 
-    public ObjectHandler() {}
-
     public void update() {
-        for (Object object:objects) {
-            object.update();
-        }
+
     }
 
     public List<InteractiveObjects> getInteractiveObjects() {
