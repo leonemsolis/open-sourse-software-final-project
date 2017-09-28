@@ -13,6 +13,6 @@ public class MainGameClass extends Game {
 
 	@Override
 	public void dispose() {
-		
+
 	}
 }
