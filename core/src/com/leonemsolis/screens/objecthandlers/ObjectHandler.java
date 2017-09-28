@@ -5,4 +5,5 @@ package com.leonemsolis.screens.objecthandlers;
  */
 
 public abstract class ObjectHandler {
+
 }
