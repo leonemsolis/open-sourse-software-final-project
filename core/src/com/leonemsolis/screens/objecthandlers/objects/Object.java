@@ -1,5 +1,6 @@
 package com.leonemsolis.screens.objecthandlers.objects;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
@@ -7,12 +8,12 @@ import com.badlogic.gdx.math.Rectangle;
  */
 
 public abstract class Object {
-    private Rectangle bounds;
+    protected Rectangle bounds;
     public Object(float x, float y, float width, float height) {
         bounds = new Rectangle(x, y, width, height);
     }
 
-    public void render(float delta) {
+    public void render(float delta, ShapeRenderer shapeRenderer) {
 
     }
 
