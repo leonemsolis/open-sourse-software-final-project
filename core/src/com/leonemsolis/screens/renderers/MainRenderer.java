@@ -19,6 +19,7 @@ public class MainRenderer extends Renderer {
     public MainRenderer(List<Object> renderingObjects) {
         super(renderingObjects);
         camera = new OrthographicCamera(MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
+        camera.setToOrtho(true);
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.setColor(Color.WHITE);

@@ -18,12 +18,11 @@ public class Button extends InteractiveObjects {
 
     @Override
     public void render(float delta, ShapeRenderer shapeRenderer) {
-        shapeRenderer.rect(super.bounds.x, super.bounds.y, super.bounds.width, super.bounds.height);
+        shapeRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
     }
 
     @Override
     public void touchDown(int screenX, int screenY, int pointer, int button) {
-        Gdx.app.log("BUTTON", "Touch down");
         if(super.bounds.contains(screenX, screenY)) {
             touchedDown = true;
         }
@@ -31,10 +30,9 @@ public class Button extends InteractiveObjects {
 
     @Override
     public void touchUp(int screenX, int screenY, int pointer, int button) {
-        Gdx.app.log("BUTTON", "Touch up");
         if(super.bounds.contains(screenX, screenY)) {
             activated = true;
-            Gdx.app.log("BUTTON", "ACTIVATED!!!!");
+            Gdx.app.log("Button", "Activated");
         }
         touchedDown = false;
     }
