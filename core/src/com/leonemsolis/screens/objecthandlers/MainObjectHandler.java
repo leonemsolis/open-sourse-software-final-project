@@ -19,6 +19,6 @@ public class MainObjectHandler extends ObjectHandler {
         renderingObjects = new ArrayList<Object>();
         renderingObjects.add(button);
         interactiveObjects = new ArrayList<InteractiveObjects>();
-        renderingObjects.add(button);
+        interactiveObjects.add(button);
     }
 }
