@@ -7,6 +7,10 @@ import java.util.List;
 
 /**
  * Created by Leonemsolis on 28/09/2017.
+ *
+ * ObjectHandler - manages and updates all the object of a
+ * certain screen
+ *
  */
 
 public abstract class ObjectHandler {

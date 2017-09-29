@@ -2,9 +2,13 @@ package com.leonemsolis.screens.objecthandlers.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * Created by Leonemsolis on 28/09/2017.
+ *
+ * Button - simple InteractiveObject, which can be touched down/up
+ *
  */
 
 public class Button extends InteractiveObjects {
@@ -13,7 +17,7 @@ public class Button extends InteractiveObjects {
     private boolean activated = false;
 
     public Button(float x, float y, float width, float height) {
-        super(x, y, width, height);
+        bounds = new Rectangle(x, y, width, height);
     }
 
     @Override
@@ -30,7 +34,7 @@ public class Button extends InteractiveObjects {
 
     @Override
     public void touchUp(int screenX, int screenY, int pointer, int button) {
-        if(super.bounds.contains(screenX, screenY)) {
+        if(touchedDown && super.bounds.contains(screenX, screenY)) {
             activated = true;
             Gdx.app.log("Button", "Activated");
         }

@@ -4,6 +4,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.leonemsolis.screens.MainScreen;
 
+/**
+ * Created by Leonemsolis on 18/09/2017.
+ *
+ *	MainGameClass mainly responds for switching game screens
+ */
+
 public class MainGameClass extends Game {
 	public static float GAME_WIDTH = 360f;
 	public static float GAME_HEIGHT;

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 /**
  * Created by Leonemsolis on 28/09/2017.
+ *
+ * MainObjectHandler - ObjectHandler of the MainScreen
+ *
  */
 
 public class MainObjectHandler extends ObjectHandler {

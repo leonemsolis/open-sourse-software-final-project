@@ -6,6 +6,12 @@ import com.leonemsolis.screens.renderers.Renderer;
 
 /**
  * Created by Leonemsolis on 28/09/2017.
+ *
+ * Screen - certain Game Scene, that has own
+ * Objects(ObjectHandler), Renderer, and InputProcessor.
+ * Also it should have implementation of connect with
+ * MainGameClass in case of switching to the other Screen
+ *
  */
 
 public abstract class Screen implements com.badlogic.gdx.Screen {
@@ -21,8 +27,7 @@ public abstract class Screen implements com.badlogic.gdx.Screen {
 
     @Override
     public void render(float delta) {
-        objectHandler.update();
-        renderer.render(delta);
+
     }
 
     @Override

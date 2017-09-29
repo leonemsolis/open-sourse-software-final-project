@@ -1,6 +1,5 @@
 package com.leonemsolis.screens.renderers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -11,6 +10,9 @@ import java.util.List;
 
 /**
  * Created by Leonemsolis on 28/09/2017.
+ *
+ * MainRenderer - renderer of the MainScreen
+ *
  */
 
 public class MainRenderer extends Renderer {

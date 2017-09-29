@@ -2,11 +2,14 @@ package com.leonemsolis.screens.objecthandlers.objects;
 
 /**
  * Created by Leonemsolis on 28/09/2017.
+ *
+ * InteractiveObject - blueprint for every object that user
+ * can interact with
+ *
  */
 
 public abstract class InteractiveObjects extends Object {
-    public InteractiveObjects(float x, float y, float width, float height) {
-        super(x, y, width, height);
+    public InteractiveObjects() {
     }
 
     public void touchDown(int screenX, int screenY, int pointer, int button) {
