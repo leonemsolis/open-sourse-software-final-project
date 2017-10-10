@@ -11,21 +11,34 @@ import com.leonemsolis.screens.MainScreen;
  */
 
 public class MainGameClass extends Game {
-	public static float GAME_WIDTH = 360f;
-	public static float GAME_HEIGHT;
-	public static float DEVICE_WIDTH;
-	public static float DEVICE_HEIGHT;
+	public static int GAME_WIDTH = 320;
+	public static int GAME_HEIGHT;
+	public static int DEVICE_WIDTH;
+	public static int DEVICE_HEIGHT;
+	public static int MID_POINT;
 	public static float GAME_SCALE;
+
 
 	@Override
 	public void create() {
-		DEVICE_WIDTH = (float)Gdx.graphics.getWidth();
-		DEVICE_HEIGHT = (float)Gdx.graphics.getHeight();
-		GAME_SCALE = DEVICE_WIDTH / GAME_WIDTH;
-		GAME_HEIGHT = DEVICE_HEIGHT / GAME_SCALE;
-
-		setScreen(new MainScreen());
+		DEVICE_WIDTH = Gdx.graphics.getWidth();
+		DEVICE_HEIGHT = Gdx.graphics.getHeight();
+		GAME_SCALE = (DEVICE_WIDTH/(float)GAME_WIDTH);
+		GAME_HEIGHT = (int)((float)DEVICE_HEIGHT / GAME_SCALE);
+		MID_POINT = GAME_HEIGHT / 2;
+        switchScreen(0);
 	}
+
+	public void switchScreen(int id) {
+        switch (id) {
+            case 0:
+                setScreen(new MainScreen(this));
+                break;
+            default:
+                setScreen(new MainScreen(this));
+                break;
+        }
+    }
 
 
 	@Override

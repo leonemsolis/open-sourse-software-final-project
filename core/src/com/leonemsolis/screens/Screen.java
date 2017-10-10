@@ -1,5 +1,6 @@
 package com.leonemsolis.screens;
 
+import com.leonemsolis.main.MainGameClass;
 import com.leonemsolis.screens.inputprocessors.InputProcessor;
 import com.leonemsolis.screens.objecthandlers.ObjectHandler;
 import com.leonemsolis.screens.renderers.Renderer;
@@ -19,6 +20,7 @@ public abstract class Screen implements com.badlogic.gdx.Screen {
     protected ObjectHandler objectHandler;
     protected Renderer renderer;
     protected InputProcessor inputProcessor;
+    protected MainGameClass mainGameClass;
 
     @Override
     public void show() {
