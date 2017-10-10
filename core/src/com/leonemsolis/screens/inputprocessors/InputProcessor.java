@@ -7,13 +7,14 @@ import java.util.List;
 
 /**
  * Created by Leonemsolis on 28/09/2017.
+ *
+ * InputProcessor - blueprint for every Screen's InputProcessor
+ * Main function - get and process user's input
+ *
  */
 
 public abstract class InputProcessor implements com.badlogic.gdx.InputProcessor {
     protected List<InteractiveObjects> interactiveObjects;
-    public InputProcessor(List<InteractiveObjects> interactiveObjects) {
-        this.interactiveObjects = interactiveObjects;
-    }
 
     @Override
     public boolean keyDown(int keycode) {

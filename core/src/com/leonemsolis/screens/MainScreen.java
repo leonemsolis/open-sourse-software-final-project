@@ -7,6 +7,10 @@ import com.leonemsolis.screens.renderers.MainRenderer;
 
 /**
  * Created by Leonemsolis on 28/09/2017.
+ *
+ * MainScreen - the first Screen that user sees.
+ * Should have "Play button", "Settings button" and "Exit button"
+ *
  */
 
 public class MainScreen extends Screen {
@@ -16,6 +20,12 @@ public class MainScreen extends Screen {
         renderer = new MainRenderer(objectHandler.getRenderingObjects());
         inputProcessor = new MainInputProcessor(objectHandler.getInteractiveObjects());
         Gdx.input.setInputProcessor(inputProcessor);
+    }
+
+    @Override
+    public void render(float delta) {
+        objectHandler.update();
+        renderer.render(delta);
     }
 
 }
