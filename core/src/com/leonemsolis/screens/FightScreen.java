@@ -18,4 +18,10 @@ public class FightScreen extends Screen {
         inputProcessor = new FightInputProcessor();
         Gdx.input.setInputProcessor(inputProcessor);
     }
+
+    @Override
+    public void render(float delta) {
+        objectHandler.update();
+        renderer.render(delta);
+    }
 }

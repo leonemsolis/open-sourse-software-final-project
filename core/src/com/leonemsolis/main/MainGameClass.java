@@ -2,6 +2,7 @@ package com.leonemsolis.main;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.leonemsolis.screens.FightScreen;
 import com.leonemsolis.screens.MainScreen;
 
 /**
@@ -33,6 +34,9 @@ public class MainGameClass extends Game {
         switch (id) {
             case 0:
                 setScreen(new MainScreen(this));
+                break;
+            case 1:
+                setScreen(new FightScreen(this));
                 break;
             default:
                 setScreen(new MainScreen(this));

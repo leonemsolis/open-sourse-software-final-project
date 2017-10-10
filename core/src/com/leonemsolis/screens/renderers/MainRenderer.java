@@ -1,6 +1,8 @@
 package com.leonemsolis.screens.renderers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.leonemsolis.main.MainGameClass;
@@ -30,6 +32,8 @@ public class MainRenderer extends Renderer {
 
     @Override
     public void render(float delta) {
+        Gdx.gl20.glClearColor(0, 0, 0, 1f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             for (Object o: super.renderingObjects) {
                 o.render(delta, shapeRenderer);
