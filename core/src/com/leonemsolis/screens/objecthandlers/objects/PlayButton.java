@@ -7,6 +7,8 @@ import com.leonemsolis.main.MainGameClass;
 
 /**
  * Created by Leonemsolis on 10/10/2017.
+ *
+ * Part of MainScreen
  */
 
 public class PlayButton extends Button {
