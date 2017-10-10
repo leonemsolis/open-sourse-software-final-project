@@ -1,6 +1,7 @@
 package com.leonemsolis.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.leonemsolis.main.MainGameClass;
 import com.leonemsolis.screens.inputprocessors.MainInputProcessor;
 import com.leonemsolis.screens.objecthandlers.MainObjectHandler;
 import com.leonemsolis.screens.renderers.MainRenderer;
@@ -14,8 +15,8 @@ import com.leonemsolis.screens.renderers.MainRenderer;
  */
 
 public class MainScreen extends Screen {
-    public MainScreen() {
-        super();
+    public MainScreen(MainGameClass mainGameClass) {
+        this.mainGameClass = mainGameClass;
         objectHandler = new MainObjectHandler();
         renderer = new MainRenderer(objectHandler.getRenderingObjects());
         inputProcessor = new MainInputProcessor(objectHandler.getInteractiveObjects());
@@ -26,6 +27,9 @@ public class MainScreen extends Screen {
     public void render(float delta) {
         objectHandler.update();
         renderer.render(delta);
+        if(((MainObjectHandler)(objectHandler)).switchToGame()) {
+            mainGameClass.switchScreen(1);
+        }
     }
 
 }

@@ -3,6 +3,7 @@ package com.leonemsolis.screens.objecthandlers;
 import com.leonemsolis.screens.objecthandlers.objects.Button;
 import com.leonemsolis.screens.objecthandlers.objects.InteractiveObjects;
 import com.leonemsolis.screens.objecthandlers.objects.Object;
+import com.leonemsolis.screens.objecthandlers.objects.PlayButton;
 
 import java.util.ArrayList;
 
@@ -14,14 +15,17 @@ import java.util.ArrayList;
  */
 
 public class MainObjectHandler extends ObjectHandler {
-    private Button button;
     public MainObjectHandler() {
-        button = new Button(10, 10, 50, 50);
+        PlayButton playButton = new PlayButton();
         objects = new ArrayList<Object>();
-        objects.add(button);
+        objects.add(playButton);
         renderingObjects = new ArrayList<Object>();
-        renderingObjects.add(button);
+        renderingObjects.add(playButton);
         interactiveObjects = new ArrayList<InteractiveObjects>();
-        interactiveObjects.add(button);
+        interactiveObjects.add(playButton);
+    }
+
+    public boolean switchToGame() {
+        return ((PlayButton)(objects.get(0))).isActivated();
     }
 }

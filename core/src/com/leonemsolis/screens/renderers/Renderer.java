@@ -15,10 +15,6 @@ import java.util.List;
 public abstract class Renderer {
     protected List<Object>renderingObjects;
 
-    public Renderer(List<Object>renderingObjects) {
-        this.renderingObjects = renderingObjects;
-    }
     public void render(float delta) {
-
     }
 }

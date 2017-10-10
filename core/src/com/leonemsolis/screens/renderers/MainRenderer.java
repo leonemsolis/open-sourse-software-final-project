@@ -19,9 +19,10 @@ public class MainRenderer extends Renderer {
     private OrthographicCamera camera;
     private ShapeRenderer shapeRenderer;
     public MainRenderer(List<Object> renderingObjects) {
-        super(renderingObjects);
-        camera = new OrthographicCamera(MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
-        camera.setToOrtho(true);
+        this.renderingObjects = renderingObjects;
+        camera = new OrthographicCamera();
+        camera.setToOrtho(true, MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
+        camera.update();
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.setColor(Color.WHITE);
@@ -30,10 +31,9 @@ public class MainRenderer extends Renderer {
     @Override
     public void render(float delta) {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        for (Object o: super.renderingObjects) {
-            o.render(delta, shapeRenderer);
-        }
-
+            for (Object o: super.renderingObjects) {
+                o.render(delta, shapeRenderer);
+            }
         shapeRenderer.end();
     }
 }
