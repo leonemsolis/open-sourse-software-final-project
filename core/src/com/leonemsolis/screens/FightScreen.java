@@ -1,46 +1,27 @@
 package com.leonemsolis.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.leonemsolis.main.MainGameClass;
+import com.leonemsolis.screens.inputprocessors.FightInputProcessor;
+import com.leonemsolis.screens.objecthandlers.FightObjectHandler;
+import com.leonemsolis.screens.renderers.FightRenderer;
 
 /**
- * Created by Leonemsolis on 20/09/2017.
+ * Created by Leonemsolis on 10/10/2017.
  */
 
-public class FightScreen implements Screen {
-
-    @Override
-    public void show() {
-
+public class FightScreen extends Screen {
+    public FightScreen(MainGameClass mainGameClass) {
+        this.mainGameClass = mainGameClass;
+        objectHandler = new FightObjectHandler();
+        renderer = new FightRenderer();
+        inputProcessor = new FightInputProcessor();
+        Gdx.input.setInputProcessor(inputProcessor);
     }
 
     @Override
     public void render(float delta) {
-
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
+        objectHandler.update();
+        renderer.render(delta);
     }
 }
