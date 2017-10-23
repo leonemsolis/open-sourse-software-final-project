@@ -53,6 +53,6 @@ public abstract class Screen implements com.badlogic.gdx.Screen {
 
     @Override
     public void dispose() {
-
+        renderer.dispose();
     }
 }

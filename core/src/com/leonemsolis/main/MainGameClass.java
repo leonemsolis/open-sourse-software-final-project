@@ -27,7 +27,7 @@ public class MainGameClass extends Game {
 		GAME_SCALE = (DEVICE_WIDTH/(float)GAME_WIDTH);
 		GAME_HEIGHT = (int)((float)DEVICE_HEIGHT / GAME_SCALE);
 		MID_POINT = GAME_HEIGHT / 2;
-        switchScreen(0);
+        switchScreen(1);
 	}
 
 	public void switchScreen(int id) {
