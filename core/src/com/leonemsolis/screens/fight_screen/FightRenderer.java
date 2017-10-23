@@ -15,7 +15,6 @@ import com.leonemsolis.screens.blueprints.Renderer;
 public class FightRenderer extends Renderer {
 
     private OrthographicCamera camera;
-    private ShapeRenderer shapeRenderer;
 
     public FightRenderer() {
         camera = new OrthographicCamera();

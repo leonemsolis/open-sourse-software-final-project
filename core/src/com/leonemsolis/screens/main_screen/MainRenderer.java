@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MainRenderer extends Renderer {
     private OrthographicCamera camera;
-    private ShapeRenderer shapeRenderer;
+
     public MainRenderer(List<Object> renderingObjects) {
         this.renderingObjects = renderingObjects;
         camera = new OrthographicCamera();
@@ -40,6 +40,5 @@ public class MainRenderer extends Renderer {
                 o.render(delta, shapeRenderer);
             }
         shapeRenderer.end();
-
     }
 }

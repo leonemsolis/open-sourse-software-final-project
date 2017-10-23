@@ -45,7 +45,6 @@ public abstract class ObjectHandler {
         objects.add(object);
         renderingObjects.add(object);
         interactiveObjects.add(object);
-
     }
 
 }
