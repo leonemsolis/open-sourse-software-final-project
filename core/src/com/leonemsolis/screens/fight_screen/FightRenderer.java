@@ -32,7 +32,7 @@ public class FightRenderer extends Renderer {
         Gdx.gl20.glClearColor(1, 1, 1, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-            shapeRenderer.rect(MainGameClass.GAME_WIDTH/2-30, MainGameClass.MID_POINT-30, 60, 60);
+            shapeRenderer.rect(0, MainGameClass.MID_POINT - 175, MainGameClass.GAME_WIDTH, 350);
         shapeRenderer.end();
     }
 }

@@ -19,7 +19,7 @@ public class FightScreen extends Screen {
 
     @Override
     public void render(float delta) {
-        objectHandler.update();
+        objectHandler.update(delta);
         renderer.render(delta);
     }
 }

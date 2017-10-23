@@ -23,7 +23,7 @@ public class MainScreen extends Screen {
 
     @Override
     public void render(float delta) {
-        objectHandler.update();
+        objectHandler.update(delta);
         renderer.render(delta);
         if(((MainObjectHandler)(objectHandler)).switchToGame()) {
             mainGameClass.switchScreen(1);
