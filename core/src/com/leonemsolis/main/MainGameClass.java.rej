@@ -8,7 +8,6 @@ diff a/core/src/com/leonemsolis/main/MainGameClass.java b/core/src/com/leonemsol
 -import com.badlogic.gdx.graphics.GL20;
 -import com.badlogic.gdx.graphics.Texture;
 -import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-+import com.leonemsolis.screens.FightScreen;
 +import com.leonemsolis.screens.MapScreen;
 +import com.leonemsolis.screens.ShopScreen;
 +import com.leonemsolis.screens.TrainingScreen;
