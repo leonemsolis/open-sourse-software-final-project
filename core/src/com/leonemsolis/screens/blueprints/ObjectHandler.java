@@ -15,7 +15,7 @@ public abstract class ObjectHandler {
     protected List<Object>renderingObjects;
     protected List<InteractiveObjects>interactiveObjects;
 
-    public void update() {
+    public void update(float delta) {
 
     }
 
