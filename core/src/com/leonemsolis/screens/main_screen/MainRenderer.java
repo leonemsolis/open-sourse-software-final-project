@@ -1,4 +1,4 @@
-package com.leonemsolis.screens.renderers;
+package com.leonemsolis.screens.main_screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.leonemsolis.main.MainGameClass;
-import com.leonemsolis.screens.objecthandlers.objects.Object;
+import com.leonemsolis.screens.blueprints.Object;
+import com.leonemsolis.screens.blueprints.Renderer;
 
 import java.util.List;
 

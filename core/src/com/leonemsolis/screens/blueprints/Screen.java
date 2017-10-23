@@ -1,9 +1,6 @@
-package com.leonemsolis.screens;
+package com.leonemsolis.screens.blueprints;
 
 import com.leonemsolis.main.MainGameClass;
-import com.leonemsolis.screens.inputprocessors.InputProcessor;
-import com.leonemsolis.screens.objecthandlers.ObjectHandler;
-import com.leonemsolis.screens.renderers.Renderer;
 
 /**
  * Created by Leonemsolis on 28/09/2017.
@@ -18,8 +15,8 @@ import com.leonemsolis.screens.renderers.Renderer;
 public abstract class Screen implements com.badlogic.gdx.Screen {
 
     protected ObjectHandler objectHandler;
-    protected Renderer renderer;
-    protected InputProcessor inputProcessor;
+    protected com.leonemsolis.screens.blueprints.Renderer renderer;
+    protected com.leonemsolis.screens.blueprints.InputProcessor inputProcessor;
     protected MainGameClass mainGameClass;
 
     @Override

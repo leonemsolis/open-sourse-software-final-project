@@ -1,9 +1,8 @@
-package com.leonemsolis.screens.objecthandlers.objects;
+package com.leonemsolis.screens.common_objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.leonemsolis.main.MainGameClass;
+import com.leonemsolis.screens.blueprints.InteractiveObjects;
 
 /**
  * Created by Leonemsolis on 28/09/2017.

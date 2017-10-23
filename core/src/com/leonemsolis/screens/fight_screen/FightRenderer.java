@@ -1,4 +1,4 @@
-package com.leonemsolis.screens.renderers;
+package com.leonemsolis.screens.fight_screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.leonemsolis.main.MainGameClass;
+import com.leonemsolis.screens.blueprints.Renderer;
 
 /**
  * Created by Leonemsolis on 10/10/2017.

@@ -1,7 +1,7 @@
-package com.leonemsolis.screens.inputprocessors;
+package com.leonemsolis.screens.main_screen;
 
-import com.badlogic.gdx.Gdx;
-import com.leonemsolis.screens.objecthandlers.objects.InteractiveObjects;
+import com.leonemsolis.screens.blueprints.InputProcessor;
+import com.leonemsolis.screens.blueprints.InteractiveObjects;
 
 import java.util.List;
 

@@ -2,8 +2,8 @@ package com.leonemsolis.main;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.leonemsolis.screens.FightScreen;
-import com.leonemsolis.screens.MainScreen;
+import com.leonemsolis.screens.fight_screen.FightScreen;
+import com.leonemsolis.screens.main_screen.MainScreen;
 
 /**
  * Created by Leonemsolis on 18/09/2017.

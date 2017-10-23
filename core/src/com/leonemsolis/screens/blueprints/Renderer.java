@@ -1,6 +1,4 @@
-package com.leonemsolis.screens.renderers;
-
-import com.leonemsolis.screens.objecthandlers.objects.Object;
+package com.leonemsolis.screens.blueprints;
 
 import java.util.List;
 
@@ -13,7 +11,7 @@ import java.util.List;
  */
 
 public abstract class Renderer {
-    protected List<Object>renderingObjects;
+    protected List<com.leonemsolis.screens.blueprints.Object>renderingObjects;
 
     public void render(float delta) {
     }

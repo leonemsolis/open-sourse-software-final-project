@@ -1,9 +1,9 @@
-package com.leonemsolis.screens.objecthandlers;
+package com.leonemsolis.screens.main_screen;
 
-import com.leonemsolis.screens.objecthandlers.objects.Button;
-import com.leonemsolis.screens.objecthandlers.objects.InteractiveObjects;
-import com.leonemsolis.screens.objecthandlers.objects.Object;
-import com.leonemsolis.screens.objecthandlers.objects.PlayButton;
+import com.leonemsolis.screens.blueprints.InteractiveObjects;
+import com.leonemsolis.screens.blueprints.Object;
+import com.leonemsolis.screens.blueprints.ObjectHandler;
+import com.leonemsolis.screens.common_objects.PlayButton;
 
 import java.util.ArrayList;
 

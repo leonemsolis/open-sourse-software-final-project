@@ -1,4 +1,4 @@
-package com.leonemsolis.screens.objecthandlers.objects;
+package com.leonemsolis.screens.blueprints;
 
 /**
  * Created by Leonemsolis on 28/09/2017.

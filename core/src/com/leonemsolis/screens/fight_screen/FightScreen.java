@@ -1,10 +1,8 @@
-package com.leonemsolis.screens;
+package com.leonemsolis.screens.fight_screen;
 
 import com.badlogic.gdx.Gdx;
 import com.leonemsolis.main.MainGameClass;
-import com.leonemsolis.screens.inputprocessors.FightInputProcessor;
-import com.leonemsolis.screens.objecthandlers.FightObjectHandler;
-import com.leonemsolis.screens.renderers.FightRenderer;
+import com.leonemsolis.screens.blueprints.Screen;
 
 /**
  * Created by Leonemsolis on 10/10/2017.

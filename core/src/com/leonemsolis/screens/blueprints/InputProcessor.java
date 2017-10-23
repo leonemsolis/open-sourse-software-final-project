@@ -1,7 +1,6 @@
-package com.leonemsolis.screens.inputprocessors;
+package com.leonemsolis.screens.blueprints;
 
 import com.leonemsolis.main.MainGameClass;
-import com.leonemsolis.screens.objecthandlers.objects.InteractiveObjects;
 
 import java.util.List;
 

@@ -1,10 +1,8 @@
-package com.leonemsolis.screens;
+package com.leonemsolis.screens.main_screen;
 
 import com.badlogic.gdx.Gdx;
 import com.leonemsolis.main.MainGameClass;
-import com.leonemsolis.screens.inputprocessors.MainInputProcessor;
-import com.leonemsolis.screens.objecthandlers.MainObjectHandler;
-import com.leonemsolis.screens.renderers.MainRenderer;
+import com.leonemsolis.screens.blueprints.Screen;
 
 /**
  * Created by Leonemsolis on 28/09/2017.

@@ -1,4 +1,4 @@
-package com.leonemsolis.screens.objecthandlers.objects;
+package com.leonemsolis.screens.common_objects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -11,7 +11,7 @@ import com.leonemsolis.main.MainGameClass;
  * Part of MainScreen
  */
 
-public class PlayButton extends Button {
+public class PlayButton extends com.leonemsolis.screens.common_objects.Button {
     public PlayButton() {
         super(MainGameClass.GAME_WIDTH / 2 - 50, MainGameClass.MID_POINT - 50, 100, 100);
     }

@@ -1,4 +1,4 @@
-package com.leonemsolis.screens.objecthandlers.objects;
+package com.leonemsolis.screens.blueprints;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
