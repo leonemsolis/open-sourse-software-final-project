@@ -17,7 +17,6 @@ import com.leonemsolis.screens.blueprints.Renderer;
 public class FightRenderer extends Renderer {
 
     private OrthographicCamera camera;
-    private ShapeRenderer shapeRenderer;
     private BitmapFont redFont;
 
     public FightRenderer() {
@@ -25,8 +24,8 @@ public class FightRenderer extends Renderer {
         camera.setToOrtho(true, MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
         camera.update();
 
-        shapeRenderer = new ShapeRenderer();
-        shapeRenderer.setProjectionMatrix(camera.combined);
+        shape = new ShapeRenderer();
+        shape.setProjectionMatrix(camera.combined);
 
 
         redFont = new BitmapFont(true);
@@ -41,12 +40,12 @@ public class FightRenderer extends Renderer {
     public void render(float delta) {
         Gdx.gl20.glClearColor(0, 0, 0, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.WHITE);
-            shapeRenderer.rect(0, MainGameClass.MID_POINT - 280, MainGameClass.GAME_WIDTH, 360);
+        shape.begin(ShapeRenderer.ShapeType.Filled);
+            shape.setColor(Color.WHITE);
+            shape.rect(0, MainGameClass.MID_POINT - 280, MainGameClass.GAME_WIDTH, 360);
 //            redFont.draw()
-            shapeRenderer.setColor(Color.RED);
-            shapeRenderer.rect(0, MainGameClass.MID_POINT + 80, MainGameClass.GAME_WIDTH, 200);
-        shapeRenderer.end();
+            shape.setColor(Color.RED);
+            shape.rect(0, MainGameClass.MID_POINT + 80, MainGameClass.GAME_WIDTH, 200);
+        shape.end();
     }
 }

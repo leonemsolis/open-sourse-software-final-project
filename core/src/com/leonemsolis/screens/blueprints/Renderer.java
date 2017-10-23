@@ -1,6 +1,7 @@
 package com.leonemsolis.screens.blueprints;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.List;
 
@@ -15,11 +16,13 @@ import java.util.List;
 public abstract class Renderer {
     protected List<com.leonemsolis.screens.blueprints.Object>renderingObjects;
     protected SpriteBatch batch;
+    protected ShapeRenderer shape;
 
     public void render(float delta) {
     }
 
     public void dispose() {
         batch.dispose();
+        shape.dispose();
     }
 }
