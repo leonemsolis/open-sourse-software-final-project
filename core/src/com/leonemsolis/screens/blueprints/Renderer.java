@@ -15,14 +15,14 @@ import java.util.List;
 
 public abstract class Renderer {
     protected List<com.leonemsolis.screens.blueprints.Object>renderingObjects;
-    protected ShapeRenderer shapeRenderer;
+    protected ShapeRenderer shape;
     protected SpriteBatch batch;
 
     public void render(float delta) {
     }
 
     public void dispose() {
-        shapeRenderer.dispose();
+        shape.dispose();
         batch.dispose();
     }
 }

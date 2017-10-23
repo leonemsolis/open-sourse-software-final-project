@@ -21,17 +21,17 @@ public class FightRenderer extends Renderer {
         camera.setToOrtho(true, MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
         camera.update();
 
-        shapeRenderer = new ShapeRenderer();
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        shapeRenderer.setColor(Color.RED);
+        shape = new ShapeRenderer();
+        shape.setProjectionMatrix(camera.combined);
+        shape.setColor(Color.RED);
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl20.glClearColor(1, 1, 1, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-            shapeRenderer.rect(MainGameClass.GAME_WIDTH/2-30, MainGameClass.MID_POINT-30, 60, 60);
-        shapeRenderer.end();
+        shape.begin(ShapeRenderer.ShapeType.Line);
+            shape.rect(MainGameClass.GAME_WIDTH/2-30, MainGameClass.MID_POINT-30, 60, 60);
+        shape.end();
     }
 }

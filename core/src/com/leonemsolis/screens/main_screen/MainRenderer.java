@@ -26,19 +26,19 @@ public class MainRenderer extends Renderer {
         camera = new OrthographicCamera();
         camera.setToOrtho(true, MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
         camera.update();
-        shapeRenderer = new ShapeRenderer();
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        shapeRenderer.setColor(Color.WHITE);
+        shape = new ShapeRenderer();
+        shape.setProjectionMatrix(camera.combined);
+        shape.setColor(Color.WHITE);
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl20.glClearColor(0, 0, 0, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shape.begin(ShapeRenderer.ShapeType.Filled);
             for (Object o: super.renderingObjects) {
-                o.render(delta, shapeRenderer);
+                o.render(delta, shape);
             }
-        shapeRenderer.end();
+        shape.end();
     }
 }
