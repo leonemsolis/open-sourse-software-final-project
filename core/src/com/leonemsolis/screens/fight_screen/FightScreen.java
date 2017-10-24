@@ -12,8 +12,8 @@ public class FightScreen extends Screen {
     public FightScreen(MainGameClass mainGameClass) {
         this.mainGameClass = mainGameClass;
         objectHandler = new FightObjectHandler();
-        renderer = new FightRenderer();
-        inputProcessor = new FightInputProcessor();
+        renderer = new FightRenderer(objectHandler.getRenderingObjects());
+        inputProcessor = new FightInputProcessor(objectHandler.getInteractiveObjects());
         Gdx.input.setInputProcessor(inputProcessor);
     }
 

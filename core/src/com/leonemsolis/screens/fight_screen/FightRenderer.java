@@ -10,8 +10,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.leonemsolis.main.MainGameClass;
+import com.leonemsolis.screens.blueprints.Object;
 import com.leonemsolis.screens.blueprints.Renderer;
-import com.sun.org.apache.xpath.internal.operations.String;
+import com.leonemsolis.screens.fight_screen.objects.Enemy;
+import com.leonemsolis.screens.fight_screen.objects.Hero;
+
+import java.util.List;
 
 /**
  * Created by Leonemsolis on 10/10/2017.
@@ -26,7 +30,14 @@ public class FightRenderer extends Renderer {
 
     private int roundCounter = 1;
 
-    public FightRenderer() {
+    private String heroTag, enemyTag;
+
+    private Hero hero;
+    private Enemy enemy;
+
+    public FightRenderer(List<Object> renderingObject) {
+        this.renderingObjects = renderingObject;
+
         camera = new OrthographicCamera();
         camera.setToOrtho(true, MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
         camera.update();
@@ -43,11 +54,17 @@ public class FightRenderer extends Renderer {
         // Make font height about 20
         blackFont.getData().setScale(1.272727f);
 
+        hero = ((Hero)renderingObject.get(0));
+        heroTag = hero.getTag();
+
+        enemy = ((Enemy)renderingObject.get(1));
+        enemyTag = enemy.getTag();
+
         GlyphLayout layout = new GlyphLayout();
-        layout.setText(blackFont, "Hero");
+        layout.setText(blackFont, heroTag);
         heroLabel = new Rectangle(10, 3, layout.width, layout.height);
 
-        layout.setText(blackFont, "Enemy");
+        layout.setText(blackFont, enemyTag);
         enemyLabel = new Rectangle(MainGameClass.GAME_WIDTH - 10 - layout.width, 3, layout.width, layout.height);
 
         layout.setText(blackFont, roundCounter+"");
@@ -59,22 +76,28 @@ public class FightRenderer extends Renderer {
         Gdx.gl20.glClearColor(0, 0, 0, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         shape.begin(ShapeRenderer.ShapeType.Filled);
-            // With cover
+            // Upper cover(beyond upper bound)
             shape.setColor(Color.WHITE);
             shape.rect(0, MainGameClass.MID_POINT - 400, MainGameClass.GAME_WIDTH, 480);
+
             shape.setColor(Color.RED);
+            // Bottom cover
             shape.rect(0, MainGameClass.MID_POINT + 80, MainGameClass.GAME_WIDTH, 200);
 
-            shape.rect(0, 23, MainGameClass.GAME_WIDTH / 2 - 10, 23);
-            shape.rect(MainGameClass.GAME_WIDTH / 2 + 20, 23, MainGameClass.GAME_WIDTH, 23);
+            // Hero's HP bar (filler)
+            shape.rect(0, 23, (hero.getHP() * MainGameClass.GAME_WIDTH / 2) / 100, 23);
+            // Enemy's HP bar (filler)
+            shape.rect(MainGameClass.GAME_WIDTH / 2 + (MainGameClass.GAME_WIDTH / 2 - (enemy.getHP() * MainGameClass.GAME_WIDTH / 2) / 100), 23, MainGameClass.GAME_WIDTH, 23);
 
         shape.end();
 
         shape.begin(ShapeRenderer.ShapeType.Line);
             shape.setColor(Color.BLACK);
 
-            shape.rect(0, 23, MainGameClass.GAME_WIDTH / 2 - 10, 23);
-            shape.rect(MainGameClass.GAME_WIDTH / 2 + 20, 23, MainGameClass.GAME_WIDTH, 23);
+        // Hero's HP bar outline
+        shape.rect(0, 23, (hero.getHP() * MainGameClass.GAME_WIDTH / 2) / 100, 23);
+        // Enemy's HP bar outline
+        shape.rect(MainGameClass.GAME_WIDTH / 2 + (MainGameClass.GAME_WIDTH / 2 - (enemy.getHP() * MainGameClass.GAME_WIDTH / 2) / 100), 23, MainGameClass.GAME_WIDTH, 23);
 
 
             shape.rect(MainGameClass.GAME_WIDTH / 2 - 20, 0, 40, 23);
@@ -88,9 +111,13 @@ public class FightRenderer extends Renderer {
         shape.end();
 
         batch.begin();
-            blackFont.draw(batch, "Hero", heroLabel.x, heroLabel.y);
-            blackFont.draw(batch, "Enemy", enemyLabel.x, enemyLabel.y);
+            blackFont.draw(batch, heroTag, heroLabel.x, heroLabel.y);
+            blackFont.draw(batch, enemyTag, enemyLabel.x, enemyLabel.y);
             blackFont.draw(batch, roundCounter+"", roundCounterLabel.x, roundCounterLabel.y);
         batch.end();
+    }
+
+    public void nextRound() {
+        roundCounter++;
     }
 }
