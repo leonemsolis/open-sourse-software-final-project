@@ -103,16 +103,19 @@ public class FightRenderer extends Renderer {
 
         shape.begin(ShapeRenderer.ShapeType.Line);
             shape.setColor(Color.BLACK);
-
-        // Hero's HP bar outline
-        shape.rect(0, 23, (hero.getHP() * MainGameClass.GAME_WIDTH / 2) / 100, 23);
-        // Enemy's HP bar outline
-        shape.rect(MainGameClass.GAME_WIDTH / 2 + (MainGameClass.GAME_WIDTH / 2 - (enemy.getHP() * MainGameClass.GAME_WIDTH / 2) / 100), 23, MainGameClass.GAME_WIDTH, 23);
+            // Hero's HP bar outline
+            shape.rect(0, 23, (hero.getHP() * MainGameClass.GAME_WIDTH / 2) / 100, 23);
+            // Enemy's HP bar outline
+            shape.rect(MainGameClass.GAME_WIDTH / 2 + (MainGameClass.GAME_WIDTH / 2 - (enemy.getHP() * MainGameClass.GAME_WIDTH / 2) / 100), 23, MainGameClass.GAME_WIDTH, 23);
+            // Round counter border
             shape.rect(MainGameClass.GAME_WIDTH / 2 - 20, 0, 40, 23);
+            // Separator between tags and hp bars
             shape.line(0, 23, MainGameClass.GAME_WIDTH, 23);
-
+            // Separator between hp bars and pool counters
             shape.line(0, 46, MainGameClass.GAME_WIDTH, 46);
+            // Separator between pool counters
             shape.rect(MainGameClass.GAME_WIDTH / 2 - 1, 46, 2, 23);
+            // Pool counter's bottom border
             shape.line(0, 69, MainGameClass.GAME_WIDTH, 69);
         shape.end();
 
