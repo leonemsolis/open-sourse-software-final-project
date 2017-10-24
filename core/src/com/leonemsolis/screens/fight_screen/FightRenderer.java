@@ -26,7 +26,8 @@ public class FightRenderer extends Renderer {
     private OrthographicCamera camera;
     private BitmapFont blackFont;
 
-    private final Rectangle heroLabel, enemyLabel, roundCounterLabel;
+    private final Rectangle heroLabel, enemyLabel;
+    private Rectangle roundCounterLabel, enemyPoolLabel, heroPoolLabel;
 
     private int roundCounter = 1;
 
@@ -34,6 +35,9 @@ public class FightRenderer extends Renderer {
 
     private Hero hero;
     private Enemy enemy;
+
+    // For text's size measure
+    private GlyphLayout layout;
 
     public FightRenderer(List<Object> renderingObject) {
         this.renderingObjects = renderingObject;
@@ -60,7 +64,7 @@ public class FightRenderer extends Renderer {
         enemy = ((Enemy)renderingObject.get(1));
         enemyTag = enemy.getTag();
 
-        GlyphLayout layout = new GlyphLayout();
+        layout = new GlyphLayout();
         layout.setText(blackFont, heroTag);
         heroLabel = new Rectangle(10, 3, layout.width, layout.height);
 
@@ -69,6 +73,12 @@ public class FightRenderer extends Renderer {
 
         layout.setText(blackFont, roundCounter+"");
         roundCounterLabel = new Rectangle(MainGameClass.GAME_WIDTH / 2 - layout.width / 2, 3, layout.width, layout.height);
+
+        layout.setText(blackFont, "Pool: "+hero.getPool());
+        heroPoolLabel = new Rectangle(10, 49, layout.width, layout.height);
+
+        layout.setText(blackFont, "Pool: "+enemy.getPool());
+        enemyPoolLabel = new Rectangle(MainGameClass.GAME_WIDTH - 10 - layout.width, 49, layout.width, layout.height);
     }
 
     @Override
@@ -114,10 +124,15 @@ public class FightRenderer extends Renderer {
             blackFont.draw(batch, heroTag, heroLabel.x, heroLabel.y);
             blackFont.draw(batch, enemyTag, enemyLabel.x, enemyLabel.y);
             blackFont.draw(batch, roundCounter+"", roundCounterLabel.x, roundCounterLabel.y);
+            blackFont.draw(batch, "Pool: "+hero.getPool(), heroPoolLabel.x, heroPoolLabel.y);
+            blackFont.draw(batch, "Pool: "+enemy.getPool(), enemyPoolLabel.x, enemyPoolLabel.y);
+
         batch.end();
     }
 
     public void nextRound() {
         roundCounter++;
+        layout.setText(blackFont, roundCounter+"");
+        roundCounterLabel = new Rectangle(MainGameClass.GAME_WIDTH / 2 - layout.width / 2, 3, layout.width, layout.height);
     }
 }
