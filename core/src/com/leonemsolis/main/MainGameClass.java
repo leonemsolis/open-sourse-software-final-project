@@ -2,6 +2,7 @@ package com.leonemsolis.main;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.leonemsolis.screens.common_objects.DataHandler;
 import com.leonemsolis.screens.fight_screen.FightScreen;
 import com.leonemsolis.screens.main_screen.MainScreen;
 
@@ -22,6 +23,7 @@ public class MainGameClass extends Game {
 
 	@Override
 	public void create() {
+		DataHandler.loadData();
 		DEVICE_WIDTH = Gdx.graphics.getWidth();
 		DEVICE_HEIGHT = Gdx.graphics.getHeight();
 		GAME_SCALE = (DEVICE_WIDTH/(float)GAME_WIDTH);
@@ -47,6 +49,6 @@ public class MainGameClass extends Game {
 
 	@Override
 	public void dispose() {
-
+		DataHandler.saveData();
 	}
 }
