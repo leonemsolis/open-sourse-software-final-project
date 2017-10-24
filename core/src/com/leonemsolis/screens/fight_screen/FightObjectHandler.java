@@ -35,7 +35,7 @@ public class FightObjectHandler extends ObjectHandler {
 
     @Override
     public void update(float delta) {
-        hero.takeDamageTest(enemy.getAtk() * delta);
-        enemy.takeDamageTest(hero.getAtk() * delta);
+//        hero.takeDamageTest(enemy.getAtk() * delta);
+//        enemy.takeDamageTest(hero.getAtk() * delta);
     }
 }
