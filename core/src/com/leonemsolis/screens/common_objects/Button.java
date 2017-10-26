@@ -12,8 +12,10 @@ import com.leonemsolis.screens.blueprints.InteractiveObjects;
  */
 
 public class Button extends InteractiveObjects {
-
+    // Needed to check touch up condition
     protected boolean touchedDown = false;
+
+    // Signal to objectHandler
     protected boolean activated = false;
 
     public Button(float x, float y, float width, float height) {
@@ -33,6 +35,7 @@ public class Button extends InteractiveObjects {
         }
     }
 
+    // If finger was lifted up in the zone of the button, then button becomes activated
     @Override
     public void touchUp(int screenX, int screenY, int pointer, int button) {
         if(touchedDown && super.bounds.contains(screenX, screenY)) {

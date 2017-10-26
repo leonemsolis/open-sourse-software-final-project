@@ -14,20 +14,51 @@ import com.leonemsolis.main.MainGameClass;
 
 public abstract class Screen implements com.badlogic.gdx.Screen {
 
+    /**
+     * ObjectHandler - attached to this Screen
+     */
     protected ObjectHandler objectHandler;
-    protected com.leonemsolis.screens.blueprints.Renderer renderer;
-    protected com.leonemsolis.screens.blueprints.InputProcessor inputProcessor;
+
+    /**
+     *  Renderer - attached to this Screen
+     */
+    protected Renderer renderer;
+
+    /**
+     *  InputProcessor - attached to this Screen
+     */
+    protected InputProcessor inputProcessor;
+
+    /**
+     *  MainGameClass needed in order
+     *  to be able to goto another Screen
+     */
     protected MainGameClass mainGameClass;
 
-    @Override
-    public void show() {
-
-    }
-
+    /**
+     * basic game loop (IMPORTANT! not render) method.
+     * Updates ObjectHandler and calls Renderer's render method
+     */
     @Override
     public void render(float delta) {
         objectHandler.update(delta);
         renderer.render(delta);
+    }
+
+    /**
+     *  basic dispose method
+     */
+    @Override
+    public void dispose() {
+        renderer.dispose();
+    }
+
+    /**
+     * Below - unused methods
+     */
+    @Override
+    public void show() {
+
     }
 
     @Override
@@ -48,10 +79,5 @@ public abstract class Screen implements com.badlogic.gdx.Screen {
     @Override
     public void hide() {
 
-    }
-
-    @Override
-    public void dispose() {
-        renderer.dispose();
     }
 }

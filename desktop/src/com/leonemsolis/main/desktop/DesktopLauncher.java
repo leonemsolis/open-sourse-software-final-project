@@ -7,9 +7,8 @@ import com.leonemsolis.main.MainGameClass;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 400;
-		config.height = 700;
+		config.width = 270;
+		config.height = 480;
 		new LwjglApplication(new MainGameClass(), config);
-
 	}
 }

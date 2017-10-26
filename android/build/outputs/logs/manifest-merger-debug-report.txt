@@ -36,7 +36,7 @@ ADDED from /Users/leonemsolis/Documents/university/2017-2/OSS_Project_FightGame/
 activity#com.leonemsolis.main.AndroidLauncher
 ADDED from /Users/leonemsolis/Documents/university/2017-2/OSS_Project_FightGame/android/AndroidManifest.xml:12:9-21:20
 	android:screenOrientation
-		ADDED from /Users/leonemsolis/Documents/university/2017-2/OSS_Project_FightGame/android/AndroidManifest.xml:15:13-50
+		ADDED from /Users/leonemsolis/Documents/university/2017-2/OSS_Project_FightGame/android/AndroidManifest.xml:15:13-49
 	android:label
 		ADDED from /Users/leonemsolis/Documents/university/2017-2/OSS_Project_FightGame/android/AndroidManifest.xml:14:13-45
 	android:configChanges

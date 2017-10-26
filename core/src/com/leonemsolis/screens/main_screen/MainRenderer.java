@@ -40,5 +40,6 @@ public class MainRenderer extends Renderer {
                 o.render(delta, shape);
             }
         shape.end();
+
     }
 }
