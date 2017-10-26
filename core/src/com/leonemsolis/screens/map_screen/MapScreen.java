@@ -1,5 +1,6 @@
 package com.leonemsolis.screens.map_screen;
 
+import com.badlogic.gdx.Gdx;
 import com.leonemsolis.screens.blueprints.Screen;
 
 /**
@@ -7,4 +8,12 @@ import com.leonemsolis.screens.blueprints.Screen;
  */
 
 public class MapScreen extends Screen {
+    public MapScreen() {
+        objectHandler = new MapObjectHandler();
+
+        renderer = new MapRenderer();
+        inputProcessor = new MapInputProcessor();
+
+        Gdx.input.setInputProcessor(inputProcessor);
+    }
 }

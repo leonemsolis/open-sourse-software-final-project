@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.leonemsolis.screens.common_objects.DataHandler;
 import com.leonemsolis.screens.fight_screen.FightScreen;
 import com.leonemsolis.screens.main_screen.MainScreen;
+import com.leonemsolis.screens.map_screen.MapScreen;
 
 /**
  * Created by Leonemsolis on 18/09/2017.
@@ -37,7 +38,7 @@ public class MainGameClass extends Game {
 		MID_POINT = GAME_HEIGHT / 2;
 		DataHandler.loadData();
 		// Goto certain screen first
-        switchScreen(0);
+        switchScreen(2);
 	}
 
 	public void switchScreen(int id) {
@@ -48,6 +49,9 @@ public class MainGameClass extends Game {
             case 1:
                 setScreen(new FightScreen(this));
                 break;
+			case 2:
+				setScreen(new MapScreen());
+				break;
             default:
                 setScreen(new MainScreen(this));
                 break;
