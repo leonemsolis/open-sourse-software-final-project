@@ -2,6 +2,8 @@ package com.leonemsolis.screens.fight_screen.objects;
 
 /**
  * Created by Leonemsolis on 24/10/2017.
+ *
+ * The enemy's class
  */
 
 public class Enemy extends Char {

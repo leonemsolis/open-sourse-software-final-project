@@ -1,9 +1,9 @@
 package com.leonemsolis.screens.fight_screen.objects;
 
-import com.leonemsolis.screens.blueprints.Object;
-
 /**
  * Created by Leonemsolis on 24/10/2017.
+ *
+ * The Hero's class
  */
 
 public class Hero extends Char {

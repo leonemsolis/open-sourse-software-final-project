@@ -19,6 +19,8 @@ import java.util.List;
 
 /**
  * Created by Leonemsolis on 10/10/2017.
+ *
+ * Renderer of the FightScreen
  */
 
 public class FightRenderer extends Renderer {
@@ -26,13 +28,17 @@ public class FightRenderer extends Renderer {
     private OrthographicCamera camera;
     private BitmapFont blackFont;
 
+    // Frames for displaying in-game stuff
     private final Rectangle heroLabel, enemyLabel;
     private Rectangle roundCounterLabel, enemyPoolLabel, heroPoolLabel;
 
+    // TODO: 26/10/2017 synchronize with objectHandler
     private int roundCounter = 1;
 
+    // Since tags don't change, we can just save them
     private String heroTag, enemyTag;
 
+    // Test
     private Hero hero;
     private Enemy enemy;
 
@@ -55,6 +61,7 @@ public class FightRenderer extends Renderer {
 
         blackFont = new BitmapFont(true);
         blackFont.setColor(Color.BLACK);
+
         // Make font height about 20
         blackFont.getData().setScale(1.272727f);
 
@@ -64,6 +71,7 @@ public class FightRenderer extends Renderer {
         enemy = ((Enemy)renderingObject.get(1));
         enemyTag = enemy.getTag();
 
+        // Measure each text's size and save in appropriate Rectangle
         layout = new GlyphLayout();
         layout.setText(blackFont, heroTag);
         heroLabel = new Rectangle(10, 3, layout.width, layout.height);
@@ -128,6 +136,7 @@ public class FightRenderer extends Renderer {
         batch.end();
     }
 
+    // Test
     public void nextRound() {
         roundCounter++;
         layout.setText(blackFont, roundCounter+"");

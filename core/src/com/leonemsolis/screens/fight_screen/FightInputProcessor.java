@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * Created by Leonemsolis on 10/10/2017.
+ *
+ * InputProcessor of the FightScreen
  */
 
 public class FightInputProcessor extends InputProcessor {

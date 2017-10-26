@@ -10,9 +10,12 @@ import java.util.ArrayList;
 
 /**
  * Created by Leonemsolis on 10/10/2017.
+ *
+ * ObjectHandler of the FightScreen
  */
 
 public class FightObjectHandler extends ObjectHandler {
+    // test objects
     private Hero hero;
     private Enemy enemy;
 
@@ -21,11 +24,10 @@ public class FightObjectHandler extends ObjectHandler {
         renderingObjects = new ArrayList<Object>();
         interactiveObjects = new ArrayList<InteractiveObjects>();
 
+        // test values
         int heroSpeed = 6;
         int enemySpeed = 5;
         int pool = 6;
-
-
         hero = new Hero(9, 5, heroSpeed, pool);
         enemy = new Enemy(7, 8, enemySpeed, pool);
 

@@ -14,13 +14,32 @@ import java.util.List;
  */
 
 public abstract class Renderer {
-    protected List<com.leonemsolis.screens.blueprints.Object>renderingObjects;
+
+    /**
+     * renderingObjects - all objects that Screen want to draw
+     */
+    protected List<Object>renderingObjects;
+
+    /**
+     * SpriteBatch should be initialized in inherited class
+     */
     protected SpriteBatch batch;
+
+    /**
+     * same for ShapeRenderer
+     */
     protected ShapeRenderer shape;
 
+    /**
+     * basic render method
+     */
     public void render(float delta) {
     }
 
+
+    /**
+     *  basic dispose method, clears batch and dispose objects
+     */
     public void dispose() {
         batch.dispose();
         shape.dispose();
