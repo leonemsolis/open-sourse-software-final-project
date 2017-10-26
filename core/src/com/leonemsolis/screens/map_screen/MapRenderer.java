@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.leonemsolis.main.MainGameClass;
+import com.leonemsolis.screens.blueprints.Object;
 import com.leonemsolis.screens.blueprints.Renderer;
+import java.util.List;
 
 /**
  * Created by Leonemsolis on 26/10/2017.
@@ -15,7 +17,9 @@ import com.leonemsolis.screens.blueprints.Renderer;
 public class MapRenderer extends Renderer {
     private OrthographicCamera camera;
 
-    public MapRenderer() {
+    public MapRenderer(List<Object> renderingObjects) {
+        this.renderingObjects = renderingObjects;
+
         camera = new OrthographicCamera();
         camera.setToOrtho(true, MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
         camera.update();
