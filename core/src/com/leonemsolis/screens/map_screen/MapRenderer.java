@@ -38,20 +38,20 @@ public class MapRenderer extends Renderer {
 
         font = new BitmapFont(true);
         font.setColor(Color.WHITE);
-
-
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl20.glClearColor(0, 0, 0, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        shape.begin(ShapeRenderer.ShapeType.Filled);
+            renderingObjects.get(0).render(delta, shape);
+        shape.end();
+
         batch.begin();
-            font.draw(batch, "hello world!", 10, 10);
+            ((FightButton)renderingObjects.get(0)).renderText(batch, font);
         batch.end();
-            shape.begin(ShapeRenderer.ShapeType.Line);
-                renderingObjects.get(0).render(delta, shape);
-            shape.end();
 
     }
 }
