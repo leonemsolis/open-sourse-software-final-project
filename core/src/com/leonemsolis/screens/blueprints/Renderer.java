@@ -14,13 +14,6 @@ import java.util.List;
  */
 
 public abstract class Renderer {
-<<<<<<< HEAD
-    protected List<com.leonemsolis.screens.blueprints.Object>renderingObjects;
-    protected ShapeRenderer shape;
-    protected SpriteBatch batch;
-=======
->>>>>>> FightScreen
-
     /**
      * renderingObjects - all objects that Screen want to draw
      */
@@ -42,11 +35,6 @@ public abstract class Renderer {
     public void render(float delta) {
     }
 
-<<<<<<< HEAD
-    public void dispose() {
-        shape.dispose();
-        batch.dispose();
-=======
 
     /**
      *  basic dispose method, clears batch and dispose objects
@@ -54,6 +42,5 @@ public abstract class Renderer {
     public void dispose() {
         batch.dispose();
         shape.dispose();
->>>>>>> FightScreen
     }
 }

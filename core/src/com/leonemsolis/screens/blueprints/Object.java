@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
  */
 
 public abstract class Object {
+
     protected Rectangle bounds;
 
     public void render(float delta, ShapeRenderer shapeRenderer) {
