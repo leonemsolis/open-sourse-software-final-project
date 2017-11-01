@@ -14,11 +14,6 @@ import java.util.List;
 
 public abstract class InputProcessor implements com.badlogic.gdx.InputProcessor {
     /**
-     * interactiveObjects - all objects, that InputProcessor can work with
-     */
-    protected List<InteractiveObjects> interactiveObjects;
-
-    /**
      * touchDown method - will be called when user puts finger on the screen
      */
     @Override

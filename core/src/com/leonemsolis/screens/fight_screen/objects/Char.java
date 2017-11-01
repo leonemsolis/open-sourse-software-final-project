@@ -1,6 +1,6 @@
 package com.leonemsolis.screens.fight_screen.objects;
 
-import com.leonemsolis.screens.blueprints.Object;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * Created by Leonemsolis on 24/10/2017.
@@ -11,9 +11,11 @@ import com.leonemsolis.screens.blueprints.Object;
 
 public class Char extends Object {
     // Tag displayed right above the character
-    private String tag;
+    protected String tag;
 
-    private int speed, pool, def, atk;
+    protected int speed, pool, def, atk;
+
+    public Rectangle bigFrame, frame;
 
     // Hit points are always equals 100% at the beginning
     private float HP = 100;

@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.leonemsolis.main.MainGameClass;
-import com.leonemsolis.screens.blueprints.Object;
-import com.leonemsolis.screens.blueprints.Renderer;
 import com.leonemsolis.screens.map_screen.objects.FightButton;
 
 import java.util.List;
@@ -18,12 +16,16 @@ import java.util.List;
  * Created by Leonemsolis on 26/10/2017.
  */
 
-public class MapRenderer extends Renderer {
+public class MapRenderer {
     private OrthographicCamera camera;
     private BitmapFont font;
+    private MapObjectHandler handler;
+    private SpriteBatch batch;
+    private ShapeRenderer shape;
 
-    public MapRenderer(List<Object> renderingObjects) {
-        this.renderingObjects = renderingObjects;
+
+    public MapRenderer(MapObjectHandler handler) {
+        this.handler = handler;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(true, MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
@@ -40,18 +42,21 @@ public class MapRenderer extends Renderer {
         font.setColor(Color.WHITE);
     }
 
-    @Override
     public void render(float delta) {
         Gdx.gl20.glClearColor(0, 0, 0, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         shape.begin(ShapeRenderer.ShapeType.Filled);
-            renderingObjects.get(0).render(delta, shape);
+            handler.fightButton.render(delta, shape);
         shape.end();
 
         batch.begin();
-            ((FightButton)renderingObjects.get(0)).renderText(batch, font);
+            handler.fightButton.renderText(batch, font);
         batch.end();
+    }
 
+    public void dispose() {
+        batch.dispose();
+        shape.dispose();
     }
 }

@@ -1,11 +1,9 @@
 package com.leonemsolis.screens.fight_screen;
 
-import com.leonemsolis.screens.blueprints.InteractiveObjects;
-import com.leonemsolis.screens.blueprints.Object;
-import com.leonemsolis.screens.blueprints.ObjectHandler;
 import com.leonemsolis.screens.fight_screen.objects.Enemy;
 import com.leonemsolis.screens.fight_screen.objects.Hero;
 import com.leonemsolis.screens.fight_screen.objects.SCREEN_MODE;
+import com.leonemsolis.screens.fight_screen.objects.TimeHandler;
 
 import java.util.ArrayList;
 
@@ -15,73 +13,65 @@ import java.util.ArrayList;
  * ObjectHandler of the FightScreen
  */
 
-public class FightObjectHandler extends ObjectHandler {
+public class FightObjectHandler {
+    public SCREEN_MODE currentMode;
     // test objects
-    private Hero hero;
-    private Enemy enemy;
-    private FightScreen screen;
+    public Hero hero;
+    public Enemy enemy;
 
-    private final float ENTRY_TIME = 4f;
-    private final float COMBINATION_TIME = 2f;
-    private final float FIGHT_TIME = 4f;
-    private final float FINISH_TIME = 5f;
+    public int roundCounter = 1;
 
     private float currentTimer = 0f;
 
-    public FightObjectHandler(FightScreen screen) {
-        this.screen = screen;
-        objects = new ArrayList<Object>();
-        renderingObjects = new ArrayList<Object>();
-        interactiveObjects = new ArrayList<InteractiveObjects>();
+    public FightObjectHandler() {
+        currentMode = SCREEN_MODE.ENTRY;
 
-        // test values
-        int heroSpeed = 6;
-        int enemySpeed = 5;
+        // TODO: 01/11/2017 Calculate pool value, and enemy's stats
+        int enemySpeed = 3;
+        int enemyAtk = 4;
+        int enemyDef = 6;
         int pool = 6;
-        hero = new Hero(9, 5, heroSpeed, pool);
-        enemy = new Enemy(7, 8, enemySpeed, pool);
 
-        addRenderingObject(hero);
-        addRenderingObject(enemy);
+        hero = new Hero(pool);
+        enemy = new Enemy(enemyAtk, enemyDef, enemySpeed, pool);
 
-        startTimer(ENTRY_TIME);
+        startTimer(TimeHandler.ENTRY_TIME);
     }
 
     private void startTimer(float time) {
         currentTimer = time;
     }
 
-    @Override
     public void update(float delta) {
-        switch (screen.getCurrentMode()) {
+        switch (currentMode) {
             case ENTRY:
                 if(currentTimer <= 0) {
-                    screen.switchMode(SCREEN_MODE.COMBINATION);
-                    startTimer(COMBINATION_TIME);
+                    currentMode = SCREEN_MODE.COMBINATION;
+                    startTimer(TimeHandler.COMBINATION_TIME);
                 } else {
                     currentTimer -= delta;
                 }
                 break;
             case FIGHT:
                 if(currentTimer <= 0) {
-                    screen.switchMode(SCREEN_MODE.COMBINATION);
-                    startTimer(COMBINATION_TIME);
+                    currentMode = SCREEN_MODE.COMBINATION;
+                    startTimer(TimeHandler.COMBINATION_TIME);
                 } else {
                     currentTimer -= delta;
                 }
                 break;
             case COMBINATION:
                 if(currentTimer <= 0) {
-                    screen.switchMode(SCREEN_MODE.FIGHT);
-                    startTimer(FIGHT_TIME);
+                    currentMode = SCREEN_MODE.FIGHT;
+                    startTimer(TimeHandler.FIGHT_TIME);
                 } else {
                     currentTimer -= delta;
                 }
                 break;
             case FINISH:
                 if(currentTimer <= 0) {
-                    screen.switchMode(SCREEN_MODE.ENTRY);
-                    startTimer(ENTRY_TIME);
+                    currentMode = SCREEN_MODE.ENTRY;
+                    startTimer(TimeHandler.ENTRY_TIME);
                 } else {
                     currentTimer -= delta;
                 }

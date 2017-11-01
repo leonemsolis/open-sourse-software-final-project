@@ -1,7 +1,6 @@
 package com.leonemsolis.screens.fight_screen;
 
 import com.leonemsolis.screens.blueprints.InputProcessor;
-import com.leonemsolis.screens.blueprints.InteractiveObjects;
 
 import java.util.List;
 
@@ -12,9 +11,23 @@ import java.util.List;
  */
 
 public class FightInputProcessor extends InputProcessor {
+    private FightObjectHandler handler;
+    public FightInputProcessor(FightObjectHandler handler) {
+        this.handler = handler;
+    }
 
-    public FightInputProcessor(List<InteractiveObjects>objects) {
-        this.interactiveObjects = objects;
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        screenX = convertCoordinate(screenX);
+        screenY = convertCoordinate(screenY);
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        screenX = convertCoordinate(screenX);
+        screenY = convertCoordinate(screenY);
+        return false;
     }
 
 }

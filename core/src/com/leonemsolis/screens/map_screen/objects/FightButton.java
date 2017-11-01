@@ -14,19 +14,24 @@ import com.leonemsolis.screens.common_objects.Button;
 
 public class FightButton extends Button {
     public FightButton() {
-        super(MainGameClass.GAME_WIDTH / 2 - 60, MainGameClass.MID_POINT - 50, 60, 60);
+        super(MainGameClass.GAME_WIDTH / 2 - 60, MainGameClass.MID_POINT - 50, 100, 100);
     }
 
     @Override
     public void render(float delta, ShapeRenderer shapeRenderer) {
         Color savedColor = shapeRenderer.getColor().cpy();
-        shapeRenderer.setColor(Color.BLUE);
-        shapeRenderer.circle(bounds.x, bounds.y, bounds.width);
+        if(touchedDown) {
+            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
+        } else {
+            shapeRenderer.setColor(Color.BLUE);
+            shapeRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
+        }
         shapeRenderer.setColor(savedColor);
     }
 
     public void renderText(SpriteBatch batch, BitmapFont font) {
         GlyphLayout layout = new GlyphLayout(font, "Level 1");
-        font.draw(batch, "Level 1", bounds.x, bounds.y);
+        font.draw(batch, "Level 1", bounds.x + bounds.width / 2 - layout.width / 2, bounds.y + bounds.height / 2 - layout.height / 2);
     }
 }

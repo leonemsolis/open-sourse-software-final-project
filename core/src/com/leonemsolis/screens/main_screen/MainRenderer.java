@@ -6,10 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.leonemsolis.main.MainGameClass;
-import com.leonemsolis.screens.blueprints.Object;
-import com.leonemsolis.screens.blueprints.Renderer;
-
-import java.util.List;
 
 /**
  * Created by Leonemsolis on 28/09/2017.
@@ -18,11 +14,13 @@ import java.util.List;
  *
  */
 
-public class MainRenderer extends Renderer {
+public class MainRenderer {
     private OrthographicCamera camera;
+    private ShapeRenderer shape;
+    private MainObjectHandler handler;
 
-    public MainRenderer(List<Object> renderingObjects) {
-        this.renderingObjects = renderingObjects;
+    public MainRenderer(MainObjectHandler handler) {
+        this.handler = handler;
         camera = new OrthographicCamera();
         camera.setToOrtho(true, MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
         camera.update();
@@ -31,15 +29,15 @@ public class MainRenderer extends Renderer {
         shape.setColor(Color.WHITE);
     }
 
-    @Override
     public void render(float delta) {
         Gdx.gl20.glClearColor(0, 0, 0, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         shape.begin(ShapeRenderer.ShapeType.Filled);
-            for (Object o: super.renderingObjects) {
-                o.render(delta, shape);
-            }
+            handler.playButton.render(delta, shape);
         shape.end();
+    }
 
+    public void dispose() {
+        shape.dispose();
     }
 }

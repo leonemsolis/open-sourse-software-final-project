@@ -1,8 +1,8 @@
 package com.leonemsolis.screens.main_screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.leonemsolis.main.MainGameClass;
-import com.leonemsolis.screens.blueprints.Screen;
 
 /**
  * Created by Leonemsolis on 28/09/2017.
@@ -12,22 +12,60 @@ import com.leonemsolis.screens.blueprints.Screen;
  *
  */
 
-public class MainScreen extends Screen {
+public class MainScreen implements Screen {
+    public MainObjectHandler handler;
+    private MainRenderer renderer;
+    private MainInputProcessor inputProcessor;
+
+    public MainGameClass mainGameClass;
+
     public MainScreen(MainGameClass mainGameClass) {
         this.mainGameClass = mainGameClass;
-        objectHandler = new MainObjectHandler();
-        renderer = new MainRenderer(objectHandler.getRenderingObjects());
-        inputProcessor = new MainInputProcessor(objectHandler.getInteractiveObjects());
+
+        handler = new MainObjectHandler();
+        renderer = new MainRenderer(handler);
+        inputProcessor = new MainInputProcessor(handler);
+
         Gdx.input.setInputProcessor(inputProcessor);
     }
 
     @Override
     public void render(float delta) {
-        objectHandler.update(delta);
         renderer.render(delta);
-        if(((MainObjectHandler)(objectHandler)).switchToGame()) {
+        if(handler.signalGotoGame()) {
             mainGameClass.switchScreen(1);
         }
     }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+        renderer.dispose();
+    }
+
 
 }

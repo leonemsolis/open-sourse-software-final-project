@@ -1,11 +1,6 @@
 package com.leonemsolis.screens.main_screen;
 
-import com.leonemsolis.screens.blueprints.InteractiveObjects;
-import com.leonemsolis.screens.blueprints.Object;
-import com.leonemsolis.screens.blueprints.ObjectHandler;
 import com.leonemsolis.screens.common_objects.PlayButton;
-
-import java.util.ArrayList;
 
 /**
  * Created by Leonemsolis on 28/09/2017.
@@ -14,18 +9,13 @@ import java.util.ArrayList;
  *
  */
 
-public class MainObjectHandler extends ObjectHandler {
+public class MainObjectHandler {
+    public PlayButton playButton;
     public MainObjectHandler() {
-        PlayButton playButton = new PlayButton();
-        objects = new ArrayList<Object>();
-        objects.add(playButton);
-        renderingObjects = new ArrayList<Object>();
-        renderingObjects.add(playButton);
-        interactiveObjects = new ArrayList<InteractiveObjects>();
-        interactiveObjects.add(playButton);
+        playButton = new PlayButton();
     }
 
-    public boolean switchToGame() {
-        return ((PlayButton)(objects.get(0))).isActivated();
+    public boolean signalGotoGame() {
+        return playButton.isActivated();
     }
 }
