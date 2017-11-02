@@ -39,7 +39,7 @@ public class MainGameClass extends Game {
 		MID_POINT = GAME_HEIGHT / 2;
 		DataHandler.loadData();
 		// Goto certain screen first
-        switchScreen(2);
+        switchScreen(1);
 	}
 
 	public void switchScreen(int id) {

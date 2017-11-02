@@ -24,7 +24,7 @@ public class FightObjectHandler {
     private float currentTimer = 0f;
 
     public FightObjectHandler() {
-        currentMode = SCREEN_MODE.ENTRY;
+        currentMode = SCREEN_MODE.COMBINATION;
 
         // TODO: 01/11/2017 Calculate pool value, and enemy's stats
         int enemySpeed = 3;

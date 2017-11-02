@@ -13,6 +13,8 @@ import com.leonemsolis.main.MainGameClass;
 
 import java.text.DecimalFormat;
 
+import javax.sound.sampled.Line;
+
 /**
  * Created by Leonemsolis on 10/10/2017.
  *
@@ -31,6 +33,9 @@ public class FightRenderer {
     // hero/enemy Big Frame - for ENTRY/FINISH
     private Rectangle heroTagFrame, enemyTagFrame;
     private Rectangle roundCounterFrame, enemyPoolFrame, heroPoolFrame;
+    // HeroAttack, HeroSpeed, HeroDefence: frames
+    // EnemyAttack, EnemySpeed, EnemyDefence: frames
+    private Rectangle ha, hs, hd, ea, es, ed;
 
     // Test objects
     private Rectangle entryTextFrame, fightTextFrame, combinationTextFrame, finishTextFrame, timerFrame;
@@ -74,11 +79,9 @@ public class FightRenderer {
                 renderEntry();
                 break;
             case FIGHT:
-                renderTopStats();
                 renderFight();
                 break;
             case COMBINATION:
-                renderTopStats();
                 renderCombination();
                 break;
             case FINISH:
@@ -90,16 +93,18 @@ public class FightRenderer {
     }
 
     private void renderFight() {
+        renderTopStats();
         shape.begin(ShapeRenderer.ShapeType.Filled);
             shape.setColor(Color.BLUE);
             shape.rect(handler.hero.frame.x, handler.hero.frame.y, handler.hero.frame.width, handler.hero.frame.height);
             shape.setColor(Color.RED);
             shape.rect(handler.enemy.frame.x, handler.enemy.frame.y, handler.enemy.frame.width, handler.enemy.frame.height);
         shape.end();
+        renderBottomStats();
     }
 
     private void renderCombination() {
-
+        renderTopStats();
     }
 
     private void renderEntry() {
@@ -186,6 +191,41 @@ public class FightRenderer {
         batch.end();
     }
 
+    private void renderBottomStats() {
+        shape.setColor(Color.WHITE);
+        shape.begin(ShapeRenderer.ShapeType.Filled);
+            shape.rect(hs.x, hs.y, hs.width, hs.height);
+            shape.rect(ha.x, ha.y, ha.width, ha.height);
+            shape.rect(hd.x, hd.y, hd.width, hd.height);
+
+            shape.rect(es.x, es.y, es.width, es.height);
+            shape.rect(ea.x, ea.y, ea.width, ea.height);
+            shape.rect(ed.x, ed.y, ed.width, ed.height);
+        shape.end();
+
+        shape.setColor(Color.BLACK);
+        shape.begin(ShapeRenderer.ShapeType.Line);
+            shape.rect(hs.x, hs.y, hs.width, hs.height);
+            shape.rect(ha.x, ha.y, ha.width, ha.height);
+            shape.rect(hd.x, hd.y, hd.width, hd.height);
+
+            shape.rect(es.x, es.y, es.width, es.height);
+            shape.rect(ea.x, ea.y, ea.width, ea.height);
+            shape.rect(ed.x, ed.y, ed.width, ed.height);
+        shape.end();
+
+        //Move all writings x + 10, y + 10
+        batch.begin();
+            blackFont.draw(batch, "SPD: "+handler.hero.getSpeed(), hs.x+10, hs.y+10);
+            blackFont.draw(batch, "ATK: "+handler.hero.getAtk(), ha.x+10, ha.y+10);
+            blackFont.draw(batch, "DEF: "+handler.hero.getDef(), hd.x+10, hd.y+10);
+
+            blackFont.draw(batch, "SPD: "+handler.enemy.getSpeed(), es.x+10, es.y+10);
+            blackFont.draw(batch, "ATK: "+handler.enemy.getAtk(), ea.x+10, ea.y+10);
+            blackFont.draw(batch, "DEF: "+handler.enemy.getDef(), ed.x+10, ed.y+10);
+        batch.end();
+    }
+
     private void calculateFrames() {
         // Measure each text's size and save in appropriate Rectangle
         layout = new GlyphLayout();
@@ -204,10 +244,20 @@ public class FightRenderer {
         layout.setText(blackFont, "Pool: "+handler.enemy.getPool());
         enemyPoolFrame = new Rectangle(MainGameClass.GAME_WIDTH - 10 - layout.width, 49, layout.width, layout.height);
 
+        //Hero's stats frames
+        hs = new Rectangle(20, MainGameClass.MID_POINT + 100, 120, 40);
+        ha = new Rectangle(20, MainGameClass.MID_POINT + 160, 120, 40);
+        hd = new Rectangle(20, MainGameClass.MID_POINT + 220, 120, 40);
+
+        //Enemy's stats frames
+        es = new Rectangle(180, MainGameClass.MID_POINT + 100, 120, 40);
+        ea = new Rectangle(180, MainGameClass.MID_POINT + 160, 120, 40);
+        ed = new Rectangle(180, MainGameClass.MID_POINT + 220, 120, 40);
+
+
+        // Test
         layout.setText(blackFont, "ENTRY");
         entryTextFrame = new Rectangle(MainGameClass.GAME_WIDTH / 2 - layout.width, MainGameClass.MID_POINT - 10, layout.width, layout.height);
-
-
 
         layout.setText(whiteFont, "COMBINATION");
         combinationTextFrame = new Rectangle(MainGameClass.GAME_WIDTH / 2 - layout.width / 2, MainGameClass.MID_POINT - 10, layout.width, layout.height);
