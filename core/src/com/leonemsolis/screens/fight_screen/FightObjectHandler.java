@@ -1,5 +1,6 @@
 package com.leonemsolis.screens.fight_screen;
 
+import com.leonemsolis.screens.fight_screen.objects.ControlPad;
 import com.leonemsolis.screens.fight_screen.objects.Enemy;
 import com.leonemsolis.screens.fight_screen.objects.Hero;
 import com.leonemsolis.screens.fight_screen.objects.SCREEN_MODE;
@@ -18,6 +19,7 @@ public class FightObjectHandler {
     // test objects
     public Hero hero;
     public Enemy enemy;
+    public ControlPad controlPad;
 
     public int roundCounter = 1;
 
@@ -34,44 +36,55 @@ public class FightObjectHandler {
 
         hero = new Hero(pool);
         enemy = new Enemy(enemyAtk, enemyDef, enemySpeed, pool);
+        controlPad = new ControlPad();
 
-        startTimer(TimeHandler.ENTRY_TIME);
+        switchMode(SCREEN_MODE.COMBINATION);
     }
 
-    private void startTimer(float time) {
-        currentTimer = time;
+    private void switchMode(SCREEN_MODE newMode) {
+        currentMode = newMode;
+        switch (newMode) {
+            case ENTRY:
+                currentTimer = TimeHandler.ENTRY_TIME;
+                break;
+            case FIGHT:
+                currentTimer = TimeHandler.FIGHT_TIME;
+                break;
+            case COMBINATION:
+                currentTimer = TimeHandler.COMBINATION_TIME;
+                break;
+            case FINISH:
+                currentTimer = TimeHandler.FIGHT_TIME;
+                break;
+        }
     }
 
     public void update(float delta) {
         switch (currentMode) {
             case ENTRY:
                 if(currentTimer <= 0) {
-                    currentMode = SCREEN_MODE.COMBINATION;
-                    startTimer(TimeHandler.COMBINATION_TIME);
+                    switchMode(SCREEN_MODE.ENTRY);
                 } else {
                     currentTimer -= delta;
                 }
                 break;
             case FIGHT:
                 if(currentTimer <= 0) {
-                    currentMode = SCREEN_MODE.COMBINATION;
-                    startTimer(TimeHandler.COMBINATION_TIME);
+                    switchMode(SCREEN_MODE.FIGHT);
                 } else {
                     currentTimer -= delta;
                 }
                 break;
             case COMBINATION:
                 if(currentTimer <= 0) {
-                    currentMode = SCREEN_MODE.FIGHT;
-                    startTimer(TimeHandler.FIGHT_TIME);
+                    switchMode(SCREEN_MODE.COMBINATION);
                 } else {
                     currentTimer -= delta;
                 }
                 break;
             case FINISH:
                 if(currentTimer <= 0) {
-                    currentMode = SCREEN_MODE.ENTRY;
-                    startTimer(TimeHandler.ENTRY_TIME);
+                    switchMode(SCREEN_MODE.FINISH);
                 } else {
                     currentTimer -= delta;
                 }

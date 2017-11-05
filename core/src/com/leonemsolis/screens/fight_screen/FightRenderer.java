@@ -105,6 +105,7 @@ public class FightRenderer {
 
     private void renderCombination() {
         renderTopStats();
+        handler.controlPad.render(shape);
     }
 
     private void renderEntry() {

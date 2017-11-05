@@ -20,6 +20,7 @@ public class FightInputProcessor extends InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         screenX = convertCoordinate(screenX);
         screenY = convertCoordinate(screenY);
+        handler.controlPad.touchDown(screenX, screenY);
         return false;
     }
 
@@ -27,6 +28,15 @@ public class FightInputProcessor extends InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         screenX = convertCoordinate(screenX);
         screenY = convertCoordinate(screenY);
+        handler.controlPad.touchUp(screenX, screenY);
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        screenX = convertCoordinate(screenX);
+        screenY = convertCoordinate(screenY);
+        handler.controlPad.touchDragged(screenX, screenY);
         return false;
     }
 
