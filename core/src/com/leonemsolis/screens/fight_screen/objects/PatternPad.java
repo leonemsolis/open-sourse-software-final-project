@@ -85,8 +85,13 @@ public class PatternPad {
 
         int linesNumber = random.nextInt(4)+2;
 
-        for(int i = 0; i < linesNumber; ++i) {
-            checkRandomLine();
+        //No parallel lines
+        if(linesNumber == 2) {
+            check2Lines();
+        } else {
+            for(int i = 0; i < linesNumber; ++i) {
+                checkRandomLine();
+            }
         }
     }
 
@@ -98,5 +103,21 @@ public class PatternPad {
             selected.checked = true;
         }
         return;
+    }
+
+    private void check2Lines() {
+        checkRandomLine();
+
+        for(int i = 0; i < 6; ++i) {
+            if(lines.get(i).checked) {
+                if(i == 5) {
+                    lines.get(0).checked = true;
+                } else if(i == 0){
+                    lines.get(1).checked = true;
+                } else {
+                    lines.get(i - 1).checked = true;
+                }
+            }
+        }
     }
 }

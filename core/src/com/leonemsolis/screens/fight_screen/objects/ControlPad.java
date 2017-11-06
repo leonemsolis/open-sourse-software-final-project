@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class ControlPad {
     private Circle c1, c2, c3, c4;
-    private ArrayList<Line> lines;
+    public ArrayList<Line> lines;
     private Line currentLine;
 
     public ControlPad() {

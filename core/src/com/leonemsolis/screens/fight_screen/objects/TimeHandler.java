@@ -7,6 +7,6 @@ package com.leonemsolis.screens.fight_screen.objects;
 public class TimeHandler {
     public static final float ENTRY_TIME = 4f;
     public static final float COMBINATION_TIME = .9f;
-    public static final float FIGHT_TIME = 4f;
+    public static final float FIGHT_TIME = 2f;
     public static final float FINISH_TIME = 5f;
 }

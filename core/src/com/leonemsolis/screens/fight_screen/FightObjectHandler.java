@@ -3,13 +3,10 @@ package com.leonemsolis.screens.fight_screen;
 import com.leonemsolis.screens.fight_screen.objects.ControlPad;
 import com.leonemsolis.screens.fight_screen.objects.Enemy;
 import com.leonemsolis.screens.fight_screen.objects.Hero;
-import com.leonemsolis.screens.fight_screen.objects.Line;
 import com.leonemsolis.screens.fight_screen.objects.PATTERN_TYPE;
 import com.leonemsolis.screens.fight_screen.objects.PatternPad;
 import com.leonemsolis.screens.fight_screen.objects.SCREEN_MODE;
 import com.leonemsolis.screens.fight_screen.objects.TimeHandler;
-
-import java.util.ArrayList;
 
 /**
  * Created by Leonemsolis on 10/10/2017.
@@ -83,16 +80,19 @@ public class FightObjectHandler {
                 break;
             case FIGHT:
                 if(currentTimer <= 0) {
-                    switchMode(SCREEN_MODE.FIGHT);
+                    switchMode(SCREEN_MODE.COMBINATION);
                 } else {
                     currentTimer -= delta;
                 }
                 break;
             case COMBINATION:
+                if(checkPatterns() != 0) {
+                    switchMode(SCREEN_MODE.FIGHT);
+                }
                 if(currentTimer <= 0) {
                     switchMode(SCREEN_MODE.COMBINATION);
                 } else {
-                    currentTimer -= delta;
+//                    currentTimer -= delta;
                 }
                 break;
             case FINISH:
@@ -103,6 +103,31 @@ public class FightObjectHandler {
                 }
                 break;
         }
+    }
+
+    private int checkPatterns() {
+        if(checkPatternPad(aPad)) {
+            return 1;
+        }
+        if(checkPatternPad(dPad)) {
+            return 2;
+        }
+        if(checkPatternPad(cPad)) {
+            return 3;
+        }
+        if(checkPatternPad(sPad)) {
+            return 4;
+        }
+        return 0;
+    }
+
+    private boolean checkPatternPad(PatternPad p) {
+        for(int i = 0; i < 6; ++i) {
+            if(p.lines.get(i).checked != controlPad.lines.get(i).checked) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public float getCurrentTimer() {
