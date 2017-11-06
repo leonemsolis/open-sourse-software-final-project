@@ -105,6 +105,10 @@ public class FightRenderer {
 
     private void renderCombination() {
         renderTopStats();
+        handler.aPad.render(shape);
+        handler.dPad.render(shape);
+        handler.cPad.render(shape);
+        handler.sPad.render(shape);
         handler.controlPad.render(shape);
     }
 
@@ -154,8 +158,8 @@ public class FightRenderer {
             shape.setColor(Color.WHITE);
             shape.rect(0, MainGameClass.MID_POINT - 400, MainGameClass.GAME_WIDTH, 480);
 
-            shape.setColor(Color.RED);
             // Bottom cover
+            shape.setColor(Color.RED);
             shape.rect(0, MainGameClass.MID_POINT + 80, MainGameClass.GAME_WIDTH, 200);
 
             // Hero's HP bar (filler)

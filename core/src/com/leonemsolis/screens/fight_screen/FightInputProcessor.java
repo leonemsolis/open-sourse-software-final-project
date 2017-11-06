@@ -28,7 +28,7 @@ public class FightInputProcessor extends InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         screenX = convertCoordinate(screenX);
         screenY = convertCoordinate(screenY);
-        handler.controlPad.touchUp(screenX, screenY);
+        handler.controlPad.touchUp();
         return false;
     }
 

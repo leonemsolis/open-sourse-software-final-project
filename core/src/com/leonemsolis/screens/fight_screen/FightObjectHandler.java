@@ -3,6 +3,9 @@ package com.leonemsolis.screens.fight_screen;
 import com.leonemsolis.screens.fight_screen.objects.ControlPad;
 import com.leonemsolis.screens.fight_screen.objects.Enemy;
 import com.leonemsolis.screens.fight_screen.objects.Hero;
+import com.leonemsolis.screens.fight_screen.objects.Line;
+import com.leonemsolis.screens.fight_screen.objects.PATTERN_TYPE;
+import com.leonemsolis.screens.fight_screen.objects.PatternPad;
 import com.leonemsolis.screens.fight_screen.objects.SCREEN_MODE;
 import com.leonemsolis.screens.fight_screen.objects.TimeHandler;
 
@@ -20,6 +23,7 @@ public class FightObjectHandler {
     public Hero hero;
     public Enemy enemy;
     public ControlPad controlPad;
+    public PatternPad aPad, dPad, cPad, sPad;
 
     public int roundCounter = 1;
 
@@ -38,6 +42,11 @@ public class FightObjectHandler {
         enemy = new Enemy(enemyAtk, enemyDef, enemySpeed, pool);
         controlPad = new ControlPad();
 
+        aPad = new PatternPad(PATTERN_TYPE.ATTACK);
+        dPad = new PatternPad(PATTERN_TYPE.DEFENCE);
+        cPad = new PatternPad(PATTERN_TYPE.COUNTER);
+        sPad = new PatternPad(PATTERN_TYPE.SPECIAL);
+
         switchMode(SCREEN_MODE.COMBINATION);
     }
 
@@ -51,6 +60,10 @@ public class FightObjectHandler {
                 currentTimer = TimeHandler.FIGHT_TIME;
                 break;
             case COMBINATION:
+                aPad.setupLines();
+                dPad.setupLines();
+                cPad.setupLines();
+                sPad.setupLines();
                 currentTimer = TimeHandler.COMBINATION_TIME;
                 break;
             case FINISH:

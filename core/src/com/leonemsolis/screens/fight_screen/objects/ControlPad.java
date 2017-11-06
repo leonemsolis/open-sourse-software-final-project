@@ -1,5 +1,6 @@
 package com.leonemsolis.screens.fight_screen.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -31,12 +32,12 @@ public class ControlPad {
 
     private void setLines() {
         lines = new ArrayList<Line>();
-        lines.add(new Line(c1.x, c1.y, c2.x, c2.y, false));
-        lines.add(new Line(c2.x, c2.y, c4.x, c4.y, false));
-        lines.add(new Line(c4.x, c4.y, c3.x, c3.y, false));
-        lines.add(new Line(c3.x, c3.y, c1.x, c1.y, false));
-        lines.add(new Line(c1.x, c1.y, c4.x, c4.y, false));
-        lines.add(new Line(c3.x, c3.y, c2.x, c2.y, false));
+        lines.add(new Line(c1, c2, false));
+        lines.add(new Line(c2, c4, false));
+        lines.add(new Line(c4, c3, false));
+        lines.add(new Line(c3, c1, false));
+        lines.add(new Line(c1, c4, false));
+        lines.add(new Line(c3, c2, false));
         currentLine = new Line(0, 0, 0, 0, false);
     }
 
@@ -46,9 +47,7 @@ public class ControlPad {
     }
 
     public void touchDown(int x, int y) {
-        if(!currentLine.checked) {
-            setNewCurrentOrigin(x, y);
-        }
+        setNewCurrentOrigin(x, y);
     }
 
     public void touchDragged(int x, int y) {
@@ -62,19 +61,15 @@ public class ControlPad {
         }
     }
 
-    public void touchUp(int x, int y) {
+    public void touchUp() {
         uncheckLines();
     }
 
     public void render(ShapeRenderer shape) {
         Color saved = shape.getColor().cpy();
 
-        shape.setColor(Color.WHITE);
         shape.begin(ShapeRenderer.ShapeType.Filled);
-            shape.circle(c1.x, c1.y, c1.radius);
-            shape.circle(c2.x, c2.y, c2.radius);
-            shape.circle(c3.x, c3.y, c3.radius);
-            shape.circle(c4.x, c4.y, c4.radius);
+            shape.setColor(Color.BLACK);
             if(currentLine.checked) {
                 shape.rectLine(currentLine.x1, currentLine.y1, currentLine.x2, currentLine.y2, 6);
                 for (Line l:lines) {
@@ -83,6 +78,12 @@ public class ControlPad {
                     }
                 }
             }
+            shape.setColor(Color.GRAY);
+            shape.circle(c1.x, c1.y, c1.radius);
+            shape.circle(c2.x, c2.y, c2.radius);
+            shape.circle(c3.x, c3.y, c3.radius);
+            shape.circle(c4.x, c4.y, c4.radius);
+
         shape.end();
 
         shape.setColor(saved);
@@ -147,24 +148,43 @@ public class ControlPad {
 
     private boolean correctCurrentLineEnd(float x, float y) {
         if(overlaps(c1, x, y)){
-            currentLine.x2 = c1.x;
-            currentLine.y2 = c1.y;
-            return true;
+//            if(!lineExist(new Line(c1.x, c1.y, currentLine.x1, currentLine.y1, false))) {
+                currentLine.x2 = c1.x;
+                currentLine.y2 = c1.y;
+                return true;
+//            }
         }
         if(overlaps(c2, x, y)){
-            currentLine.x2 = c2.x;
-            currentLine.y2 = c2.y;
-            return true;
+//            if(!lineExist(new Line(c2.x, c2.y, currentLine.x1, currentLine.y1, false))) {
+                currentLine.x2 = c2.x;
+                currentLine.y2 = c2.y;
+                return true;
+//            }
         }
         if(overlaps(c3, x, y)){
-            currentLine.x2 = c3.x;
-            currentLine.y2 = c3.y;
-            return true;
+//            if(!lineExist(new Line(c3.x, c3.y, currentLine.x1, currentLine.y1, false))) {
+                currentLine.x2 = c3.x;
+                currentLine.y2 = c3.y;
+                return true;
+//            }
         }
         if(overlaps(c4, x, y)){
-            currentLine.x2 = c4.x;
-            currentLine.y2 = c4.y;
-            return true;
+//            if(!lineExist(new Line(c4.x, c4.y, currentLine.x1, currentLine.y1, false))) {
+                currentLine.x2 = c4.x;
+                currentLine.y2 = c4.y;
+                return true;
+//            }
+        }
+        return false;
+    }
+
+    private boolean lineExist(Line line) {
+        for (Line l: lines) {
+            if(compareLines(line, l)) {
+                if(l.checked) {
+                    return true;
+                }
+            }
         }
         return false;
     }
