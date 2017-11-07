@@ -30,7 +30,7 @@ public class FightObjectHandler {
         currentMode = SCREEN_MODE.COMBINATION;
 
         // TODO: 01/11/2017 Calculate pool value, and enemy's stats
-        int enemySpeed = 3;
+        int enemySpeed = 30;
         int enemyAtk = 4;
         int enemyDef = 6;
         int pool = 6;
@@ -44,42 +44,39 @@ public class FightObjectHandler {
         cPad = new PatternPad(PATTERN_TYPE.COUNTER);
         sPad = new PatternPad(PATTERN_TYPE.SPECIAL);
 
-        switchMode(SCREEN_MODE.COMBINATION);
-    }
-
-    private void switchMode(SCREEN_MODE newMode) {
-        currentMode = newMode;
-        switch (newMode) {
-            case ENTRY:
-                currentTimer = TimeHandler.ENTRY_TIME;
-                break;
-            case FIGHT:
-                currentTimer = TimeHandler.FIGHT_TIME;
-                break;
-            case COMBINATION:
-                aPad.setupLines();
-                dPad.setupLines();
-                cPad.setupLines();
-                sPad.setupLines();
-                currentTimer = TimeHandler.COMBINATION_TIME;
-                break;
-            case FINISH:
-                currentTimer = TimeHandler.FIGHT_TIME;
-                break;
-        }
+        switchMode(SCREEN_MODE.ENTRY);
     }
 
     public void update(float delta) {
         switch (currentMode) {
             case ENTRY:
+                hero.update(delta);
+                enemy.update(delta);
                 if(currentTimer <= 0) {
-                    switchMode(SCREEN_MODE.ENTRY);
+                    // If hero's speed > enemy's speed, player act first
+                    if(hero.getSpeed() > enemy.getSpeed()) {
+                        switchMode(SCREEN_MODE.COMBINATION);
+                    }
+                    // Else enemy act first
+                    else {
+                        switchMode(SCREEN_MODE.FIGHT_ENEMY_TURN);
+                        enemy.act();
+                    }
                 } else {
                     currentTimer -= delta;
                 }
                 break;
-            case FIGHT:
+            case FIGHT_HERO_TURN:
                 if(currentTimer <= 0) {
+                    // Enemy goes after player
+                    switchMode(SCREEN_MODE.FIGHT_ENEMY_TURN);
+                } else {
+                    currentTimer -= delta;
+                }
+                break;
+            case FIGHT_ENEMY_TURN:
+                if(currentTimer <= 0) {
+                    // Player act after enemy
                     switchMode(SCREEN_MODE.COMBINATION);
                 } else {
                     currentTimer -= delta;
@@ -87,10 +84,10 @@ public class FightObjectHandler {
                 break;
             case COMBINATION:
                 if(checkPatterns() != 0) {
-                    switchMode(SCREEN_MODE.FIGHT);
+                    switchMode(SCREEN_MODE.FIGHT_HERO_TURN);
                 }
                 if(currentTimer <= 0) {
-                    switchMode(SCREEN_MODE.COMBINATION);
+                    switchMode(SCREEN_MODE.FIGHT_HERO_TURN);
                 } else {
 //                    currentTimer -= delta;
                 }
@@ -106,17 +103,21 @@ public class FightObjectHandler {
     }
 
     private int checkPatterns() {
-        if(checkPatternPad(aPad)) {
-            return 1;
-        }
-        if(checkPatternPad(dPad)) {
-            return 2;
-        }
-        if(checkPatternPad(cPad)) {
-            return 3;
-        }
-        if(checkPatternPad(sPad)) {
-            return 4;
+        if(controlPad.ready) {
+            if(checkPatternPad(aPad)) {
+                return 1;
+            }
+            if(checkPatternPad(dPad)) {
+                return 2;
+            }
+            if(checkPatternPad(cPad)) {
+                return 3;
+            }
+            if(checkPatternPad(sPad)) {
+                return 4;
+            }
+            // Even if there's no same pattern clear control pad
+            controlPad.requestCompleted();
         }
         return 0;
     }
@@ -127,10 +128,37 @@ public class FightObjectHandler {
                 return false;
             }
         }
+        // Clear control pad if there's the same pattern found
+        controlPad.requestCompleted();
         return true;
     }
 
     public float getCurrentTimer() {
         return currentTimer;
+    }
+
+    private void switchMode(SCREEN_MODE newMode) {
+        currentMode = newMode;
+        switch (newMode) {
+            case ENTRY:
+                currentTimer = TimeHandler.ENTRY_TIME;
+                break;
+            case FIGHT_ENEMY_TURN:
+                currentTimer = TimeHandler.FIGHT_TIME;
+                break;
+            case FIGHT_HERO_TURN:
+                currentTimer = TimeHandler.FIGHT_TIME;
+                break;
+            case COMBINATION:
+                aPad.setupLines();
+                dPad.setupLines();
+                cPad.setupLines();
+                sPad.setupLines();
+                currentTimer = TimeHandler.COMBINATION_TIME;
+                break;
+            case FINISH:
+                currentTimer = TimeHandler.FIGHT_TIME;
+                break;
+        }
     }
 }

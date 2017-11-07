@@ -38,7 +38,7 @@ public class FightRenderer {
     private Rectangle ha, hs, hd, ea, es, ed;
 
     // Test objects
-    private Rectangle entryTextFrame, fightTextFrame, combinationTextFrame, finishTextFrame, timerFrame;
+    private Rectangle testTextFrame, timerFrame;
 
     // For text's size measure
     private GlyphLayout layout;
@@ -78,7 +78,10 @@ public class FightRenderer {
             case ENTRY:
                 renderEntry();
                 break;
-            case FIGHT:
+            case FIGHT_HERO_TURN:
+                renderFight();
+                break;
+            case FIGHT_ENEMY_TURN:
                 renderFight();
                 break;
             case COMBINATION:
@@ -94,13 +97,13 @@ public class FightRenderer {
 
     private void renderFight() {
         renderTopStats();
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-            shape.setColor(Color.BLUE);
-            shape.rect(handler.hero.frame.x, handler.hero.frame.y, handler.hero.frame.width, handler.hero.frame.height);
-            shape.setColor(Color.RED);
-            shape.rect(handler.enemy.frame.x, handler.enemy.frame.y, handler.enemy.frame.width, handler.enemy.frame.height);
-        shape.end();
+        renderChars();
         renderBottomStats();
+    }
+
+    private void renderChars() {
+        handler.hero.render(shape);
+        handler.enemy.render(shape);
     }
 
     private void renderCombination() {
@@ -116,36 +119,41 @@ public class FightRenderer {
         shape.begin(ShapeRenderer.ShapeType.Filled);
             shape.setColor(Color.WHITE);
             shape.rect(0, 0, MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
-            shape.setColor(Color.BLUE);
-            shape.rect(handler.hero.bigFrame.x, handler.hero.bigFrame.y, handler.hero.bigFrame.width, handler.hero.bigFrame.height);
-            shape.setColor(Color.RED);
-            shape.rect(handler.enemy.bigFrame.x, handler.enemy.bigFrame.y, handler.enemy.bigFrame.width, handler.enemy.bigFrame.height);
         shape.end();
+
+        handler.hero.render(shape);
+        handler.enemy.render(shape);
     }
 
     private void renderTestTimer() {
         switch (handler.currentMode) {
             case ENTRY:
                 batch.begin();
-                    whiteFont.draw(batch, "ENTRY", entryTextFrame.x, entryTextFrame.y);
+                    whiteFont.draw(batch, "ENTRY", testTextFrame.x, testTextFrame.y);
                     whiteFont.draw(batch, new DecimalFormat("#.#").format(handler.getCurrentTimer())+"", timerFrame.x, timerFrame.y);
                 batch.end();
                 break;
-            case FIGHT:
+            case FIGHT_HERO_TURN:
                 batch.begin();
-                    blackFont.draw(batch, "FIGHT", fightTextFrame.x, fightTextFrame.y);
+                    blackFont.draw(batch, "HERO_TURN", testTextFrame.x, testTextFrame.y);
                     blackFont.draw(batch, new DecimalFormat("#.#").format(handler.getCurrentTimer())+"", timerFrame.x, timerFrame.y);
+                batch.end();
+                break;
+            case FIGHT_ENEMY_TURN:
+                batch.begin();
+                blackFont.draw(batch, "ENEMY_TURN", testTextFrame.x, testTextFrame.y);
+                blackFont.draw(batch, new DecimalFormat("#.#").format(handler.getCurrentTimer())+"", timerFrame.x, timerFrame.y);
                 batch.end();
                 break;
             case COMBINATION:
                 batch.begin();
-                    blackFont.draw(batch, "COMBINATION", combinationTextFrame.x, combinationTextFrame.y);
+                    blackFont.draw(batch, "COMBINATION", testTextFrame.x, testTextFrame.y);
                     blackFont.draw(batch, new DecimalFormat("#.#").format(handler.getCurrentTimer())+"", timerFrame.x, timerFrame.y);
                 batch.end();
                 break;
             case FINISH:
                 batch.begin();
-                    whiteFont.draw(batch, "FINISH", fightTextFrame.x, fightTextFrame.y);
+                    whiteFont.draw(batch, "FINISH", testTextFrame.x, testTextFrame.y);
                     whiteFont.draw(batch, new DecimalFormat("#.#").format(handler.getCurrentTimer())+"", timerFrame.x, timerFrame.y);
                 batch.end();
                 break;
@@ -261,20 +269,11 @@ public class FightRenderer {
 
 
         // Test
-        layout.setText(blackFont, "ENTRY");
-        entryTextFrame = new Rectangle(MainGameClass.GAME_WIDTH / 2 - layout.width, MainGameClass.MID_POINT - 10, layout.width, layout.height);
-
-        layout.setText(whiteFont, "COMBINATION");
-        combinationTextFrame = new Rectangle(MainGameClass.GAME_WIDTH / 2 - layout.width / 2, MainGameClass.MID_POINT - 10, layout.width, layout.height);
-        float maxTestWidth = layout.width;
-        layout.setText(whiteFont, "FIGHT");
-        fightTextFrame = new Rectangle(MainGameClass.GAME_WIDTH / 2 - layout.width / 2, MainGameClass.MID_POINT - 10, layout.width, layout.height);
-
-        layout.setText(whiteFont, "FINISH");
-        finishTextFrame = new Rectangle(MainGameClass.GAME_WIDTH / 2 - layout.width / 2, MainGameClass.MID_POINT - 10, layout.width, layout.height);
+        layout.setText(whiteFont, "AAAAAAAAAAA");
+        testTextFrame = new Rectangle(MainGameClass.GAME_WIDTH / 2 - layout.width / 2, MainGameClass.MID_POINT - 10, layout.width, layout.height);
 
         layout.setText(whiteFont, "1.0");
-        timerFrame = new Rectangle(MainGameClass.GAME_WIDTH / 2 - maxTestWidth / 2 + maxTestWidth + 10, MainGameClass.MID_POINT - 10, layout.width, layout.height);
+        timerFrame = new Rectangle(MainGameClass.GAME_WIDTH / 2 - testTextFrame.width / 2 + testTextFrame.width + 10, MainGameClass.MID_POINT - 10, layout.width, layout.height);
     }
 
     public void dispose() {

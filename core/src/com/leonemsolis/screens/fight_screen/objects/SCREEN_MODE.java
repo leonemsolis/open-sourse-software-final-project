@@ -6,7 +6,8 @@ package com.leonemsolis.screens.fight_screen.objects;
 
 public enum SCREEN_MODE {
     ENTRY,
-    FIGHT,
+    FIGHT_HERO_TURN,
+    FIGHT_ENEMY_TURN,
     COMBINATION,
     FINISH
 }

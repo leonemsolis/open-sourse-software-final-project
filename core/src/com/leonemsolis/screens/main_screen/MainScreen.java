@@ -30,8 +30,10 @@ public class MainScreen implements Screen {
     }
 
     @Override
+    // not render - game loop
     public void render(float delta) {
         renderer.render(delta);
+
         if(handler.signalGotoGame()) {
             mainGameClass.switchScreen(1);
         }
@@ -66,6 +68,4 @@ public class MainScreen implements Screen {
     public void dispose() {
         renderer.dispose();
     }
-
-
 }

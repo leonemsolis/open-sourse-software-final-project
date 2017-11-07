@@ -13,6 +13,8 @@ import java.util.Random;
  * Created by Leonemsolis on 06/11/2017.
  */
 
+// TODO: 07/11/2017 SAME PATTERNS
+
 public class PatternPad {
     private Random random;
     public String tag;

@@ -1,14 +1,8 @@
 package com.leonemsolis.screens.fight_screen.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.collision.Ray;
 import com.leonemsolis.main.MainGameClass;
 
 import java.util.ArrayList;
@@ -16,11 +10,11 @@ import java.util.ArrayList;
 /**
  * Created by Leonemsolis on 05/11/2017.
  */
-
 public class ControlPad {
     private Circle c1, c2, c3, c4;
     public ArrayList<Line> lines;
     private Line currentLine;
+    public boolean ready = false;
 
     public ControlPad() {
         c1 = new Circle(105, MainGameClass.MID_POINT + 125, 35);
@@ -62,6 +56,11 @@ public class ControlPad {
     }
 
     public void touchUp() {
+        ready = true;
+    }
+
+    public void requestCompleted() {
+        ready = false;
         uncheckLines();
     }
 
