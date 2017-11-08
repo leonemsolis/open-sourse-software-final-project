@@ -13,6 +13,7 @@ import com.leonemsolis.main.MainGameClass;
  */
 
 public class Enemy extends Char {
+
     public Enemy(int atk, int def, int speed, int pool) {
         super("Enemy level 1", atk, def, speed, pool, Color.RED);
         frame = new Rectangle(MainGameClass.GAME_WIDTH / 2 + 50, MainGameClass.MID_POINT - 91, 100, 151);
@@ -20,6 +21,44 @@ public class Enemy extends Char {
     }
 
     public void act() {
-        attack();
+        attack(1);
+    }
+
+    public void update(float delta) {
+        switch (mode) {
+            case ENTRY:
+            case SPECIAL:
+                if(timer > 0) {
+                    timer -= delta;
+                } else {
+                    stand();
+                }
+                break;
+            case ATTACK:
+                // TODO: 08/11/2017 animation dash/retreat
+                if(timer > 0) {
+                    timer -= delta;
+                    if(isDashing()) {
+                        if(attackTimer > 0) {
+                            attackTimer -= delta;
+
+                        } else{
+                            retreat();
+                        }
+                    } else {
+                        if(attackTimer > 0) {
+                            attackTimer -= delta;
+                        } else {
+                            attackTimer = 0;
+                            stand();
+                        }
+                    }
+                } else {
+                    stand();
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

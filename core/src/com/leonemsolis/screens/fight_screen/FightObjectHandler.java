@@ -67,6 +67,8 @@ public class FightObjectHandler {
                 }
                 break;
             case FIGHT_HERO_TURN:
+                hero.update(delta);
+                enemy.update(delta);
                 if(currentTimer <= 0) {
                     // Enemy goes after player
                     switchMode(SCREEN_MODE.FIGHT_ENEMY_TURN);
@@ -75,6 +77,8 @@ public class FightObjectHandler {
                 }
                 break;
             case FIGHT_ENEMY_TURN:
+                hero.update(delta);
+                enemy.update(delta);
                 if(currentTimer <= 0) {
                     // Player act after enemy
                     switchMode(SCREEN_MODE.COMBINATION);
@@ -93,6 +97,8 @@ public class FightObjectHandler {
                 }
                 break;
             case FINISH:
+                hero.update(delta);
+                enemy.update(delta);
                 if(currentTimer <= 0) {
                     switchMode(SCREEN_MODE.FINISH);
                 } else {

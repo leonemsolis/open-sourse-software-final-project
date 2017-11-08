@@ -27,6 +27,10 @@ public class Char extends Object {
     private float HP = 100;
     protected Color color;
 
+    // Attack animation
+    protected float attackTimer = 0;
+    private boolean dashing = false;
+
     public Char(String tag, int atk, int def, int speed, int pool, Color color) {
         mode = CHAR_MODE.ENTRY;
         timer = CharTimeHandler.ENTRY_TIME;
@@ -55,27 +59,6 @@ public class Char extends Object {
             // TODO: 07/11/2017 GAME/LEVEL OVER
             HP = 0;
             dead();
-        }
-    }
-
-    public void update(float delta) {
-        switch (mode) {
-            case ENTRY:
-                if(timer > 0) {
-                    timer -= delta;
-                } else {
-                    stand();
-                }
-                break;
-            case ATTACK:
-                if(timer > 0) {
-                    timer -= delta;
-                } else {
-                    stand();
-                }
-                break;
-            default:
-                break;
         }
     }
 
@@ -128,6 +111,17 @@ public class Char extends Object {
     public void attack(float attackScale) {
         mode = CHAR_MODE.ATTACK;
         timer = CharTimeHandler.ATTACK_TIME;
+        attackTimer = CharTimeHandler.ATTACK_DASH_TIME;
+        dashing = true;
+    }
+
+    public void retreat() {
+        attackTimer = CharTimeHandler.ATTACK_RETREAT_TIME;
+        dashing = false;
+    }
+
+    public boolean isDashing() {
+        return dashing;
     }
 
     public void dead() {
