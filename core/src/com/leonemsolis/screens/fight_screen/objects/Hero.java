@@ -1,10 +1,8 @@
 package com.leonemsolis.screens.fight_screen.objects;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.leonemsolis.main.MainGameClass;
-import com.leonemsolis.screens.common_objects.DataHandler;
 
 /**
  * Created by Leonemsolis on 24/10/2017.
@@ -13,14 +11,27 @@ import com.leonemsolis.screens.common_objects.DataHandler;
  */
 
 public class Hero extends Char {
-    public Hero(int pool) {
+
+    private Enemy enemy;
+
+    public Hero() {
 //        super("Hero", DataHandler.heroAttack, DataHandler.heroDefence, DataHandler.heroSpeed, pool);
-        super("Hero", 10, 4, 20, pool, Color.BLUE);
+        super("Hero", 40, 10, 20, Color.BLUE);
         frame = new Rectangle(10, MainGameClass.MID_POINT - 91, 100, 151);
         bigFrame = new Rectangle(10, MainGameClass.MID_POINT - 145, 145, 290);
+        initialX = frame.x;
+    }
+
+    public void registerEnemy(Enemy e) {
+        this.enemy = e;
     }
 
     public void act(int action) {
+        if(pool - speed < 0) {
+            return;
+        } else {
+            pool -= speed;
+        }
         if(mode != CHAR_MODE.STILL) {
             mode = CHAR_MODE.STILL;
         }
@@ -29,7 +40,7 @@ public class Hero extends Char {
                 attack(1);
                 break;
             case 2:
-                defence(1);
+                defence(2);
                 break;
             case 3:
                 counter(.5f, .5f);
@@ -57,18 +68,21 @@ public class Hero extends Char {
                 if(timer > 0) {
                     timer -= delta;
                     if(isDashing()) {
-                        if(attackTimer > 0) {
-                            attackTimer -= delta;
-
+                        if(actionTimer > 0) {
+                            actionTimer -= delta;
+                            frame.x += dashSpeed * delta;
                         } else{
+                            dealDamage();
                             retreat();
                         }
                     } else {
-                        if(attackTimer > 0) {
-                            attackTimer -= delta;
+                        if(actionTimer > 0) {
+                            actionTimer -= delta;
+                            frame.x -= retreatSpeed * delta;
                         } else {
-                            attackTimer = 0;
+                            actionTimer = 0;
                             stand();
+                            frame.x = initialX;
                         }
                     }
                 } else {
@@ -78,5 +92,10 @@ public class Hero extends Char {
             default:
                 break;
         }
+    }
+
+    public void dealDamage() {
+        enemy.takeDamageTest(calculateAttackPoints());
+        atkScale = 1;
     }
 }

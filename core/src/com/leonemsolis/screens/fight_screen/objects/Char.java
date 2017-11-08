@@ -12,14 +12,14 @@ import com.badlogic.gdx.math.Rectangle;
  */
 
 public class Char extends Object {
-
     protected CHAR_MODE mode;
     protected float timer = 0;
 
     // Tag displayed right above the character
     protected String tag;
 
-    protected int speed, pool, def, atk;
+    public int speed, pool, def, atk;
+    public float atkScale, defScale;
 
     public Rectangle bigFrame, frame;
 
@@ -28,18 +28,28 @@ public class Char extends Object {
     protected Color color;
 
     // Attack animation
-    protected float attackTimer = 0;
+    protected float actionTimer = 0;
     private boolean dashing = false;
+    private final float DASH_DISTANCE = 50;
+    protected float dashSpeed = DASH_DISTANCE / CharTimeHandler.ATTACK_DASH_TIME;
+    protected float retreatSpeed = DASH_DISTANCE / CharTimeHandler.ATTACK_RETREAT_TIME;
+    protected float initialX = 0;
 
-    public Char(String tag, int atk, int def, int speed, int pool, Color color) {
+    public Char(String tag, int atk, int def, int speed, Color color) {
         mode = CHAR_MODE.ENTRY;
         timer = CharTimeHandler.ENTRY_TIME;
         this.tag = tag;
         this.atk = atk;
         this.def = def;
         this.speed = speed;
-        this.pool = pool;
+        this.pool = 0;
         this.color = color;
+        atkScale = 1;
+        defScale = 1;
+    }
+
+    public void addPool(int delta) {
+        this.pool += delta;
     }
 
     public String getTag() {
@@ -51,14 +61,23 @@ public class Char extends Object {
     }
 
 
-    public void takeDamageTest(float percent) {
-        // TODO: 07/11/2017 Calculate defence
-        if(HP - percent >= 0) {
-            HP -= percent;
+    public void takeDamageTest(float damage) {
+        // Calculate real damage, if damage less than 0, set it to 0
+        // else it would heal
+        damage = damage - calculateDefencePoints();
+        if(damage < 0) {
+            damage = 0;
+        }
+        if(HP - damage >= 0) {
+            HP -= damage;
         } else {
             // TODO: 07/11/2017 GAME/LEVEL OVER
             HP = 0;
             dead();
+        }
+        if(mode != CHAR_MODE.STILL) {
+            mode = CHAR_MODE.STILL;
+            defScale = 1;
         }
     }
 
@@ -79,22 +98,6 @@ public class Char extends Object {
         shape.setColor(saved);
     }
 
-    public int getSpeed() {
-        return speed;
-    }
-
-    public int getPool() {
-        return pool;
-    }
-
-    public int getDef() {
-        return def;
-    }
-
-    public int getAtk() {
-        return atk;
-    }
-
     public void special() {
         mode = CHAR_MODE.SPECIAL;
         timer = CharTimeHandler.SPECIAL_CAST_TIME;
@@ -105,18 +108,20 @@ public class Char extends Object {
     }
 
     public void defence(float defScale) {
+        this.defScale = defScale;
         mode = CHAR_MODE.DEFENCE;
     }
 
     public void attack(float attackScale) {
+        this.atkScale = attackScale;
         mode = CHAR_MODE.ATTACK;
         timer = CharTimeHandler.ATTACK_TIME;
-        attackTimer = CharTimeHandler.ATTACK_DASH_TIME;
+        actionTimer = CharTimeHandler.ATTACK_DASH_TIME;
         dashing = true;
     }
 
     public void retreat() {
-        attackTimer = CharTimeHandler.ATTACK_RETREAT_TIME;
+        actionTimer = CharTimeHandler.ATTACK_RETREAT_TIME;
         dashing = false;
     }
 
@@ -130,5 +135,17 @@ public class Char extends Object {
 
     public void stand() {
         mode = CHAR_MODE.STILL;
+    }
+
+    public boolean isAlive() {
+        return HP > 0;
+    }
+
+    public float calculateAttackPoints() {
+        return atk * atkScale;
+    }
+
+    public float calculateDefencePoints() {
+        return def * defScale;
     }
 }

@@ -23,11 +23,22 @@ public class FightScreen implements Screen {
         Gdx.input.setInputProcessor(inputProcessor);
     }
 
+    private void proceedGameOver() {
+        if(handler.isGameOver()) {
+            if(handler.won()) {
+                Gdx.app.log("Fight", "WIN");
+            } else {
+                Gdx.app.log("Fight", "LOSE");
+            }
+            mainGameClass.switchScreen(0);
+        }
+    }
 
     @Override
     public void render(float delta) {
         handler.update(delta);
         renderer.render(delta);
+        proceedGameOver();
     }
 
     @Override

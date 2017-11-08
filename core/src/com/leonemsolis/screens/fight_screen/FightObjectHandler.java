@@ -1,5 +1,6 @@
 package com.leonemsolis.screens.fight_screen;
 
+import com.leonemsolis.main.MainGameClass;
 import com.leonemsolis.screens.fight_screen.objects.ControlPad;
 import com.leonemsolis.screens.fight_screen.objects.Enemy;
 import com.leonemsolis.screens.fight_screen.objects.Hero;
@@ -22,21 +23,30 @@ public class FightObjectHandler {
     public ControlPad controlPad;
     public PatternPad aPad, dPad, cPad, sPad;
 
-    public int roundCounter = 1;
+    public int roundCounter = 0;
 
     private float currentTimer = 0f;
+
+    private final boolean heroFirst;
 
     public FightObjectHandler() {
         currentMode = SCREEN_MODE.COMBINATION;
 
         // TODO: 01/11/2017 Calculate pool value, and enemy's stats
         int enemySpeed = 30;
-        int enemyAtk = 4;
-        int enemyDef = 6;
-        int pool = 6;
+        int enemyAtk = 33;
+        int enemyDef = 10;
 
-        hero = new Hero(pool);
-        enemy = new Enemy(enemyAtk, enemyDef, enemySpeed, pool);
+        hero = new Hero();
+        enemy = new Enemy(enemyAtk, enemyDef, enemySpeed);
+        // TODO: 08/11/2017 Balance pools
+        heroFirst = hero.speed > enemy.speed;
+        // Just set roundCounter to 1, and init pools
+        endRound();
+
+        hero.registerEnemy(enemy);
+        enemy.registerHero(hero);
+
         controlPad = new ControlPad();
 
         aPad = new PatternPad(PATTERN_TYPE.ATTACK);
@@ -54,7 +64,7 @@ public class FightObjectHandler {
                 enemy.update(delta);
                 if(currentTimer <= 0) {
                     // If hero's speed > enemy's speed, player act first
-                    if(hero.getSpeed() > enemy.getSpeed()) {
+                    if(hero.speed > enemy.speed) {
                         switchMode(SCREEN_MODE.COMBINATION);
                     }
                     // Else enemy act first
@@ -70,8 +80,17 @@ public class FightObjectHandler {
                 hero.update(delta);
                 enemy.update(delta);
                 if(currentTimer <= 0) {
-                    // Enemy goes after player
-                    switchMode(SCREEN_MODE.FIGHT_ENEMY_TURN);
+                    if(hero.pool - hero.speed < 0) {
+                        // Next round if hero moved last
+                        if(!heroFirst) {
+                            endRound();
+                        }
+                        // Enemy goes after player
+                        switchMode(SCREEN_MODE.FIGHT_ENEMY_TURN);
+                        enemy.act();
+                    } else {
+                        switchMode(SCREEN_MODE.COMBINATION);
+                    }
                 } else {
                     currentTimer -= delta;
                 }
@@ -80,15 +99,26 @@ public class FightObjectHandler {
                 hero.update(delta);
                 enemy.update(delta);
                 if(currentTimer <= 0) {
-                    // Player act after enemy
-                    switchMode(SCREEN_MODE.COMBINATION);
+                    if(enemy.pool - enemy.speed < 0) {
+                        // Next round if enemy moved last
+                        if(heroFirst) {
+                            endRound();
+                        }
+                        // Player act after enemy
+                        switchMode(SCREEN_MODE.COMBINATION);
+                    } else {
+                        switchMode(SCREEN_MODE.FIGHT_ENEMY_TURN);
+                        enemy.act();
+                    }
                 } else {
                     currentTimer -= delta;
                 }
                 break;
             case COMBINATION:
-                if(checkPatterns() != 0) {
+                int savedPatternID = checkPatterns();
+                if(savedPatternID != 0) {
                     switchMode(SCREEN_MODE.FIGHT_HERO_TURN);
+                    hero.act(savedPatternID);
                 }
                 if(currentTimer <= 0) {
                     switchMode(SCREEN_MODE.FIGHT_HERO_TURN);
@@ -165,6 +195,25 @@ public class FightObjectHandler {
             case FINISH:
                 currentTimer = TimeHandler.FIGHT_TIME;
                 break;
+        }
+    }
+
+    public boolean isGameOver() {
+        return !hero.isAlive() || !enemy.isAlive();
+    }
+
+    public boolean won() {
+        return hero.isAlive();
+    }
+
+    public void endRound() {
+        roundCounter++;
+        if(heroFirst) {
+            hero.addPool(hero.speed + hero.speed - enemy.speed);
+            enemy.addPool(enemy.speed);
+        } else {
+            hero.addPool(hero.speed);
+            enemy.addPool(enemy.speed + enemy.speed - hero.speed);
         }
     }
 }

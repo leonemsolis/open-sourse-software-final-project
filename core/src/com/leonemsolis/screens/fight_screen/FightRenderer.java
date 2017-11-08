@@ -199,8 +199,8 @@ public class FightRenderer {
             blackFont.draw(batch, handler.hero.getTag(), heroTagFrame.x, heroTagFrame.y);
             blackFont.draw(batch, handler.enemy.getTag(), enemyTagFrame.x, enemyTagFrame.y);
             blackFont.draw(batch, handler.roundCounter+"", roundCounterFrame.x, roundCounterFrame.y);
-            blackFont.draw(batch, "Pool: "+handler.hero.getPool(), heroPoolFrame.x, heroPoolFrame.y);
-            blackFont.draw(batch, "Pool: "+handler.enemy.getPool(), enemyPoolFrame.x, enemyPoolFrame.y);
+            blackFont.draw(batch, "Pool: "+handler.hero.pool, heroPoolFrame.x, heroPoolFrame.y);
+            blackFont.draw(batch, "Pool: "+handler.enemy.pool, enemyPoolFrame.x, enemyPoolFrame.y);
         batch.end();
     }
 
@@ -229,13 +229,13 @@ public class FightRenderer {
 
         //Move all writings x + 10, y + 10
         batch.begin();
-            blackFont.draw(batch, "SPD: "+handler.hero.getSpeed(), hs.x+10, hs.y+10);
-            blackFont.draw(batch, "ATK: "+handler.hero.getAtk(), ha.x+10, ha.y+10);
-            blackFont.draw(batch, "DEF: "+handler.hero.getDef(), hd.x+10, hd.y+10);
+            blackFont.draw(batch, "SPD: "+handler.hero.speed, hs.x+10, hs.y+10);
+            blackFont.draw(batch, "ATK: "+handler.hero.atk, ha.x+10, ha.y+10);
+            blackFont.draw(batch, "DEF: "+handler.hero.def, hd.x+10, hd.y+10);
 
-            blackFont.draw(batch, "SPD: "+handler.enemy.getSpeed(), es.x+10, es.y+10);
-            blackFont.draw(batch, "ATK: "+handler.enemy.getAtk(), ea.x+10, ea.y+10);
-            blackFont.draw(batch, "DEF: "+handler.enemy.getDef(), ed.x+10, ed.y+10);
+            blackFont.draw(batch, "SPD: "+handler.enemy.speed, es.x+10, es.y+10);
+            blackFont.draw(batch, "ATK: "+handler.enemy.atk, ea.x+10, ea.y+10);
+            blackFont.draw(batch, "DEF: "+handler.enemy.def, ed.x+10, ed.y+10);
         batch.end();
     }
 
@@ -251,10 +251,10 @@ public class FightRenderer {
         layout.setText(blackFont, handler.roundCounter+"");
         roundCounterFrame = new Rectangle(MainGameClass.GAME_WIDTH / 2 - layout.width / 2, 3, layout.width, layout.height);
 
-        layout.setText(blackFont, "Pool: "+handler.hero.getPool());
+        layout.setText(blackFont, "Pool: "+handler.hero.pool);
         heroPoolFrame = new Rectangle(10, 49, layout.width, layout.height);
 
-        layout.setText(blackFont, "Pool: "+handler.enemy.getPool());
+        layout.setText(blackFont, "Pool: "+handler.enemy.pool);
         enemyPoolFrame = new Rectangle(MainGameClass.GAME_WIDTH - 10 - layout.width, 49, layout.width, layout.height);
 
         //Hero's stats frames
