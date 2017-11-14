@@ -22,6 +22,7 @@ import javax.sound.sampled.Line;
  */
 
 public class FightRenderer {
+    private float runTime = 0;
     private FightObjectHandler handler;
     private ShapeRenderer shape;
     private SpriteBatch batch;
@@ -73,6 +74,7 @@ public class FightRenderer {
     public void render(float delta) {
         Gdx.gl20.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        runTime += delta;
 
         switch (handler.currentMode) {
             case ENTRY:
@@ -92,7 +94,7 @@ public class FightRenderer {
         }
 
         // TODO: 31/10/2017 REMOVE
-        renderTestTimer();
+//        renderTestTimer();
     }
 
     private void renderFight() {
@@ -102,8 +104,8 @@ public class FightRenderer {
     }
 
     private void renderChars() {
-        handler.hero.render(shape);
         handler.enemy.render(shape);
+        handler.hero.render(batch, runTime);
     }
 
     private void renderCombination() {
@@ -121,8 +123,7 @@ public class FightRenderer {
             shape.rect(0, 0, MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
         shape.end();
 
-        handler.hero.render(shape);
-        handler.enemy.render(shape);
+        renderChars();
     }
 
     private void renderTestTimer() {
@@ -194,7 +195,6 @@ public class FightRenderer {
             // Pool counter's bottom border
             shape.line(0, 69, MainGameClass.GAME_WIDTH, 69);
         shape.end();
-
         batch.begin();
             blackFont.draw(batch, handler.hero.getTag(), heroTagFrame.x, heroTagFrame.y);
             blackFont.draw(batch, handler.enemy.getTag(), enemyTagFrame.x, enemyTagFrame.y);
@@ -232,7 +232,6 @@ public class FightRenderer {
             blackFont.draw(batch, "SPD: "+handler.hero.speed, hs.x+10, hs.y+10);
             blackFont.draw(batch, "ATK: "+handler.hero.atk, ha.x+10, ha.y+10);
             blackFont.draw(batch, "DEF: "+handler.hero.def, hd.x+10, hd.y+10);
-
             blackFont.draw(batch, "SPD: "+handler.enemy.speed, es.x+10, es.y+10);
             blackFont.draw(batch, "ATK: "+handler.enemy.atk, ea.x+10, ea.y+10);
             blackFont.draw(batch, "DEF: "+handler.enemy.def, ed.x+10, ed.y+10);

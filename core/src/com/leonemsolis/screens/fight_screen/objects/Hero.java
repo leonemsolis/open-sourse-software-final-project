@@ -1,8 +1,13 @@
 package com.leonemsolis.screens.fight_screen.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.leonemsolis.main.MainGameClass;
+import com.leonemsolis.screens.common_objects.AssetHandler;
 
 /**
  * Created by Leonemsolis on 24/10/2017.
@@ -13,6 +18,7 @@ import com.leonemsolis.main.MainGameClass;
 public class Hero extends Char {
 
     private Enemy enemy;
+    private Animation animationStill;
 
     public Hero() {
 //        super("Hero", DataHandler.heroAttack, DataHandler.heroDefence, DataHandler.heroSpeed, pool);
@@ -20,6 +26,8 @@ public class Hero extends Char {
         frame = new Rectangle(10, MainGameClass.MID_POINT - 91, 100, 151);
         bigFrame = new Rectangle(10, MainGameClass.MID_POINT - 145, 145, 290);
         initialX = frame.x;
+        animationStill = new Animation(.6f, AssetHandler.char_still);
+        animationStill.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
     }
 
     public void registerEnemy(Enemy e) {
@@ -52,6 +60,19 @@ public class Hero extends Char {
                 defence(.6f);
                 break;
         }
+    }
+
+    public void render(SpriteBatch batch, float runTime) {
+        batch.begin();
+        switch (mode) {
+            case ENTRY:
+                batch.draw(((TextureRegion) animationStill.getKeyFrame(runTime)), bigFrame.x, bigFrame.y, bigFrame.width, bigFrame.height);
+                break;
+            default:
+                batch.draw(((TextureRegion) animationStill.getKeyFrame(runTime)), frame.x, frame.y, frame.width, frame.height);
+                break;
+        }
+        batch.end();
     }
 
     public void update(float delta) {
