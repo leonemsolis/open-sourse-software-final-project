@@ -16,7 +16,13 @@ public class MapInputProcessor extends InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         screenX = convertCoordinate(screenX);
         screenY = convertCoordinate(screenY);
-        handler.fightButton.touchDown(screenX, screenY);
+
+        handler.fight1.touchDown(screenX, screenY);
+        handler.fight2.touchDown(screenX, screenY);
+        handler.boss.touchDown(screenX, screenY);
+        handler.training.touchDown(screenX, screenY);
+        handler.shop.touchDown(screenX, screenY);
+
         return false;
     }
 
@@ -24,7 +30,12 @@ public class MapInputProcessor extends InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         screenX = convertCoordinate(screenX);
         screenY = convertCoordinate(screenY);
-        handler.fightButton.touchUp(screenX, screenY);
+
+        handler.fight1.touchUp(screenX, screenY);
+        handler.fight2.touchUp(screenX, screenY);
+        handler.boss.touchUp(screenX, screenY);
+        handler.training.touchUp(screenX, screenY);
+        handler.shop.touchUp(screenX, screenY);
         return false;
     }
 }

@@ -8,9 +8,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.leonemsolis.main.MainGameClass;
-import com.leonemsolis.screens.map_screen.objects.FightButton;
-
-import java.util.List;
 
 /**
  * Created by Leonemsolis on 26/10/2017.
@@ -45,14 +42,13 @@ public class MapRenderer {
     public void render(float delta) {
         Gdx.gl20.glClearColor(0, 0, 0, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         shape.begin(ShapeRenderer.ShapeType.Filled);
-            handler.fightButton.render(delta, shape);
+            handler.fight1.render(delta, shape);
+            handler.fight2.render(delta, shape);
+            handler.boss.render(delta, shape);
+            handler.training.render(delta, shape);
+            handler.shop.render(delta, shape);
         shape.end();
-
-        batch.begin();
-            handler.fightButton.renderText(batch, font);
-        batch.end();
     }
 
     public void dispose() {

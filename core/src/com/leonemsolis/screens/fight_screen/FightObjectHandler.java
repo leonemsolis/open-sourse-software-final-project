@@ -33,9 +33,9 @@ public class FightObjectHandler {
         currentMode = SCREEN_MODE.COMBINATION;
 
         // TODO: 01/11/2017 Calculate pool value, and enemy's stats
-        int enemySpeed = 30;
-        int enemyAtk = 33;
-        int enemyDef = 10;
+        int enemySpeed = 10;
+        int enemyAtk = 25;
+        int enemyDef = 4;
 
         hero = new Hero();
         enemy = new Enemy(enemyAtk, enemyDef, enemySpeed);

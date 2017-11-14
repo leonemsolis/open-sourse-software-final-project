@@ -12,9 +12,9 @@ import com.leonemsolis.screens.common_objects.Button;
  * Created by Leonemsolis on 26/10/2017.
  */
 
-public class FightButton extends Button {
-    public FightButton() {
-        super(MainGameClass.GAME_WIDTH / 2 - 60, MainGameClass.MID_POINT - 50, 100, 100);
+public class MapButton extends Button {
+    public MapButton(float x, float y) {
+        super(x, y, 60, 40);
     }
 
     @Override

@@ -52,7 +52,7 @@ public class MainGameClass extends Game {
                 setScreen(new FightScreen(this));
                 break;
 			case 2:
-				setScreen(new MapScreen());
+				setScreen(new MapScreen(this));
 				break;
             default:
                 setScreen(new MainScreen(this));

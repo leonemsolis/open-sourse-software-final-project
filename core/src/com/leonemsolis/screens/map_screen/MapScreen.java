@@ -2,6 +2,7 @@ package com.leonemsolis.screens.map_screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.leonemsolis.main.MainGameClass;
 
 /**
  * Created by Leonemsolis on 26/10/2017.
@@ -12,8 +13,8 @@ public class MapScreen implements Screen {
     private MapRenderer renderer;
     private MapInputProcessor inputProcessor;
 
-    public MapScreen() {
-        handler = new MapObjectHandler();
+    public MapScreen(MainGameClass mainGameClass) {
+        handler = new MapObjectHandler(mainGameClass);
 
         renderer = new MapRenderer(handler);
         inputProcessor = new MapInputProcessor(handler);
@@ -28,7 +29,7 @@ public class MapScreen implements Screen {
 
     @Override
     public void render(float delta) {
-//        handler.update();
+        handler.update();
         renderer.render(delta);
     }
 

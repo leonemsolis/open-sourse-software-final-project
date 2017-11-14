@@ -75,10 +75,15 @@ public class Char extends Object {
             HP = 0;
             dead();
         }
-        if(mode != CHAR_MODE.STILL) {
+        if(mode == CHAR_MODE.COUNTER || mode == CHAR_MODE.COUNTER) {
+            dealDamage();
             mode = CHAR_MODE.STILL;
             defScale = 1;
         }
+    }
+
+    public void dealDamage() {
+        // Hero & Enemy different
     }
 
     public void render(ShapeRenderer shape) {
@@ -105,6 +110,8 @@ public class Char extends Object {
 
     public void counter(float defScale, float attackScale) {
         mode = CHAR_MODE.COUNTER;
+        this.defScale = defScale;
+        this.atkScale = attackScale;
     }
 
     public void defence(float defScale) {

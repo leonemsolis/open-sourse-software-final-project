@@ -94,7 +94,7 @@ public class FightRenderer {
         }
 
         // TODO: 31/10/2017 REMOVE
-//        renderTestTimer();
+        renderTestTimer();
     }
 
     private void renderFight() {

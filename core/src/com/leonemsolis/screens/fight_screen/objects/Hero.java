@@ -18,16 +18,19 @@ import com.leonemsolis.screens.common_objects.AssetHandler;
 public class Hero extends Char {
 
     private Enemy enemy;
-    private Animation animationStill;
+    private Animation animationStill, animationAttack;
 
     public Hero() {
 //        super("Hero", DataHandler.heroAttack, DataHandler.heroDefence, DataHandler.heroSpeed, pool);
-        super("Hero", 40, 10, 20, Color.BLUE);
+        super("Hero", 19, 5, 20, Color.BLUE);
         frame = new Rectangle(10, MainGameClass.MID_POINT - 91, 100, 151);
         bigFrame = new Rectangle(10, MainGameClass.MID_POINT - 145, 145, 290);
         initialX = frame.x;
         animationStill = new Animation(.6f, AssetHandler.char_still);
         animationStill.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+
+        animationAttack = new Animation(.1f, AssetHandler.char_attack);
+        animationAttack.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
     }
 
     public void registerEnemy(Enemy e) {
@@ -45,19 +48,19 @@ public class Hero extends Char {
         }
         switch (action) {
             case 1:
-                attack(1);
+                attack(2f);
                 break;
             case 2:
-                defence(2);
+                defence(7f);
                 break;
             case 3:
-                counter(.5f, .5f);
+                counter(1.5f, 1.5f);
                 break;
             case 4:
                 special();
                 break;
             default:
-                defence(.6f);
+                defence(1.5f);
                 break;
         }
     }
@@ -67,6 +70,9 @@ public class Hero extends Char {
         switch (mode) {
             case ENTRY:
                 batch.draw(((TextureRegion) animationStill.getKeyFrame(runTime)), bigFrame.x, bigFrame.y, bigFrame.width, bigFrame.height);
+                break;
+            case ATTACK:
+                batch.draw(((TextureRegion) animationAttack.getKeyFrame(runTime)), frame.x, frame.y, frame.width, frame.height);
                 break;
             default:
                 batch.draw(((TextureRegion) animationStill.getKeyFrame(runTime)), frame.x, frame.y, frame.width, frame.height);
@@ -115,6 +121,7 @@ public class Hero extends Char {
         }
     }
 
+    @Override
     public void dealDamage() {
         enemy.takeDamageTest(calculateAttackPoints());
         atkScale = 1;

@@ -34,7 +34,7 @@ public class Enemy extends Char {
         if(mode != CHAR_MODE.STILL) {
             mode = CHAR_MODE.STILL;
         }
-        attack(1);
+        attack(2);
 //        defence(3);
     }
 
@@ -78,6 +78,7 @@ public class Enemy extends Char {
         }
     }
 
+    @Override
     public void dealDamage() {
         hero.takeDamageTest(calculateAttackPoints());
         atkScale = 1;
