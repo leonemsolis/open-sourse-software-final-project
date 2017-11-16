@@ -9,4 +9,6 @@ public class TimeHandler {
     public static final float COMBINATION_TIME = .9f;
     public static final float FIGHT_TIME = 2f;
     public static final float FINISH_TIME = 5f;
+
+    public static final float SHAKE_TIMER = .4f;
 }

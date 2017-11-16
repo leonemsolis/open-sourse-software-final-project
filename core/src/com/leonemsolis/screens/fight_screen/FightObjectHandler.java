@@ -34,7 +34,7 @@ public class FightObjectHandler {
 
         // TODO: 01/11/2017 Calculate pool value, and enemy's stats
         int enemySpeed = 10;
-        int enemyAtk = 25;
+        int enemyAtk = 40;
         int enemyDef = 4;
 
         hero = new Hero();

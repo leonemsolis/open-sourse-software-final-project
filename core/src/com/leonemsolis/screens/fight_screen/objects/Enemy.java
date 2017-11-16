@@ -1,5 +1,6 @@
 package com.leonemsolis.screens.fight_screen.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.leonemsolis.main.MainGameClass;
@@ -34,7 +35,7 @@ public class Enemy extends Char {
         if(mode != CHAR_MODE.STILL) {
             mode = CHAR_MODE.STILL;
         }
-        attack(2);
+        attack(1f);
 //        defence(3);
     }
 
@@ -56,7 +57,8 @@ public class Enemy extends Char {
                             actionTimer -= delta;
                             frame.x -= dashSpeed * delta;
                         } else{
-                            dealDamage();
+                            Gdx.app.log("Enemy", "dealt "+ calculateAttackPoints()+ " damage..");
+                            hero.takeDamage(calculateAttackPoints());
                             retreat();
                         }
                     } else {
@@ -78,9 +80,13 @@ public class Enemy extends Char {
         }
     }
 
+
     @Override
-    public void dealDamage() {
-        hero.takeDamageTest(calculateAttackPoints());
-        atkScale = 1;
+    public void log(int id, float value) {
+        if(id == 0) {
+            Gdx.app.log("Enemy", "took "+value+" damage..");
+        } else {
+            Gdx.app.log("Enemy", "restored "+value+" HP..");
+        }
     }
 }
