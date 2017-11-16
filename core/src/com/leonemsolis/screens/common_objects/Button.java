@@ -2,7 +2,6 @@ package com.leonemsolis.screens.common_objects;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.leonemsolis.screens.blueprints.InteractiveObjects;
 
 /**
  * Created by Leonemsolis on 28/09/2017.
@@ -11,31 +10,32 @@ import com.leonemsolis.screens.blueprints.InteractiveObjects;
  *
  */
 
-public class Button extends InteractiveObjects {
-
+public class Button {
+    protected Rectangle bounds;
+    // Needed to check touch up condition
     protected boolean touchedDown = false;
+
+    // Signal to objectHandler
     protected boolean activated = false;
 
     public Button(float x, float y, float width, float height) {
         bounds = new Rectangle(x, y, width, height);
     }
 
-    @Override
     public void render(float delta, ShapeRenderer shapeRenderer) {
         shapeRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
     }
 
 
-    @Override
-    public void touchDown(int screenX, int screenY, int pointer, int button) {
-        if(super.bounds.contains(screenX, screenY)) {
+    public void touchDown(int screenX, int screenY) {
+        if(bounds.contains(screenX, screenY)) {
             touchedDown = true;
         }
     }
 
-    @Override
-    public void touchUp(int screenX, int screenY, int pointer, int button) {
-        if(touchedDown && super.bounds.contains(screenX, screenY)) {
+    // If finger was lifted up in the zone of the button, then button becomes activated
+    public void touchUp(int screenX, int screenY) {
+        if(touchedDown && bounds.contains(screenX, screenY)) {
             activated = true;
         }
         touchedDown = false;
