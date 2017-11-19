@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.leonemsolis.main.MainGameClass;
 import com.leonemsolis.screens.common_objects.ParticleSystem;
+import com.leonemsolis.screens.fight_screen.objects.SCREEN_MODE;
 import com.leonemsolis.screens.fight_screen.objects.TimeHandler;
 
 import java.text.DecimalFormat;
@@ -122,6 +123,10 @@ public class FightRenderer {
 
         // TODO: 31/10/2017 REMOVE
         renderTestTimer();
+
+        if(handler.currentMode != SCREEN_MODE.ENTRY && handler.currentMode != SCREEN_MODE.FINISH) {
+            handler.pauseButton.render(shape);
+        }
     }
 
     private void renderFight() {
@@ -225,7 +230,7 @@ public class FightRenderer {
             shape.rect(MainGameClass.GAME_WIDTH / 2 - 20, 0, 40, 23);
             // Separator between tags and hp bars
             shape.line(0, 23, MainGameClass.GAME_WIDTH, 23);
-            // Separator between hp bars and pool counters
+            // Separator between hp bars
             shape.line(0, 46, MainGameClass.GAME_WIDTH, 46);
             // Separator between pool counters
             shape.rect(MainGameClass.GAME_WIDTH / 2 - 1, 46, 2, 23);

@@ -8,6 +8,7 @@ import com.leonemsolis.screens.fight_screen.objects.Enemy;
 import com.leonemsolis.screens.fight_screen.objects.Hero;
 import com.leonemsolis.screens.fight_screen.objects.PATTERN_TYPE;
 import com.leonemsolis.screens.fight_screen.objects.PatternPad;
+import com.leonemsolis.screens.fight_screen.objects.PauseButton;
 import com.leonemsolis.screens.fight_screen.objects.SCREEN_MODE;
 import com.leonemsolis.screens.fight_screen.objects.TimeHandler;
 
@@ -40,7 +41,12 @@ public class FightObjectHandler {
 
     private Random random;
 
-    public FightObjectHandler() {
+    public PauseButton pauseButton;
+
+    public FightScreen screen;
+
+    public FightObjectHandler(FightScreen screen) {
+        this.screen = screen;
         currentMode = SCREEN_MODE.COMBINATION;
 
         random = new Random();
@@ -68,10 +74,16 @@ public class FightObjectHandler {
 
         particleSystems = new ArrayList<ParticleSystem>();
 
+        pauseButton = new PauseButton();
+
         switchMode(SCREEN_MODE.ENTRY);
     }
 
     public void update(float delta) {
+        if(pauseButton.isActivated()) {
+            screen.pause();
+            pauseButton.reset();
+        }
 
         for (ParticleSystem s : particleSystems) {
             s.update(delta);
@@ -147,8 +159,9 @@ public class FightObjectHandler {
                 }
                 if(currentTimer <= 0) {
                     switchMode(SCREEN_MODE.FIGHT_HERO_TURN);
+                    hero.act(0);
                 } else {
-//                    currentTimer -= delta;
+                    currentTimer -= delta;
                 }
                 break;
             case FINISH:

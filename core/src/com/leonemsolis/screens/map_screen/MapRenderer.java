@@ -43,11 +43,11 @@ public class MapRenderer {
         Gdx.gl20.glClearColor(0, 0, 0, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         shape.begin(ShapeRenderer.ShapeType.Filled);
-            handler.fight1.render(delta, shape);
-            handler.fight2.render(delta, shape);
-            handler.boss.render(delta, shape);
-            handler.training.render(delta, shape);
-            handler.shop.render(delta, shape);
+            handler.fight1.render(shape);
+            handler.fight2.render(shape);
+            handler.boss.render(shape);
+            handler.training.render(shape);
+            handler.shop.render(shape);
         shape.end();
     }
 

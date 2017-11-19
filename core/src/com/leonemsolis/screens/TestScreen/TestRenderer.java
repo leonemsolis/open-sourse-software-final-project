@@ -12,6 +12,6 @@ public class TestRenderer {
 
 
     public void render() {
-        handler.testButton.render(0, null);
+        handler.testButton.render(null);
     }
 }
