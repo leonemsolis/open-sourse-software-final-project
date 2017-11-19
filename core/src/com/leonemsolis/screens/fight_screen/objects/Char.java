@@ -183,4 +183,8 @@ public class Char extends Object {
     public void log(int id, float value) {
 
     }
+
+    public CHAR_MODE getMode() {
+        return mode;
+    }
 }

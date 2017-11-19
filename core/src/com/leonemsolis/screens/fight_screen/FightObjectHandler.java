@@ -1,6 +1,8 @@
 package com.leonemsolis.screens.fight_screen;
 
-import com.leonemsolis.main.MainGameClass;
+import com.badlogic.gdx.graphics.Color;
+import com.leonemsolis.screens.common_objects.ParticleSystem;
+import com.leonemsolis.screens.fight_screen.objects.CHAR_MODE;
 import com.leonemsolis.screens.fight_screen.objects.ControlPad;
 import com.leonemsolis.screens.fight_screen.objects.Enemy;
 import com.leonemsolis.screens.fight_screen.objects.Hero;
@@ -8,6 +10,9 @@ import com.leonemsolis.screens.fight_screen.objects.PATTERN_TYPE;
 import com.leonemsolis.screens.fight_screen.objects.PatternPad;
 import com.leonemsolis.screens.fight_screen.objects.SCREEN_MODE;
 import com.leonemsolis.screens.fight_screen.objects.TimeHandler;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Leonemsolis on 10/10/2017.
@@ -29,9 +34,16 @@ public class FightObjectHandler {
 
     private final boolean heroFirst;
 
+    private boolean isHeroParticlesSpawned, isEnemyParticlesSpawned;
+
+    public ArrayList<ParticleSystem> particleSystems;
+
+    private Random random;
+
     public FightObjectHandler() {
         currentMode = SCREEN_MODE.COMBINATION;
 
+        random = new Random();
         // TODO: 01/11/2017 Calculate pool value, and enemy's stats
         int enemySpeed = 10;
         int enemyAtk = 40;
@@ -54,10 +66,17 @@ public class FightObjectHandler {
         cPad = new PatternPad(PATTERN_TYPE.COUNTER);
         sPad = new PatternPad(PATTERN_TYPE.SPECIAL);
 
+        particleSystems = new ArrayList<ParticleSystem>();
+
         switchMode(SCREEN_MODE.ENTRY);
     }
 
     public void update(float delta) {
+
+        for (ParticleSystem s : particleSystems) {
+            s.update(delta);
+        }
+
         switch (currentMode) {
             case ENTRY:
                 hero.update(delta);
@@ -79,6 +98,9 @@ public class FightObjectHandler {
             case FIGHT_HERO_TURN:
                 hero.update(delta);
                 enemy.update(delta);
+
+                proceedParticles();
+
                 if(currentTimer <= 0) {
                     if(hero.pool - hero.speed < 0) {
                         // Next round if hero moved last
@@ -98,6 +120,9 @@ public class FightObjectHandler {
             case FIGHT_ENEMY_TURN:
                 hero.update(delta);
                 enemy.update(delta);
+
+                proceedParticles();
+
                 if(currentTimer <= 0) {
                     if(enemy.pool - enemy.speed < 0) {
                         // Next round if enemy moved last
@@ -181,9 +206,13 @@ public class FightObjectHandler {
                 break;
             case FIGHT_ENEMY_TURN:
                 currentTimer = TimeHandler.FIGHT_TIME;
+                isEnemyParticlesSpawned = false;
+                isHeroParticlesSpawned = false;
                 break;
             case FIGHT_HERO_TURN:
                 currentTimer = TimeHandler.FIGHT_TIME;
+                isEnemyParticlesSpawned = false;
+                isHeroParticlesSpawned = false;
                 break;
             case COMBINATION:
                 aPad.setupLines();
@@ -214,6 +243,19 @@ public class FightObjectHandler {
         } else {
             hero.addPool(hero.speed);
             enemy.addPool(enemy.speed + enemy.speed - hero.speed);
+        }
+    }
+
+    // Check if need to spawn ParticleSystem, then spawn
+    public void proceedParticles() {
+        if(hero.getMode() == CHAR_MODE.ATTACK && !hero.isDashing() && !isHeroParticlesSpawned) {
+            isHeroParticlesSpawned = true;
+            particleSystems.add(new ParticleSystem(enemy.frame.x + enemy.frame.width / 2, enemy.frame.y + random.nextFloat() * 55 + 20, Color.BLUE, Color.BLUE, true, enemy.lastTakenDamage));
+        }
+
+        if(enemy.getMode() == CHAR_MODE.ATTACK && !enemy.isDashing() && !isEnemyParticlesSpawned) {
+            isEnemyParticlesSpawned = true;
+            particleSystems.add(new ParticleSystem(hero.frame.x + hero.frame.width / 2, hero.frame.y + random.nextFloat() * 55 + 20, Color.RED, Color.RED, false, hero.lastTakenDamage));
         }
     }
 }
