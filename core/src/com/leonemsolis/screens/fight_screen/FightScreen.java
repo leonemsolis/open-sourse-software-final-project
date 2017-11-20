@@ -17,9 +17,9 @@ public class FightScreen implements Screen {
 
     private boolean running = false;
 
-    public FightScreen(MainGameClass mainGameClass) {
+    public FightScreen(MainGameClass mainGameClass, int level) {
         this.mainGameClass = mainGameClass;
-        handler = new FightObjectHandler(this);
+        handler = new FightObjectHandler(this, level);
         renderer = new FightRenderer(handler);
         inputProcessor = new FightInputProcessor(handler);
         Gdx.input.setInputProcessor(inputProcessor);
@@ -44,7 +44,6 @@ public class FightScreen implements Screen {
             handler.update(delta);
             renderer.render(delta);
             proceedGameOver();
-
         }
     }
 

@@ -15,8 +15,8 @@ public class Enemy extends Char {
 
     private Hero hero;
 
-    public Enemy(int atk, int def, int speed) {
-        super("Enemy level 1", atk, def, speed, Color.RED);
+    public Enemy(String tag, int atk, int def, int speed) {
+        super(tag, atk, def, speed, Color.RED);
         frame = new Rectangle(MainGameClass.GAME_WIDTH / 2 + 50, MainGameClass.MID_POINT - 91, 100, 151);
         bigFrame = new Rectangle(MainGameClass.GAME_WIDTH / 2 + 5, MainGameClass.MID_POINT - 145, 145, 290);
         initialX = frame.x;

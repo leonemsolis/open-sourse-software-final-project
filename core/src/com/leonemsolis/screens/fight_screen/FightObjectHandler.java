@@ -45,18 +45,39 @@ public class FightObjectHandler {
 
     public FightScreen screen;
 
-    public FightObjectHandler(FightScreen screen) {
+    public FightObjectHandler(FightScreen screen, int level) {
         this.screen = screen;
         currentMode = SCREEN_MODE.COMBINATION;
 
         random = new Random();
         // TODO: 01/11/2017 Calculate pool value, and enemy's stats
-        int enemySpeed = 10;
-        int enemyAtk = 40;
-        int enemyDef = 4;
 
+        int enemySpeed;
+        int enemyAtk;
+        int enemyDef;
+        String tag;
+        switch(level) {
+            case 1:
+                enemyAtk = 20;
+                enemyDef = 10;
+                enemySpeed = 16;
+                tag = "Angry Dave";
+                break;
+            case 2:
+                enemyAtk = 30;
+                enemyDef = 20;
+                enemySpeed = 32;
+                tag = "Bloody Tom";
+                break;
+            default:
+                enemyAtk = 40;
+                enemyDef = 30;
+                enemySpeed = 48;
+                tag = "Deadly Rob";
+                break;
+        }
+        enemy = new Enemy(tag, enemyAtk, enemyDef, enemySpeed);
         hero = new Hero();
-        enemy = new Enemy(enemyAtk, enemyDef, enemySpeed);
         // TODO: 08/11/2017 Balance pools
         heroFirst = hero.speed > enemy.speed;
         // Just set roundCounter to 1, and init pools

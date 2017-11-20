@@ -40,7 +40,11 @@ public class MainGameClass extends Game {
 		GAME_HEIGHT = (int)((float)DEVICE_HEIGHT / GAME_SCALE);
 		MID_POINT = GAME_HEIGHT / 2;
 		// Goto certain screen first
-        switchScreen(0);
+        switchScreen(1);
+	}
+
+	public void gotoFightScreen(int level) {
+        setScreen(new FightScreen(this, level));
 	}
 
 	public void switchScreen(int id) {
@@ -48,10 +52,7 @@ public class MainGameClass extends Game {
             case 0:
                 setScreen(new MainScreen(this));
                 break;
-            case 1:
-                setScreen(new FightScreen(this));
-                break;
-			case 2:
+			case 1:
 				setScreen(new MapScreen(this));
 				break;
             default:

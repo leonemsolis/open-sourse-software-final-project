@@ -187,4 +187,5 @@ public class Char extends Object {
     public CHAR_MODE getMode() {
         return mode;
     }
+
 }
