@@ -1,6 +1,8 @@
 package com.leonemsolis.screens.fight_screen;
 
 import com.badlogic.gdx.graphics.Color;
+import com.leonemsolis.screens.common_objects.ParticleIn;
+import com.leonemsolis.screens.common_objects.ParticleInSystem;
 import com.leonemsolis.screens.common_objects.ParticleSystem;
 import com.leonemsolis.screens.fight_screen.objects.CHAR_MODE;
 import com.leonemsolis.screens.fight_screen.objects.ControlPad;
@@ -35,9 +37,11 @@ public class FightObjectHandler {
 
     private final boolean heroFirst;
 
-    private boolean isHeroParticlesSpawned, isEnemyParticlesSpawned;
+    private boolean isHeroParticlesSpawned, isEnemyParticlesSpawned, specialSpawned;
 
     public ArrayList<ParticleSystem> particleSystems;
+
+    public ArrayList<ParticleInSystem> particleInSystems;
 
     private Random random;
 
@@ -94,6 +98,7 @@ public class FightObjectHandler {
         sPad = new PatternPad(PATTERN_TYPE.SPECIAL);
 
         particleSystems = new ArrayList<ParticleSystem>();
+        particleInSystems = new ArrayList<ParticleInSystem>();
 
         pauseButton = new PauseButton();
 
@@ -109,6 +114,12 @@ public class FightObjectHandler {
         for (ParticleSystem s : particleSystems) {
             s.update(delta);
         }
+
+        for(ParticleInSystem s: particleInSystems) {
+            s.update(delta);
+        }
+
+        completeParticles();
 
         switch (currentMode) {
             case ENTRY:
@@ -182,7 +193,7 @@ public class FightObjectHandler {
                     switchMode(SCREEN_MODE.FIGHT_HERO_TURN);
                     hero.act(0);
                 } else {
-                    currentTimer -= delta;
+//                    currentTimer -= delta;
                 }
                 break;
             case FINISH:
@@ -242,11 +253,13 @@ public class FightObjectHandler {
                 currentTimer = TimeHandler.FIGHT_TIME;
                 isEnemyParticlesSpawned = false;
                 isHeroParticlesSpawned = false;
+                specialSpawned = false;
                 break;
             case FIGHT_HERO_TURN:
                 currentTimer = TimeHandler.FIGHT_TIME;
                 isEnemyParticlesSpawned = false;
                 isHeroParticlesSpawned = false;
+                specialSpawned = false;
                 break;
             case COMBINATION:
                 aPad.setupLines();
@@ -290,6 +303,36 @@ public class FightObjectHandler {
         if(enemy.getMode() == CHAR_MODE.ATTACK && !enemy.isDashing() && !isEnemyParticlesSpawned) {
             isEnemyParticlesSpawned = true;
             particleSystems.add(new ParticleSystem(hero.frame.x + hero.frame.width / 2, hero.frame.y + random.nextFloat() * 55 + 20, Color.RED, Color.RED, false, hero.lastTakenDamage));
+        }
+        if(hero.getMode() == CHAR_MODE.SPECIAL && !specialSpawned) {
+            specialSpawned = true;
+            particleInSystems.add(new ParticleInSystem(hero.frame.x + hero.frame.width / 2, hero.frame.y + 40, Color.RED, Color.RED));
+        }
+    }
+
+    public void completeParticles() {
+        ArrayList<ParticleSystem>toDelete = new ArrayList<ParticleSystem>();
+        for (ParticleSystem s:particleSystems) {
+            if(s.isComplete()) {
+                toDelete.add(s);
+            }
+        }
+        if(!toDelete.isEmpty()) {
+            for (ParticleSystem s: toDelete) {
+                particleSystems.remove(s);
+            }
+        }
+
+        ArrayList<ParticleInSystem>toDeleteIn = new ArrayList<ParticleInSystem>();
+        for (ParticleInSystem s:particleInSystems) {
+            if(s.isComplete()) {
+                toDeleteIn.add(s);
+            }
+        }
+        if(!toDeleteIn.isEmpty()) {
+            for (ParticleInSystem s: toDeleteIn) {
+                particleInSystems.remove(s);
+            }
         }
     }
 }

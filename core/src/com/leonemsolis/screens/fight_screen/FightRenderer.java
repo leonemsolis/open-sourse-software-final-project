@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.leonemsolis.main.MainGameClass;
+import com.leonemsolis.screens.common_objects.ParticleInSystem;
 import com.leonemsolis.screens.common_objects.ParticleSystem;
 import com.leonemsolis.screens.fight_screen.objects.SCREEN_MODE;
 import com.leonemsolis.screens.fight_screen.objects.TimeHandler;
@@ -135,6 +136,10 @@ public class FightRenderer {
         renderBottomStats();
 
         for (ParticleSystem s : handler.particleSystems) {
+            s.render(shape);
+        }
+
+        for (ParticleInSystem s : handler.particleInSystems) {
             s.render(shape);
         }
     }
