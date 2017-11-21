@@ -15,12 +15,16 @@ public class FightScreen implements Screen {
     private FightRenderer renderer;
     private FightInputProcessor inputProcessor;
 
-    public FightScreen(MainGameClass mainGameClass) {
+    private boolean running = false;
+
+    public FightScreen(MainGameClass mainGameClass, int level) {
         this.mainGameClass = mainGameClass;
-        handler = new FightObjectHandler();
+        handler = new FightObjectHandler(this, level);
         renderer = new FightRenderer(handler);
         inputProcessor = new FightInputProcessor(handler);
         Gdx.input.setInputProcessor(inputProcessor);
+
+        resume();
     }
 
     private void proceedGameOver() {
@@ -36,9 +40,11 @@ public class FightScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        handler.update(delta);
-        renderer.render(delta);
-        proceedGameOver();
+        if(running) {
+            handler.update(delta);
+            renderer.render(delta);
+            proceedGameOver();
+        }
     }
 
     @Override
@@ -59,16 +65,20 @@ public class FightScreen implements Screen {
 
     @Override
     public void pause() {
-
+        running = false;
     }
 
     @Override
     public void resume() {
-
+        running = true;
     }
 
     @Override
     public void hide() {
 
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 }

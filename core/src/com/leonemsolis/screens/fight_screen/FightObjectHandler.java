@@ -1,13 +1,21 @@
 package com.leonemsolis.screens.fight_screen;
 
-import com.leonemsolis.main.MainGameClass;
+import com.badlogic.gdx.graphics.Color;
+import com.leonemsolis.screens.common_objects.ParticleIn;
+import com.leonemsolis.screens.common_objects.ParticleInSystem;
+import com.leonemsolis.screens.common_objects.ParticleSystem;
+import com.leonemsolis.screens.fight_screen.objects.CHAR_MODE;
 import com.leonemsolis.screens.fight_screen.objects.ControlPad;
 import com.leonemsolis.screens.fight_screen.objects.Enemy;
 import com.leonemsolis.screens.fight_screen.objects.Hero;
 import com.leonemsolis.screens.fight_screen.objects.PATTERN_TYPE;
 import com.leonemsolis.screens.fight_screen.objects.PatternPad;
+import com.leonemsolis.screens.fight_screen.objects.PauseButton;
 import com.leonemsolis.screens.fight_screen.objects.SCREEN_MODE;
 import com.leonemsolis.screens.fight_screen.objects.TimeHandler;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Leonemsolis on 10/10/2017.
@@ -29,16 +37,51 @@ public class FightObjectHandler {
 
     private final boolean heroFirst;
 
-    public FightObjectHandler() {
+    private boolean isHeroParticlesSpawned, isEnemyParticlesSpawned, specialSpawned;
+
+    public ArrayList<ParticleSystem> particleSystems;
+
+    public ArrayList<ParticleInSystem> particleInSystems;
+
+    private Random random;
+
+    public PauseButton pauseButton;
+
+    public FightScreen screen;
+
+    public FightObjectHandler(FightScreen screen, int level) {
+        this.screen = screen;
         currentMode = SCREEN_MODE.COMBINATION;
 
+        random = new Random();
         // TODO: 01/11/2017 Calculate pool value, and enemy's stats
-        int enemySpeed = 10;
-        int enemyAtk = 25;
-        int enemyDef = 4;
 
+        int enemySpeed;
+        int enemyAtk;
+        int enemyDef;
+        String tag;
+        switch(level) {
+            case 1:
+                enemyAtk = 20;
+                enemyDef = 10;
+                enemySpeed = 16;
+                tag = "Angry Dave";
+                break;
+            case 2:
+                enemyAtk = 30;
+                enemyDef = 20;
+                enemySpeed = 32;
+                tag = "Bloody Tom";
+                break;
+            default:
+                enemyAtk = 40;
+                enemyDef = 30;
+                enemySpeed = 48;
+                tag = "Deadly Rob";
+                break;
+        }
+        enemy = new Enemy(tag, enemyAtk, enemyDef, enemySpeed);
         hero = new Hero();
-        enemy = new Enemy(enemyAtk, enemyDef, enemySpeed);
         // TODO: 08/11/2017 Balance pools
         heroFirst = hero.speed > enemy.speed;
         // Just set roundCounter to 1, and init pools
@@ -54,10 +97,30 @@ public class FightObjectHandler {
         cPad = new PatternPad(PATTERN_TYPE.COUNTER);
         sPad = new PatternPad(PATTERN_TYPE.SPECIAL);
 
+        particleSystems = new ArrayList<ParticleSystem>();
+        particleInSystems = new ArrayList<ParticleInSystem>();
+
+        pauseButton = new PauseButton();
+
         switchMode(SCREEN_MODE.ENTRY);
     }
 
     public void update(float delta) {
+        if(pauseButton.isActivated()) {
+            screen.pause();
+            pauseButton.reset();
+        }
+
+        for (ParticleSystem s : particleSystems) {
+            s.update(delta);
+        }
+
+        for(ParticleInSystem s: particleInSystems) {
+            s.update(delta);
+        }
+
+        completeParticles();
+
         switch (currentMode) {
             case ENTRY:
                 hero.update(delta);
@@ -79,6 +142,9 @@ public class FightObjectHandler {
             case FIGHT_HERO_TURN:
                 hero.update(delta);
                 enemy.update(delta);
+
+                proceedParticles();
+
                 if(currentTimer <= 0) {
                     if(hero.pool - hero.speed < 0) {
                         // Next round if hero moved last
@@ -98,6 +164,9 @@ public class FightObjectHandler {
             case FIGHT_ENEMY_TURN:
                 hero.update(delta);
                 enemy.update(delta);
+
+                proceedParticles();
+
                 if(currentTimer <= 0) {
                     if(enemy.pool - enemy.speed < 0) {
                         // Next round if enemy moved last
@@ -122,6 +191,7 @@ public class FightObjectHandler {
                 }
                 if(currentTimer <= 0) {
                     switchMode(SCREEN_MODE.FIGHT_HERO_TURN);
+                    hero.act(0);
                 } else {
 //                    currentTimer -= delta;
                 }
@@ -181,9 +251,15 @@ public class FightObjectHandler {
                 break;
             case FIGHT_ENEMY_TURN:
                 currentTimer = TimeHandler.FIGHT_TIME;
+                isEnemyParticlesSpawned = false;
+                isHeroParticlesSpawned = false;
+                specialSpawned = false;
                 break;
             case FIGHT_HERO_TURN:
                 currentTimer = TimeHandler.FIGHT_TIME;
+                isEnemyParticlesSpawned = false;
+                isHeroParticlesSpawned = false;
+                specialSpawned = false;
                 break;
             case COMBINATION:
                 aPad.setupLines();
@@ -214,6 +290,49 @@ public class FightObjectHandler {
         } else {
             hero.addPool(hero.speed);
             enemy.addPool(enemy.speed + enemy.speed - hero.speed);
+        }
+    }
+
+    // Check if need to spawn ParticleSystem, then spawn
+    public void proceedParticles() {
+        if(hero.getMode() == CHAR_MODE.ATTACK && !hero.isDashing() && !isHeroParticlesSpawned) {
+            isHeroParticlesSpawned = true;
+            particleSystems.add(new ParticleSystem(enemy.frame.x + enemy.frame.width / 2, enemy.frame.y + random.nextFloat() * 55 + 20, Color.BLUE, Color.BLUE, true, enemy.lastTakenDamage));
+        }
+
+        if(enemy.getMode() == CHAR_MODE.ATTACK && !enemy.isDashing() && !isEnemyParticlesSpawned) {
+            isEnemyParticlesSpawned = true;
+            particleSystems.add(new ParticleSystem(hero.frame.x + hero.frame.width / 2, hero.frame.y + random.nextFloat() * 55 + 20, Color.RED, Color.RED, false, hero.lastTakenDamage));
+        }
+        if(hero.getMode() == CHAR_MODE.SPECIAL && !specialSpawned) {
+            specialSpawned = true;
+            particleInSystems.add(new ParticleInSystem(hero.frame.x + hero.frame.width / 2, hero.frame.y + 40, Color.RED, Color.RED));
+        }
+    }
+
+    public void completeParticles() {
+        ArrayList<ParticleSystem>toDelete = new ArrayList<ParticleSystem>();
+        for (ParticleSystem s:particleSystems) {
+            if(s.isComplete()) {
+                toDelete.add(s);
+            }
+        }
+        if(!toDelete.isEmpty()) {
+            for (ParticleSystem s: toDelete) {
+                particleSystems.remove(s);
+            }
+        }
+
+        ArrayList<ParticleInSystem>toDeleteIn = new ArrayList<ParticleInSystem>();
+        for (ParticleInSystem s:particleInSystems) {
+            if(s.isComplete()) {
+                toDeleteIn.add(s);
+            }
+        }
+        if(!toDeleteIn.isEmpty()) {
+            for (ParticleInSystem s: toDeleteIn) {
+                particleInSystems.remove(s);
+            }
         }
     }
 }

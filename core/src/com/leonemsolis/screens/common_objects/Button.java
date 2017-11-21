@@ -22,7 +22,7 @@ public class Button {
         bounds = new Rectangle(x, y, width, height);
     }
 
-    public void render(float delta, ShapeRenderer shapeRenderer) {
+    public void render(ShapeRenderer shapeRenderer) {
         shapeRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
     }
 
@@ -43,5 +43,9 @@ public class Button {
 
     public boolean isActivated() {
         return activated;
+    }
+
+    public void reset() {
+        activated = false;
     }
 }

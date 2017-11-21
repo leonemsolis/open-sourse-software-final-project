@@ -1,5 +1,6 @@
 package com.leonemsolis.screens.fight_screen.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -12,6 +13,10 @@ import com.badlogic.gdx.math.Rectangle;
  */
 
 public class Char extends Object {
+
+    private boolean shakeRequest = false;
+    public float lastTakenDamage = 0f;
+
     protected CHAR_MODE mode;
     protected float timer = 0;
 
@@ -61,7 +66,7 @@ public class Char extends Object {
     }
 
 
-    public void takeDamageTest(float damage) {
+    public void takeDamage(float damage) {
         // Calculate real damage, if damage less than 0, set it to 0
         // else it would heal
         damage = damage - calculateDefencePoints();
@@ -70,20 +75,19 @@ public class Char extends Object {
         }
         if(HP - damage >= 0) {
             HP -= damage;
+            lastTakenDamage = damage;
+            shakeRequest = true;
+            log(0, damage);
         } else {
             // TODO: 07/11/2017 GAME/LEVEL OVER
             HP = 0;
             dead();
         }
-        if(mode == CHAR_MODE.COUNTER || mode == CHAR_MODE.COUNTER) {
-            dealDamage();
-            mode = CHAR_MODE.STILL;
-            defScale = 1;
+        if(mode == CHAR_MODE.COUNTER) {
+            attack(atkScale);
+        } else if(mode == CHAR_MODE.DEFENCE) {
+            resetScales();
         }
-    }
-
-    public void dealDamage() {
-        // Hero & Enemy different
     }
 
     public void render(ShapeRenderer shape) {
@@ -105,13 +109,20 @@ public class Char extends Object {
 
     public void special() {
         mode = CHAR_MODE.SPECIAL;
+        if(HP + 50 >= 100) {
+            log(1, 100 - HP);
+            HP = 100;
+        } else {
+            log(1, 50);
+            HP += 50;
+        }
         timer = CharTimeHandler.SPECIAL_CAST_TIME;
     }
 
-    public void counter(float defScale, float attackScale) {
-        mode = CHAR_MODE.COUNTER;
+    public void counter(float attackScale, float defScale) {
         this.defScale = defScale;
         this.atkScale = attackScale;
+        mode = CHAR_MODE.COUNTER;
     }
 
     public void defence(float defScale) {
@@ -155,4 +166,26 @@ public class Char extends Object {
     public float calculateDefencePoints() {
         return def * defScale;
     }
+
+    public void resetScales() {
+        atkScale = 0f;
+        defScale = 0f;
+    }
+
+    public boolean isShakeRequest() {
+        return shakeRequest;
+    }
+
+    public void completeShakeRequest() {
+        shakeRequest = false;
+    }
+
+    public void log(int id, float value) {
+
+    }
+
+    public CHAR_MODE getMode() {
+        return mode;
+    }
+
 }

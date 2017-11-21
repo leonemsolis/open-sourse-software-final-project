@@ -20,7 +20,7 @@ public class PlayButton extends com.leonemsolis.screens.common_objects.Button {
 
     // Button will be rendered differently, it depends on it's state
     @Override
-    public void render(float delta, ShapeRenderer shapeRenderer) {
+    public void render(ShapeRenderer shapeRenderer) {
         if(!touchedDown) {
             shapeRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
         } else {

@@ -10,10 +10,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.leonemsolis.main.MainGameClass;
+import com.leonemsolis.screens.common_objects.ParticleInSystem;
+import com.leonemsolis.screens.common_objects.ParticleSystem;
+import com.leonemsolis.screens.fight_screen.objects.SCREEN_MODE;
+import com.leonemsolis.screens.fight_screen.objects.TimeHandler;
 
 import java.text.DecimalFormat;
-
-import javax.sound.sampled.Line;
+import java.util.Random;
 
 /**
  * Created by Leonemsolis on 10/10/2017.
@@ -29,6 +32,7 @@ public class FightRenderer {
 
     private OrthographicCamera camera;
     private BitmapFont blackFont, whiteFont;
+    private Random random;
 
     // Frames for displaying in-game stuff
     // hero/enemy Big Frame - for ENTRY/FINISH
@@ -44,9 +48,18 @@ public class FightRenderer {
     // For text's size measure
     private GlyphLayout layout;
 
+    private float shakeTimer = 0;
+
+    private float SHAKE_STEP = 3f;
+    private float OFFSET_LIMIT_POW = 2f;
+    private float shakeOffsetX = 0;
+    private float shakeOffsetY = 0;
+
 
     public FightRenderer(FightObjectHandler handler) {
         this.handler = handler;
+
+        random = new Random();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(true, MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
@@ -76,6 +89,22 @@ public class FightRenderer {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         runTime += delta;
 
+        if(handler.hero.isShakeRequest()) {
+            handler.hero.completeShakeRequest();
+            shakeTimer = TimeHandler.SHAKE_TIMER;
+            SHAKE_STEP = handler.hero.lastTakenDamage / 10;
+        } else if(handler.enemy.isShakeRequest()) {
+            handler.enemy.completeShakeRequest();
+            shakeTimer = TimeHandler.SHAKE_TIMER;
+            SHAKE_STEP = handler.enemy.lastTakenDamage / 10;
+        }
+        if(shakeTimer > 0) {
+            shakeTimer -= delta;
+            shakeCamera();
+        } if(shakeTimer < 0) {
+            resetCamera();
+        }
+
         switch (handler.currentMode) {
             case ENTRY:
                 renderEntry();
@@ -95,12 +124,24 @@ public class FightRenderer {
 
         // TODO: 31/10/2017 REMOVE
         renderTestTimer();
+
+        if(handler.currentMode != SCREEN_MODE.ENTRY && handler.currentMode != SCREEN_MODE.FINISH) {
+            handler.pauseButton.render(shape);
+        }
     }
 
     private void renderFight() {
         renderTopStats();
         renderChars();
         renderBottomStats();
+
+        for (ParticleSystem s : handler.particleSystems) {
+            s.render(shape);
+        }
+
+        for (ParticleInSystem s : handler.particleInSystems) {
+            s.render(shape);
+        }
     }
 
     private void renderChars() {
@@ -114,6 +155,12 @@ public class FightRenderer {
         handler.dPad.render(shape);
         handler.cPad.render(shape);
         handler.sPad.render(shape);
+
+        handler.aPad.renderLabel(blackFont, batch);
+        handler.dPad.renderLabel(blackFont, batch);
+        handler.cPad.renderLabel(blackFont, batch);
+        handler.sPad.renderLabel(blackFont, batch);
+
         handler.controlPad.render(shape);
     }
 
@@ -188,7 +235,7 @@ public class FightRenderer {
             shape.rect(MainGameClass.GAME_WIDTH / 2 - 20, 0, 40, 23);
             // Separator between tags and hp bars
             shape.line(0, 23, MainGameClass.GAME_WIDTH, 23);
-            // Separator between hp bars and pool counters
+            // Separator between hp bars
             shape.line(0, 46, MainGameClass.GAME_WIDTH, 46);
             // Separator between pool counters
             shape.rect(MainGameClass.GAME_WIDTH / 2 - 1, 46, 2, 23);
@@ -280,5 +327,71 @@ public class FightRenderer {
         batch.dispose();
         blackFont.dispose();
         whiteFont.dispose();
+    }
+
+    private void shakeCamera() {
+        switch (random.nextInt(4)) {
+            case 0:
+                if(shakeOffsetX < OFFSET_LIMIT_POW * SHAKE_STEP) {
+                    shakeRight();
+                } else {
+                    shakeLeft();
+                }
+                break;
+            case 1:
+                if(shakeOffsetX > -OFFSET_LIMIT_POW * SHAKE_STEP) {
+                    shakeLeft();
+                } else {
+                    shakeRight();
+                }
+                break;
+            case 2:
+                if(shakeOffsetY < OFFSET_LIMIT_POW * SHAKE_STEP) {
+                    shakeDown();
+                } else {
+                    shakeUp();
+                }
+                break;
+            case 3:
+                if(shakeOffsetY > -OFFSET_LIMIT_POW * SHAKE_STEP) {
+                    shakeUp();
+                } else {
+                    shakeDown();
+                }
+                break;
+        }
+    }
+
+    private void resetCamera() {
+        updateCamera(-shakeOffsetX, -shakeOffsetY);
+        shakeOffsetX = 0;
+        shakeOffsetY = 0;
+    }
+
+    private void updateCamera(float x, float y) {
+        camera.translate(x, y);
+        camera.update();
+        shape.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
+    }
+
+    private void shakeUp() {
+        shakeOffsetY -= SHAKE_STEP;
+        updateCamera(0, -SHAKE_STEP);
+    }
+
+    private void shakeDown() {
+        shakeOffsetY += SHAKE_STEP;
+        updateCamera(0, SHAKE_STEP);
+    }
+
+    private void shakeLeft() {
+        shakeOffsetX -= SHAKE_STEP;
+        updateCamera(-SHAKE_STEP, 0);
+    }
+
+    private void shakeRight() {
+        shakeOffsetX += SHAKE_STEP;
+        updateCamera(SHAKE_STEP, 0);
     }
 }

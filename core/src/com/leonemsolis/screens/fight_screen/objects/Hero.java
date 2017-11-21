@@ -48,19 +48,19 @@ public class Hero extends Char {
         }
         switch (action) {
             case 1:
-                attack(2f);
+                attack(1f);
                 break;
             case 2:
-                defence(7f);
+                defence(1f);
                 break;
             case 3:
-                counter(1.5f, 1.5f);
+                counter(.4f, .8f);
                 break;
             case 4:
                 special();
                 break;
             default:
-                defence(1.5f);
+                defence(.5f);
                 break;
         }
     }
@@ -99,7 +99,8 @@ public class Hero extends Char {
                             actionTimer -= delta;
                             frame.x += dashSpeed * delta;
                         } else{
-                            dealDamage();
+                            Gdx.app.log("Hero", "dealt "+ calculateAttackPoints()+ " damage..");
+                            enemy.takeDamage(calculateAttackPoints());
                             retreat();
                         }
                     } else {
@@ -122,8 +123,11 @@ public class Hero extends Char {
     }
 
     @Override
-    public void dealDamage() {
-        enemy.takeDamageTest(calculateAttackPoints());
-        atkScale = 1;
+    public void log(int id, float value) {
+        if(id == 0) {
+            Gdx.app.log("Hero", "took "+value+" damage..");
+        } else {
+            Gdx.app.log("Hero", "restored "+value+" HP..");
+        }
     }
 }

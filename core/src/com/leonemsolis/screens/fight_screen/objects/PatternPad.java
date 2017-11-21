@@ -1,6 +1,8 @@
 package com.leonemsolis.screens.fight_screen.objects;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
@@ -17,7 +19,7 @@ import java.util.Random;
 
 public class PatternPad {
     private Random random;
-    public String tag;
+    public String label;
     public Rectangle bounds;
     public ArrayList<Line>lines;
     private Circle c1, c2, c3, c4;
@@ -27,19 +29,19 @@ public class PatternPad {
         switch (type) {
             case ATTACK:
                 bounds = new Rectangle(40, MainGameClass.MID_POINT - 170, 100, 100);
-                tag = "ATTACK";
+                label = "ATTACK";
                 break;
             case DEFENCE:
                 bounds = new Rectangle(180, MainGameClass.MID_POINT - 170, 100, 100);
-                tag = "DEFENCE";
+                label = "DEFENCE";
                 break;
             case COUNTER:
                 bounds = new Rectangle(40, MainGameClass.MID_POINT - 30, 100, 100);
-                tag = "COUNTER";
+                label = "COUNTER";
                 break;
             case SPECIAL:
                 bounds = new Rectangle(180, MainGameClass.MID_POINT - 30, 100, 100);
-                tag = "SPECIAL";
+                label = "SPECIAL";
                 break;
         }
         c1 = new Circle(bounds.x + 25, bounds.y + 25, 15);
@@ -48,6 +50,12 @@ public class PatternPad {
         c4 = new Circle(bounds.x + 75, bounds.y + 75, 15);
         lines = new ArrayList<Line>();
         setupLines();
+    }
+
+    public void renderLabel(BitmapFont font, SpriteBatch batch) {
+        batch.begin();
+            font.draw(batch, label, bounds.x, bounds.y - 16);
+        batch.end();
     }
 
     public void render(ShapeRenderer shape) {

@@ -18,7 +18,7 @@ public class MapButton extends Button {
     }
 
     @Override
-    public void render(float delta, ShapeRenderer shapeRenderer) {
+    public void render(ShapeRenderer shapeRenderer) {
         Color savedColor = shapeRenderer.getColor().cpy();
         if(touchedDown) {
             shapeRenderer.setColor(Color.RED);
