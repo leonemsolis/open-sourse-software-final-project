@@ -41,7 +41,7 @@ public class MainGameClass extends Game {
 		GAME_HEIGHT = (int)((float)DEVICE_HEIGHT / GAME_SCALE);
 		MID_POINT = GAME_HEIGHT / 2;
 		// Goto certain screen first
-        switchScreen(1);
+        switchScreen(2);
 	}
 
 	public void gotoFightScreen(int level) {
