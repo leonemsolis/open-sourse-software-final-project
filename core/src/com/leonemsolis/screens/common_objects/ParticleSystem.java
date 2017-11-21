@@ -10,12 +10,77 @@ import java.util.ArrayList;
  * Created by Leonemsolis on 16/11/2017.
  */
 
-public abstract class ParticleSystem {
-    protected boolean complete = false;
+public class ParticleSystem {
+    public Vector2 pos;
+    public int pps = 1000;
+    public float particleLife = 1f;
+    public float lifeVariation = .15f;
 
-    public abstract void update(float delta);
+    public float angle;
+    public float angleVariation = 30;
 
-    public abstract void render(ShapeRenderer shape);
+    public float minVelocity = 200f;
+    public float maxVelocity = 400f;
+    public Vector2 gravity;
+    public final int MAX_SIZE = 20;
+
+    public ArrayList<Particle> particles;
+
+    private boolean complete = false;
+
+    public Color startColor, endColor;
+
+    public ParticleSystem(float x, float y, Color start, Color end, boolean rightSide, float power) {
+        startColor = start;
+        endColor = end;
+        pos = new Vector2(x, y);
+
+        pps *= power / 100;
+
+        particleLife *= power / 100;
+
+        if(rightSide) {
+            angle = 0;
+            gravity = new Vector2(1000f, 800f);
+        } else {
+            angle = 180;
+            gravity = new Vector2(-1000f, 800f);
+        }
+
+        particles = new ArrayList<Particle>();
+    }
+
+    public void addParticles(float delta) {
+        int spawnNumber = (int)(pps * delta);
+        for(int i = 0; i < spawnNumber; ++i) {
+            particles.add(new Particle((float)((1.0 + i) / spawnNumber * delta), this));
+        }
+    }
+
+    public void update(float delta) {
+        if(particles.size() < MAX_SIZE) {
+            addParticles(delta);
+        }
+        if(!complete) {
+            complete = true;
+            for (Particle p: particles) {
+                if(!p.isComplete()) {
+                    complete = false;
+                }
+                p.update(delta);
+            }
+        }
+    }
+
+    public void render(ShapeRenderer shape) {
+        if(!complete) {
+            shape.begin(ShapeRenderer.ShapeType.Filled);
+            for(Particle p: particles) {
+                p.render(shape);
+            }
+            shape.end();
+        }
+    }
 
     public boolean isComplete() {
         return complete;

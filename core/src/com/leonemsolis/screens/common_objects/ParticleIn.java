@@ -1,19 +1,20 @@
-package com.leonemsolis.screens.fight_screen.objects;
+package com.leonemsolis.screens.common_objects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.leonemsolis.main.MainGameClass;
 
 /**
  * Created by Leonemsolis on 20/11/2017.
  */
 
-public class ParticleSpecial {
+public class ParticleIn {
 
     public boolean complete = false;
 
     public Vector2 pos, velocity;
-    private ParticleSystemSpecial system;
+    private ParticleInSystem system;
     private float acceleration = .2f;
 
     private float initDist;
@@ -22,7 +23,7 @@ public class ParticleSpecial {
 
     private float walkedDist = 0;
 
-    public ParticleSpecial(ParticleSystemSpecial system) {
+    public ParticleIn(ParticleInSystem system) {
         this.system = system;
         initDist = system.dist - system.distVariation + system.random.nextFloat() * 2 * system.distVariation;
         float angle = system.random.nextFloat() * 360;
@@ -53,8 +54,7 @@ public class ParticleSpecial {
             float deltaB = system.endColor.b - system.startColor.b;
 
             shape.setColor(new Color(system.startColor.r + deltaR * (1 - deltaColor), system.startColor.g + deltaG * (1 - deltaColor), system.startColor.b + deltaB * (1 - deltaColor), 1f));
-//            shape.rect(pos.x, pos.y, 5, 5);
-            shape.circle(pos.x, pos.y, 6);
+            shape.rect(pos.x, pos.y, 5, 5);
         }
     }
 }

@@ -17,8 +17,8 @@ public class PauseButton extends Button {
     @Override
     public void render(ShapeRenderer shape) {
         shape.begin(ShapeRenderer.ShapeType.Filled);
-//            shape.setColor(Color.WHITE);
-//            shape.rect(bounds.x, bounds.y, bounds.width, bounds.height);
+            shape.setColor(Color.WHITE);
+            shape.rect(bounds.x, bounds.y, bounds.width, bounds.height);
             if(touchedDown) {
                 shape.setColor(Color.RED);
             } else {
