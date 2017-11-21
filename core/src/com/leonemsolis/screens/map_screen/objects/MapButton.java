@@ -7,12 +7,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.leonemsolis.main.MainGameClass;
 import com.leonemsolis.screens.common_objects.Button;
+import com.leonemsolis.screens.training_screen.objects.ExperienceButton;
 
 /**
  * Created by Leonemsolis on 26/10/2017.
  */
 
 public class MapButton extends Button {
+
     public MapButton(float x, float y) {
         super(x, y, 60, 40);
     }

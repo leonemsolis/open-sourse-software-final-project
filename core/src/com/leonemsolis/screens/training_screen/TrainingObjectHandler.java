@@ -7,9 +7,7 @@ import com.leonemsolis.main.MainGameClass;
  */
 
 public class TrainingObjectHandler {
-
     public MainGameClass mainGameClass;
-
     public TrainingObjectHandler(MainGameClass mainGameClass) {
         this.mainGameClass = mainGameClass;
     }
