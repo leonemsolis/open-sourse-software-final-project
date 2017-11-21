@@ -2,6 +2,7 @@ package com.leonemsolis.screens.training_screen.objects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.leonemsolis.main.MainGameClass;
 import com.leonemsolis.screens.common_objects.Button;
 
 /**
@@ -10,19 +11,20 @@ import com.leonemsolis.screens.common_objects.Button;
 
 public class ExperienceButton extends Button {
     public ExperienceButton(float x, float y) {
-        super(x, y, 60, 40);
+        super(x, y, 140, 40);
+
     }
 
     @Override
     public void render(ShapeRenderer shapeRenderer) {
-        Color saveColor=shapeRenderer.getColor().cpy();
-        if(touchedDown) {
+        Color saveColor = shapeRenderer.getColor().cpy();
+        if (touchedDown) {
             shapeRenderer.setColor(Color.RED);
             shapeRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
-        }
-        else{
+
+        } else {
             shapeRenderer.setColor(Color.YELLOW);
-            shapeRenderer.rect(bounds.x,bounds.y,bounds.width,bounds.height);
+            shapeRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
         }
         shapeRenderer.setColor(saveColor);
     }

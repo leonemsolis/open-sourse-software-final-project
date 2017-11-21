@@ -12,8 +12,10 @@ public class TrainingScreen implements Screen {
     public TrainingObjectHandler handler;
     public TrainingRenderer renderer;
     public TrainingInputProcessor inputProcessor;
+//    public MainGameClass mainGameClass;
 
     public TrainingScreen(MainGameClass mainGameClass) {
+//        this.mainGameClass=mainGameClass;
         handler = new TrainingObjectHandler(mainGameClass);
         renderer = new TrainingRenderer(handler);
         inputProcessor = new TrainingInputProcessor(handler);
@@ -28,6 +30,7 @@ public class TrainingScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        renderer.render(delta);
 
     }
 

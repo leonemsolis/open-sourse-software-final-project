@@ -15,11 +15,17 @@ public class TrainingInputProcessor extends InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return super.touchDown(screenX, screenY, pointer, button);
+        screenX=convertCoordinate(screenX);
+        screenY=convertCoordinate(screenY);
+        handler.experience.touchDown(screenX,screenY);
+        return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return super.touchUp(screenX, screenY, pointer, button);
+        screenX=convertCoordinate(screenX);
+        screenY=convertCoordinate(screenY);
+        handler.experience.touchUp(screenX,screenY);
+        return false;
     }
 }
