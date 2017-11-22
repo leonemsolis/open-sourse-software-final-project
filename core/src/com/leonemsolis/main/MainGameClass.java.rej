@@ -1,69 +1,9 @@
 diff a/core/src/com/leonemsolis/main/MainGameClass.java b/core/src/com/leonemsolis/main/MainGameClass.java	(rejected hunks)
-@@ -1,33 +1,49 @@
- package com.leonemsolis.main;
+@@ -7,6 +7,7 @@
+ import com.leonemsolis.screens.fight_screen.FightScreen;
+ import com.leonemsolis.screens.main_screen.MainScreen;
+ import com.leonemsolis.screens.map_screen.MapScreen;
++import com.leonemsolis.screens.training_screen.TrainingScreen;
  
--import com.badlogic.gdx.ApplicationAdapter;
-+import com.badlogic.gdx.Game;
- import com.badlogic.gdx.Gdx;
--import com.badlogic.gdx.graphics.GL20;
--import com.badlogic.gdx.graphics.Texture;
--import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-+import com.leonemsolis.screens.MapScreen;
-+import com.leonemsolis.screens.ShopScreen;
-+import com.leonemsolis.screens.TrainingScreen;
-+
-+public class MainGameClass extends Game {
-+
-+	public static int gameWidth = 360;
-+	public static float scale;
-+	public static int gameHeight;
- 
--public class MainGameClass extends ApplicationAdapter {
--	SpriteBatch batch;
--	Texture img;
--	
- 	@Override
- 	public void create () {
--		batch = new SpriteBatch();
--		img = new Texture("badlogic.jpg");
-+		scale = Gdx.graphics.getWidth() / gameWidth;
-+		gameHeight = (int)(Gdx.graphics.getHeight() / scale);
-+
-+//		setScreen();
- 	}
- 
--	@Override
--	public void render () {
--		Gdx.gl.glClearColor(1, 0, 0, 1);
--		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
--		batch.begin();
--		batch.draw(img, 200, 0);
--		batch.end();
-+	public void changeScreen(int screen) {
-+		// 1 - map screen
-+		// 2 - shop screen
-+		// 3 - training screen
-+		// 4 - fight screen
-+		switch (screen) {
-+			case 1:
-+				setScreen(new MapScreen());
-+				break;
-+			case 2:
-+				setScreen(new ShopScreen());
-+				break;
-+			case 3:
-+				setScreen(new TrainingScreen());
-+				break;
-+			case 4:
-+				setScreen(new FightScreen());
-+				break;
-+		}
- 	}
- 	
- 	@Override
- 	public void dispose () {
--		batch.dispose();
--		img.dispose();
-+
- 	}
- }
+ /**
+  * Created by Leonemsolis on 18/09/2017.
