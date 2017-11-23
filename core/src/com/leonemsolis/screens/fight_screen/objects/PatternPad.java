@@ -39,7 +39,7 @@ public class PatternPad {
                 bounds = new Rectangle(40, MainGameClass.MID_POINT - 30, 100, 100);
                 label = "COUNTER";
                 break;
-            case SPECIAL:
+            case HEAL:
                 bounds = new Rectangle(180, MainGameClass.MID_POINT - 30, 100, 100);
                 label = "HEAL";
                 break;

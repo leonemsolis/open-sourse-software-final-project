@@ -14,8 +14,4 @@ public class MainObjectHandler {
     public MainObjectHandler() {
         playButton = new PlayButton();
     }
-
-    public boolean signalGotoGame() {
-        return playButton.isActivated();
-    }
 }

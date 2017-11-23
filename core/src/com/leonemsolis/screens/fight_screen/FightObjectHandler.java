@@ -3,7 +3,7 @@ package com.leonemsolis.screens.fight_screen;
 import com.badlogic.gdx.graphics.Color;
 import com.leonemsolis.screens.fight_screen.objects.ParticleSystemBlock;
 import com.leonemsolis.screens.fight_screen.objects.ParticleSystemBlood;
-import com.leonemsolis.screens.fight_screen.objects.ParticleSystemSpecial;
+import com.leonemsolis.screens.fight_screen.objects.ParticleSystemHeal;
 import com.leonemsolis.screens.common_objects.ParticleSystem;
 import com.leonemsolis.screens.fight_screen.objects.CHAR_MODE;
 import com.leonemsolis.screens.fight_screen.objects.ControlPad;
@@ -94,7 +94,7 @@ public class FightObjectHandler {
         aPad = new PatternPad(PATTERN_TYPE.ATTACK);
         dPad = new PatternPad(PATTERN_TYPE.DEFENCE);
         cPad = new PatternPad(PATTERN_TYPE.COUNTER);
-        sPad = new PatternPad(PATTERN_TYPE.SPECIAL);
+        sPad = new PatternPad(PATTERN_TYPE.HEAL);
 
         particleSystems = new ArrayList<ParticleSystem>();
 
@@ -308,11 +308,11 @@ public class FightObjectHandler {
         }
         if(hero.getMode() == CHAR_MODE.HEAL && !isHeroSpecialSpawned) {
             isHeroSpecialSpawned = true;
-            particleSystems.add(new ParticleSystemSpecial(hero.frame.x + hero.frame.width / 2, hero.frame.y + 40, Color.RED, Color.RED));
+            particleSystems.add(new ParticleSystemHeal(hero.frame.x + hero.frame.width / 2, hero.frame.y + 40, Color.RED, Color.RED));
         }
         if(enemy.getMode() == CHAR_MODE.HEAL && !isEnemySpecialSpawned) {
             isEnemySpecialSpawned = true;
-            particleSystems.add(new ParticleSystemSpecial(enemy.frame.x + enemy.frame.width / 2, enemy.frame.y + 40, Color.BLUE, Color.BLUE));
+            particleSystems.add(new ParticleSystemHeal(enemy.frame.x + enemy.frame.width / 2, enemy.frame.y + 40, Color.BLUE, Color.BLUE));
         }
         if((hero.getMode() == CHAR_MODE.DEFENCE || hero.getMode() == CHAR_MODE.COUNTER) && !isHeroBlockSpawned) {
             isHeroBlockSpawned = true;

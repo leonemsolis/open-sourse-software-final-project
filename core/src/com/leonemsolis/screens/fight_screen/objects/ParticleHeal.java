@@ -8,12 +8,12 @@ import com.badlogic.gdx.math.Vector2;
  * Created by Leonemsolis on 20/11/2017.
  */
 
-public class ParticleSpecial {
+public class ParticleHeal {
 
     public boolean complete = false;
 
     public Vector2 pos, velocity;
-    private ParticleSystemSpecial system;
+    private ParticleSystemHeal system;
     private float acceleration = .2f;
 
     private float initDist;
@@ -22,7 +22,7 @@ public class ParticleSpecial {
 
     private float walkedDist = 0;
 
-    public ParticleSpecial(ParticleSystemSpecial system) {
+    public ParticleHeal(ParticleSystemHeal system) {
         this.system = system;
         initDist = system.dist - system.distVariation + system.random.nextFloat() * 2 * system.distVariation;
         float angle = system.random.nextFloat() * 360;

@@ -11,7 +11,7 @@ import java.util.Random;
  * Created by Leonemsolis on 20/11/2017.
  */
 
-public class ParticleSystemSpecial extends ParticleSystem {
+public class ParticleSystemHeal extends ParticleSystem {
     public float x, y;
     public Color startColor, endColor;
 
@@ -26,9 +26,9 @@ public class ParticleSystemSpecial extends ParticleSystem {
 
     public Random random;
 
-    private ArrayList<ParticleSpecial> particles;
+    private ArrayList<ParticleHeal> particles;
 
-    public ParticleSystemSpecial(float x, float y, Color start, Color end) {
+    public ParticleSystemHeal(float x, float y, Color start, Color end) {
         random = new Random();
 
         this.x = x;
@@ -37,7 +37,7 @@ public class ParticleSystemSpecial extends ParticleSystem {
         this.startColor = start;
         this.endColor = end;
 
-        particles = new ArrayList<ParticleSpecial>();
+        particles = new ArrayList<ParticleHeal>();
     }
 
     @Override
@@ -45,13 +45,13 @@ public class ParticleSystemSpecial extends ParticleSystem {
         if(particles.size() < MAX) {
             int addNumber = (int)(pps * delta);
             for(int i = 0; i < addNumber; ++i) {
-                particles.add(new ParticleSpecial(this));
+                particles.add(new ParticleHeal(this));
             }
         }
 
         if(!complete) {
             complete = true;
-            for (ParticleSpecial p: particles) {
+            for (ParticleHeal p: particles) {
                 p.update(delta);
                 if(!p.complete) {
                     complete = false;
@@ -64,7 +64,7 @@ public class ParticleSystemSpecial extends ParticleSystem {
     public void render(ShapeRenderer shape) {
         if(!complete) {
             shape.begin(ShapeRenderer.ShapeType.Filled);
-            for (ParticleSpecial p: particles) {
+            for (ParticleHeal p: particles) {
                 p.render(shape);
             }
             shape.end();
