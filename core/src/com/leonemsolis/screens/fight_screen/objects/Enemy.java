@@ -39,47 +39,69 @@ public class Enemy extends Char {
 //        defence(3);
     }
 
-    public void update(float delta) {
-        switch (mode) {
-            case ENTRY:
-            case SPECIAL:
-                if(timer > 0) {
-                    timer -= delta;
-                } else {
-                    stand();
-                }
-                break;
-            case ATTACK:
-                if(timer > 0) {
-                    timer -= delta;
-                    if(isDashing()) {
-                        if(actionTimer > 0) {
-                            actionTimer -= delta;
-                            frame.x -= dashSpeed * delta;
-                        } else{
-                            Gdx.app.log("Enemy", "dealt "+ calculateAttackPoints()+ " damage..");
-                            hero.takeDamage(calculateAttackPoints());
-                            retreat();
-                        }
-                    } else {
-                        if(actionTimer > 0) {
-                            actionTimer -= delta;
-                            frame.x += retreatSpeed * delta;
-                        } else {
-                            actionTimer = 0;
-                            stand();
-                            frame.x = initialX;
-                        }
-                    }
-                } else {
-                    stand();
-                }
-                break;
-            default:
-                break;
+//    public void update(float delta) {
+//        switch (mode) {
+//            case ENTRY:
+//            case SPECIAL:
+//                if(timer > 0) {
+//                    timer -= delta;
+//                } else {
+//                    stand();
+//                }
+//                break;
+//            case ATTACK:
+//                if(timer > 0) {
+//                    timer -= delta;
+//                    if(isDashing()) {
+//                        if(actionTimer > 0) {
+//                            actionTimer -= delta;
+//                            frame.x -= dashSpeed * delta;
+//                        } else{
+//                            Gdx.app.log("Enemy", "dealt "+ calculateAttackPoints()+ " damage..");
+//                            hero.takeDamage(calculateAttackPoints());
+//                            retreat();
+//                        }
+//                    } else {
+//                        if(actionTimer > 0) {
+//                            actionTimer -= delta;
+//                            frame.x += retreatSpeed * delta;
+//                        } else {
+//                            actionTimer = 0;
+//                            stand();
+//                            frame.x = initialX;
+//                        }
+//                    }
+//                } else {
+//                    stand();
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+//    }
+
+    @Override
+    public void moveForward(float delta) {
+        if(movingForward && Math.abs(frame.x - initialX) < moveForwardDist) {
+            frame.x -= forwardSpeed * delta;
+        } else {
+            movingForward = false;
         }
     }
 
+    @Override
+    public void moveBack(float delta) {
+        if(movingBack && Math.abs(frame.x - initialX) > 5) {
+            frame.x += backSpeed * delta;
+        } else {
+            movingBack = false;
+        }
+    }
+
+    @Override
+    public void dealDamage() {
+        hero.takeDamage(calculateAttackPoints());
+    }
 
     @Override
     public void log(int id, float value) {

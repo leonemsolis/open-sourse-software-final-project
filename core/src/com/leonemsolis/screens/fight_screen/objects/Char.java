@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Rectangle;
  * Char will keep this properties
  */
 
-public class Char extends Object {
+public abstract class Char extends Object {
 
     private boolean shakeRequest = false;
     public float lastTakenDamage = 0f;
@@ -39,6 +39,14 @@ public class Char extends Object {
     protected float dashSpeed = DASH_DISTANCE / CharTimeHandler.ATTACK_DASH_TIME;
     protected float retreatSpeed = DASH_DISTANCE / CharTimeHandler.ATTACK_RETREAT_TIME;
     protected float initialX = 0;
+
+    public boolean movingForward = false;
+    public boolean movingBack = false;
+    public float moveForwardDist, moveBackDist;
+    public boolean dealtDamage = false;
+
+    public float forwardSpeed = 200f;
+    public float backSpeed = 200f;
 
     public Char(String tag, int atk, int def, int speed, Color color) {
         mode = CHAR_MODE.ENTRY;
@@ -67,6 +75,7 @@ public class Char extends Object {
 
 
     public void takeDamage(float damage) {
+        Gdx.app.log("Char", "taken");
         // Calculate real damage, if damage less than 0, set it to 0
         // else it would heal
         damage = damage - calculateDefencePoints();
@@ -87,6 +96,38 @@ public class Char extends Object {
             attack(atkScale);
         } else if(mode == CHAR_MODE.DEFENCE) {
             resetScales();
+        }
+    }
+
+    public void update(float delta) {
+        switch (mode) {
+            case ENTRY:
+            case SPECIAL:
+                if(timer > 0) {
+                    timer -= delta;
+                } else {
+                    stand();
+                }
+                break;
+            case ATTACK:
+                if(movingForward) {
+                    moveForward(delta);
+                } else {
+                    if(!dealtDamage) {
+                        dealtDamage = true;
+                        dealDamage();
+                        movingBack = true;
+                    } else {
+                        moveBack(delta);
+                    }
+                }
+
+                if(dealtDamage && !movingBack && !movingForward) {
+                    stand();
+                }
+                break;
+            case DEFENCE:
+                break;
         }
     }
 
@@ -132,6 +173,11 @@ public class Char extends Object {
 
     public void attack(float attackScale) {
         this.atkScale = attackScale;
+        moveForwardDist = 40f;
+        moveBackDist = 40f;
+        movingForward = true;
+        dealtDamage = false;
+        this.atkScale = attackScale;
         mode = CHAR_MODE.ATTACK;
         timer = CharTimeHandler.ATTACK_TIME;
         actionTimer = CharTimeHandler.ATTACK_DASH_TIME;
@@ -153,6 +199,7 @@ public class Char extends Object {
 
     public void stand() {
         mode = CHAR_MODE.STILL;
+        frame.x = initialX;
     }
 
     public boolean isAlive() {
@@ -180,12 +227,17 @@ public class Char extends Object {
         shakeRequest = false;
     }
 
-    public void log(int id, float value) {
-
-    }
+    public abstract void log(int id, float value);
 
     public CHAR_MODE getMode() {
         return mode;
     }
 
+    // When done set movingForward to false
+    public abstract void moveForward(float delta);
+
+    // When done set movingBack to false
+    public abstract void moveBack(float delta);
+
+    public abstract void dealDamage();
 }

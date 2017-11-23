@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.leonemsolis.main.MainGameClass;
 import com.leonemsolis.screens.common_objects.Button;
 
 /**
@@ -12,7 +13,6 @@ import com.leonemsolis.screens.common_objects.Button;
  */
 
 public class MapButton extends Button {
-
     public MapButton(float x, float y) {
         super(x, y, 60, 40);
     }

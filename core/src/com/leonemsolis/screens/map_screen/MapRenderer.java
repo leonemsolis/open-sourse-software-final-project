@@ -15,8 +15,8 @@ import com.leonemsolis.main.MainGameClass;
 
 public class MapRenderer {
     private OrthographicCamera camera;
-    private MapObjectHandler handler;
     private BitmapFont font;
+    private MapObjectHandler handler;
     private SpriteBatch batch;
     private ShapeRenderer shape;
 

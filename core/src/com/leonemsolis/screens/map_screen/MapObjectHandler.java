@@ -24,20 +24,20 @@ public class MapObjectHandler {
     }
 
     public void update() {
-        if (fight1.isActivated()) {
+        if(fight1.isActivated()) {
             mainGameClass.gotoFightScreen(1);
         }
-        if (fight2.isActivated()) {
+        if(fight2.isActivated()) {
             mainGameClass.gotoFightScreen(2);
         }
-        if (boss.isActivated()) {
+        if(boss.isActivated()) {
             mainGameClass.gotoFightScreen(3);
         }
-        if (shop.isActivated()) {
+        if(shop.isActivated()) {
             //goto shop
         }
-        if (training.isActivated()) {
-            mainGameClass.switchScreen(2);
+        if(training.isActivated()) {
+            //goto training
         }
     }
 }
