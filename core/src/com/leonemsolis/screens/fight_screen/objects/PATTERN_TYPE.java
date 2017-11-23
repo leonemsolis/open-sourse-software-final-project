@@ -8,5 +8,5 @@ public enum PATTERN_TYPE {
     ATTACK,
     DEFENCE,
     COUNTER,
-    SPECIAL
+    HEAL
 }

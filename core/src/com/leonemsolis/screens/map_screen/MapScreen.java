@@ -29,7 +29,7 @@ public class MapScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        handler.update();
+        handler.update(delta);
         renderer.render(delta);
     }
 

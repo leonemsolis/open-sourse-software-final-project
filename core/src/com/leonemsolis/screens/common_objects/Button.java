@@ -48,4 +48,16 @@ public class Button {
     public void reset() {
         activated = false;
     }
+
+    public boolean isTouchedDown() {
+        return touchedDown;
+    }
+
+    public float getX() {
+        return bounds.x;
+    }
+
+    public float getY() {
+        return bounds.y;
+    }
 }

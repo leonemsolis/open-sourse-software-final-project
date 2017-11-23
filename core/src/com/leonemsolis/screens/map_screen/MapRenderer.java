@@ -48,6 +48,11 @@ public class MapRenderer {
             handler.boss.render(shape);
             handler.training.render(shape);
             handler.shop.render(shape);
+
+
+            for (int i = 0; i < handler.particleSystems.size(); ++i) {
+                handler.particleSystems.get(i).render(shape);
+            }
         shape.end();
 
         batch.begin();

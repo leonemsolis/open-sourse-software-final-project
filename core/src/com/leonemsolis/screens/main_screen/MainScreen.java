@@ -34,8 +34,8 @@ public class MainScreen implements Screen {
     public void render(float delta) {
         renderer.render(delta);
 
-        if(handler.signalGotoGame()) {
-            mainGameClass.switchScreen(1);
+        if(handler.playButton.isActivated()) {
+            mainGameClass.switchScreen(2);
         }
     }
 

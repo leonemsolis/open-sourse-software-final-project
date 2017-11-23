@@ -25,7 +25,7 @@ public class PlayButton extends com.leonemsolis.screens.common_objects.Button {
             shapeRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
         } else {
             Color saved = shapeRenderer.getColor().cpy();
-            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.setColor(Color.BLUE);
             shapeRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
             shapeRenderer.setColor(saved);
         }
