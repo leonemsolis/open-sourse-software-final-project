@@ -15,8 +15,8 @@ import com.leonemsolis.main.MainGameClass;
 
 public class MapRenderer {
     private OrthographicCamera camera;
-    private MapObjectHandler handler;
     private BitmapFont font;
+    private MapObjectHandler handler;
     private SpriteBatch batch;
     private ShapeRenderer shape;
 
@@ -36,7 +36,7 @@ public class MapRenderer {
         shape.setColor(Color.GREEN);
 
         font = new BitmapFont(true);
-        font.setColor(Color.WHITE);
+        font.setColor(Color.BLACK);
     }
 
     public void render(float delta) {
@@ -49,6 +49,15 @@ public class MapRenderer {
             handler.training.render(shape);
             handler.shop.render(shape);
         shape.end();
+
+        batch.begin();
+            handler.fight1.renderText(batch, font);
+            handler.fight2.renderText(batch, font);
+            handler.boss.renderText(batch, font);
+            handler.training.renderText(batch, font);
+            handler.shop.renderText(batch, font);
+        batch.end();
+
     }
 
     public void dispose() {

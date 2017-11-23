@@ -1,4 +1,4 @@
-package com.leonemsolis.screens.common_objects;
+package com.leonemsolis.screens.fight_screen.objects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -10,11 +10,11 @@ import java.util.Random;
  * Created by Leonemsolis on 17/11/2017.
  */
 
-public class Particle {
+public class ParticleBlood {
 
-    private Vector2 pos;
     private Vector2 velocity;
-    private ParticleSystem system;
+    private Vector2 pos;
+    private ParticleSystemBlood system;
     private float angle;
     private float speed;
     private float life;
@@ -22,7 +22,7 @@ public class Particle {
     private final float SCALE_DELTA_COLOR;
     private boolean complete = false;
 
-    public Particle(float offset, ParticleSystem system) {
+    public ParticleBlood(float offset, ParticleSystemBlood system) {
         this.system = system;
         Random random = new Random();
         angle = system.angle - system.angleVariation + (random.nextFloat() * system.angleVariation * 2);
@@ -54,7 +54,7 @@ public class Particle {
             float deltaB = system.endColor.b - system.startColor.b;
 
             shape.setColor(new Color(system.startColor.r + deltaR * (1 - deltaColor), system.startColor.g + deltaG * (1 - deltaColor), system.startColor.b + deltaB * (1 - deltaColor), 1f));
-            shape.rect(pos.x, pos.y, 10, 10);
+            shape.circle(pos.x, pos.y, 3.5f);
         }
     }
 

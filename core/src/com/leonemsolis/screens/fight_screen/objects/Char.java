@@ -2,6 +2,7 @@ package com.leonemsolis.screens.fight_screen.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -12,7 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
  * Char will keep this properties
  */
 
-public class Char extends Object {
+public abstract class Char extends Object {
 
     private boolean shakeRequest = false;
     public float lastTakenDamage = 0f;
@@ -29,16 +30,20 @@ public class Char extends Object {
     public Rectangle bigFrame, frame;
 
     // Hit points are always equals 100% at the beginning
-    private float HP = 100;
+    protected float HP = 100;
     protected Color color;
 
     // Attack animation
-    protected float actionTimer = 0;
-    private boolean dashing = false;
-    private final float DASH_DISTANCE = 50;
-    protected float dashSpeed = DASH_DISTANCE / CharTimeHandler.ATTACK_DASH_TIME;
-    protected float retreatSpeed = DASH_DISTANCE / CharTimeHandler.ATTACK_RETREAT_TIME;
     protected float initialX = 0;
+    protected float anchorX = 0;
+
+    public boolean movingForward = false;
+    public boolean movingBack = false;
+    public float moveForwardDist, moveBackDist;
+    public boolean dealtDamage = false;
+
+    public float velocity = 200;
+
 
     public Char(String tag, int atk, int def, int speed, Color color) {
         mode = CHAR_MODE.ENTRY;
@@ -83,10 +88,65 @@ public class Char extends Object {
             HP = 0;
             dead();
         }
-        if(mode == CHAR_MODE.COUNTER) {
-            attack(atkScale);
-        } else if(mode == CHAR_MODE.DEFENCE) {
-            resetScales();
+        if(mode == CHAR_MODE.COUNTER || mode == CHAR_MODE.DEFENCE) {
+            anchorX = frame.x;
+            movingForward = true;
+        }
+    }
+
+    public void update(float delta) {
+        switch (mode) {
+            case ENTRY:
+            case HEAL:
+                if(timer > 0) {
+                    timer -= delta;
+                } else {
+                    stand();
+                }
+                break;
+            case ATTACK:
+                if(movingForward) {
+                    moveForward(delta);
+                } else {
+                    if(!dealtDamage) {
+                        dealtDamage = true;
+                        dealDamage();
+                        movingBack = true;
+                        anchorX = frame.x;
+                    } else {
+                        moveBack(delta);
+                    }
+                }
+
+                if(dealtDamage && !movingBack && !movingForward) {
+                    dealtDamage = false;
+                    moveToInitialPosition();
+                    stand();
+                }
+                break;
+            case DEFENCE:
+                if(movingBack) {
+                    moveBack(delta);
+                }
+                if(movingForward) {
+                    moveForward(delta);
+                }
+                if(!movingBack && !movingForward && Math.abs(frame.x - initialX) < 10) {
+                    resetScales();
+                    stand();
+                }
+                break;
+            case COUNTER:
+                if(movingBack) {
+                    moveBack(delta);
+                }
+                if(movingForward) {
+                    moveForward(delta);
+                }
+                if(!movingBack && !movingForward && Math.abs(frame.x - initialX) < 10) {
+                    attack(atkScale);
+                }
+                break;
         }
     }
 
@@ -107,44 +167,47 @@ public class Char extends Object {
         shape.setColor(saved);
     }
 
-    public void special() {
-        mode = CHAR_MODE.SPECIAL;
-        if(HP + 50 >= 100) {
+    public void heal() {
+        mode = CHAR_MODE.HEAL;
+        if(HP + 30 >= 100) {
             log(1, 100 - HP);
             HP = 100;
         } else {
-            log(1, 50);
-            HP += 50;
+            log(1, 30);
+            HP += 30;
         }
-        timer = CharTimeHandler.SPECIAL_CAST_TIME;
+        timer = CharTimeHandler.HEAL_CAST_TIME;
     }
 
     public void counter(float attackScale, float defScale) {
         this.defScale = defScale;
         this.atkScale = attackScale;
         mode = CHAR_MODE.COUNTER;
+
+        moveForwardDist = moveBackDist = 40;
+        movingBack = true;
+        anchorX = initialX;
     }
 
+    // When defencing, speed increases
     public void defence(float defScale) {
         this.defScale = defScale;
         mode = CHAR_MODE.DEFENCE;
+        moveForwardDist = moveBackDist = 40;
+        movingBack = true;
+        anchorX = initialX;
+        speed *= 1.5f;
     }
 
     public void attack(float attackScale) {
         this.atkScale = attackScale;
+        moveForwardDist = moveBackDist = 110f;
+        movingForward = true;
+        dealtDamage = false;
+        this.atkScale = attackScale;
         mode = CHAR_MODE.ATTACK;
         timer = CharTimeHandler.ATTACK_TIME;
-        actionTimer = CharTimeHandler.ATTACK_DASH_TIME;
-        dashing = true;
-    }
-
-    public void retreat() {
-        actionTimer = CharTimeHandler.ATTACK_RETREAT_TIME;
-        dashing = false;
-    }
-
-    public boolean isDashing() {
-        return dashing;
+        anchorX = initialX;
     }
 
     public void dead() {
@@ -164,6 +227,7 @@ public class Char extends Object {
     }
 
     public float calculateDefencePoints() {
+        Gdx.app.log("Defence points = ", def+" * "+defScale);
         return def * defScale;
     }
 
@@ -180,12 +244,21 @@ public class Char extends Object {
         shakeRequest = false;
     }
 
-    public void log(int id, float value) {
-
-    }
+    public abstract void log(int id, float value);
 
     public CHAR_MODE getMode() {
         return mode;
     }
 
+    // When done set movingForward to false
+    public abstract void moveForward(float delta);
+
+    // When done set movingBack to false
+    public abstract void moveBack(float delta);
+
+    public abstract void dealDamage();
+
+    public void moveToInitialPosition() {
+        frame.x = initialX;
+    }
 }

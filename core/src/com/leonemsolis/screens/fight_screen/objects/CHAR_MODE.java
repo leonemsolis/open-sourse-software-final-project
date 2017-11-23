@@ -9,7 +9,7 @@ public enum CHAR_MODE {
     STILL,
     ATTACK,
     DEFENCE,
-    SPECIAL,
+    HEAL,
     COUNTER,
     DEAD
 }

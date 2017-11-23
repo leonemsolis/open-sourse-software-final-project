@@ -1,6 +1,7 @@
 package com.leonemsolis.screens.map_screen;
 
 
+import com.badlogic.gdx.graphics.Color;
 import com.leonemsolis.main.MainGameClass;
 import com.leonemsolis.screens.common_objects.DataHandler;
 import com.leonemsolis.screens.map_screen.objects.MapButton;
@@ -16,28 +17,28 @@ public class MapObjectHandler {
 
     public MapObjectHandler(MainGameClass mainGameClass) {
         this.mainGameClass = mainGameClass;
-        fight1 = new MapButton(160, MainGameClass.MID_POINT + 40);
-        fight2 = new MapButton(200, MainGameClass.MID_POINT - 50);
-        boss = new MapButton(240, 30);
-        shop = new MapButton(0, 0);
-        training = new MapButton(90, MainGameClass.MID_POINT - 20);
+        fight1 = new MapButton(160, MainGameClass.MID_POINT + 40, "Level 1", Color.BLACK);
+        fight2 = new MapButton(200, MainGameClass.MID_POINT - 50, "Level 2", Color.GREEN);
+        boss = new MapButton(240, 30, "Boss", Color.YELLOW);
+        shop = new MapButton(0, 0, "Shop", Color.WHITE);
+        training = new MapButton(90, MainGameClass.MID_POINT - 20, "Train", Color.BROWN);
     }
 
     public void update() {
-        if (fight1.isActivated()) {
+        if(fight1.isActivated()) {
             mainGameClass.gotoFightScreen(1);
         }
-        if (fight2.isActivated()) {
+        if(fight2.isActivated()) {
             mainGameClass.gotoFightScreen(2);
         }
-        if (boss.isActivated()) {
+        if(boss.isActivated()) {
             mainGameClass.gotoFightScreen(3);
         }
-        if (shop.isActivated()) {
+        if(shop.isActivated()) {
             //goto shop
         }
-        if (training.isActivated()) {
-            mainGameClass.switchScreen(2);
+        if(training.isActivated()) {
+            //goto training
         }
     }
 }

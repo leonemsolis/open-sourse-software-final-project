@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.leonemsolis.main.MainGameClass;
 import com.leonemsolis.screens.common_objects.Button;
 
 /**
@@ -12,6 +13,14 @@ import com.leonemsolis.screens.common_objects.Button;
  */
 
 public class MapButton extends Button {
+    private String text = "";
+    private Color textColor;
+
+    public MapButton(float x, float y, String text, Color textColor) {
+        super(x, y, 60, 40);
+        this.text = text;
+        this.textColor = textColor;
+    }
 
     public MapButton(float x, float y) {
         super(x, y, 60, 40);
@@ -31,7 +40,9 @@ public class MapButton extends Button {
     }
 
     public void renderText(SpriteBatch batch, BitmapFont font) {
-        GlyphLayout layout = new GlyphLayout(font, "Level 1");
-        font.draw(batch, "Level 1", bounds.x + bounds.width / 2 - layout.width / 2, bounds.y + bounds.height / 2 - layout.height / 2);
+        font.setColor(textColor);
+        GlyphLayout layout = new GlyphLayout(font, text);
+
+        font.draw(batch, text, bounds.x + bounds.width / 2 - layout.width / 2, bounds.y + bounds.height / 2 - layout.height / 2);
     }
 }
