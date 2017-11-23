@@ -38,7 +38,7 @@ public class MapObjectHandler {
             //goto shop
         }
         if(training.isActivated()) {
-            //goto training
+            mainGameClass.switchScreen(2);
         }
     }
 }
