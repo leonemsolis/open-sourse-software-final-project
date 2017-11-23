@@ -68,13 +68,13 @@ public class FightObjectHandler {
                 break;
             case 2:
                 enemyAtk = 30;
-                enemyDef = 20;
+                enemyDef = 9;
                 enemySpeed = 32;
-                tag = "Bloody Victor";
+                tag = "Thick Victor";
                 break;
             default:
                 enemyAtk = 40;
-                enemyDef = 30;
+                enemyDef = 15;
                 enemySpeed = 48;
                 tag = "Deadly Roman";
                 break;
@@ -187,7 +187,7 @@ public class FightObjectHandler {
                     switchMode(SCREEN_MODE.FIGHT_HERO_TURN);
                     hero.act(0);
                 } else {
-                    currentTimer -= delta;
+//                    currentTimer -= delta;
                 }
                 break;
             case FINISH:
@@ -306,11 +306,11 @@ public class FightObjectHandler {
             isEnemyBloodSpawned = true;
             particleSystems.add(new ParticleSystemBlood(hero.frame.x + hero.frame.width / 2, hero.frame.y + random.nextFloat() * 55 + 20, Color.RED, Color.RED, false, hero.lastTakenDamage));
         }
-        if(hero.getMode() == CHAR_MODE.SPECIAL && !isHeroSpecialSpawned) {
+        if(hero.getMode() == CHAR_MODE.HEAL && !isHeroSpecialSpawned) {
             isHeroSpecialSpawned = true;
             particleSystems.add(new ParticleSystemSpecial(hero.frame.x + hero.frame.width / 2, hero.frame.y + 40, Color.RED, Color.RED));
         }
-        if(enemy.getMode() == CHAR_MODE.SPECIAL && !isEnemySpecialSpawned) {
+        if(enemy.getMode() == CHAR_MODE.HEAL && !isEnemySpecialSpawned) {
             isEnemySpecialSpawned = true;
             particleSystems.add(new ParticleSystemSpecial(enemy.frame.x + enemy.frame.width / 2, enemy.frame.y + 40, Color.BLUE, Color.BLUE));
         }

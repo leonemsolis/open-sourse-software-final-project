@@ -41,7 +41,7 @@ public class PatternPad {
                 break;
             case SPECIAL:
                 bounds = new Rectangle(180, MainGameClass.MID_POINT - 30, 100, 100);
-                label = "SPECIAL";
+                label = "HEAL";
                 break;
         }
         c1 = new Circle(bounds.x + 25, bounds.y + 25, 15);

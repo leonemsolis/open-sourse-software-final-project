@@ -22,7 +22,7 @@ public class Hero extends Char {
 
     public Hero() {
 //        super("Hero", DataHandler.heroAttack, DataHandler.heroDefence, DataHandler.heroSpeed, pool);
-        super("Boyka", 19, 5, 20, Color.BLUE);
+        super("Boyka", 19, 8, 20, Color.BLUE);
         frame = new Rectangle(10, MainGameClass.MID_POINT - 91, 100, 151);
         bigFrame = new Rectangle(10, MainGameClass.MID_POINT - 145, 145, 290);
         initialX = frame.x;
@@ -60,7 +60,7 @@ public class Hero extends Char {
                 counter(.7f, .8f);
                 break;
             case 4:
-                special();
+                heal();
                 break;
             default:
                 defence(.5f);

@@ -30,7 +30,7 @@ public abstract class Char extends Object {
     public Rectangle bigFrame, frame;
 
     // Hit points are always equals 100% at the beginning
-    private float HP = 100;
+    protected float HP = 100;
     protected Color color;
 
     // Attack animation
@@ -43,6 +43,7 @@ public abstract class Char extends Object {
     public boolean dealtDamage = false;
 
     public float velocity = 200;
+
 
     public Char(String tag, int atk, int def, int speed, Color color) {
         mode = CHAR_MODE.ENTRY;
@@ -96,7 +97,7 @@ public abstract class Char extends Object {
     public void update(float delta) {
         switch (mode) {
             case ENTRY:
-            case SPECIAL:
+            case HEAL:
                 if(timer > 0) {
                     timer -= delta;
                 } else {
@@ -166,16 +167,16 @@ public abstract class Char extends Object {
         shape.setColor(saved);
     }
 
-    public void special() {
-        mode = CHAR_MODE.SPECIAL;
-        if(HP + 50 >= 100) {
+    public void heal() {
+        mode = CHAR_MODE.HEAL;
+        if(HP + 30 >= 100) {
             log(1, 100 - HP);
             HP = 100;
         } else {
-            log(1, 50);
-            HP += 50;
+            log(1, 30);
+            HP += 30;
         }
-        timer = CharTimeHandler.SPECIAL_CAST_TIME;
+        timer = CharTimeHandler.HEAL_CAST_TIME;
     }
 
     public void counter(float attackScale, float defScale) {
@@ -188,12 +189,14 @@ public abstract class Char extends Object {
         anchorX = initialX;
     }
 
+    // When defencing, speed increases
     public void defence(float defScale) {
         this.defScale = defScale;
         mode = CHAR_MODE.DEFENCE;
         moveForwardDist = moveBackDist = 40;
         movingBack = true;
         anchorX = initialX;
+        speed *= 1.5f;
     }
 
     public void attack(float attackScale) {

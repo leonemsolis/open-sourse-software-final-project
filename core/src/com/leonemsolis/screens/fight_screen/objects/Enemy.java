@@ -40,11 +40,34 @@ public class Enemy extends Char {
                 resetScales();
             }
         }
+        makeDecision();
+    }
+
+    public void makeDecision() {
         switch (level) {
             case 1:
-                attack(1f);
+                if(HP <= 20) {
+//                    counter(.7f, .8f);
+                    heal();
+                } else {
+                    attack(1f);
+                }
                 break;
             case 2:
+                if(HP <= 10) {
+                    heal();
+                } else {
+                    // Have at least 2 turns
+                    if(pool / speed >= 2) {
+                        attack(1f);
+                    } else {
+                        if(hero.getMode() == CHAR_MODE.COUNTER) {
+                            counter(.7f, .8f);
+                        } else {
+                            attack(1f);
+                        }
+                    }
+                }
                 break;
             case 3:
                 if(hero.getMode() == CHAR_MODE.DEFENCE) {
