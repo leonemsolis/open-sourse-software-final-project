@@ -36,13 +36,8 @@ public class MapObjectHandler {
         if (shop.isActivated()) {
             //goto shop
         }
-<<<<<<< HEAD
-        if(training.isActivated()) {
-//            mainGameClass.gotoTrainingScreen();
-=======
         if (training.isActivated()) {
             mainGameClass.switchScreen(2);
->>>>>>> 1ea203ed9419947957401a209d465fbdebe133c9
         }
     }
 }

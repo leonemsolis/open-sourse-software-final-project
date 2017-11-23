@@ -48,15 +48,7 @@ public class MainGameClass extends Game {
         setScreen(new FightScreen(this, level));
     }
 
-<<<<<<< HEAD
-	public void gotoTrainingScreen(){
-		setScreen(new TrainingScreen(this));
-	}
-
-	public void switchScreen(int id) {
-=======
     public void switchScreen(int id) {
->>>>>>> 1ea203ed9419947957401a209d465fbdebe133c9
         switch (id) {
             case 0:
                 setScreen(new MainScreen(this));
