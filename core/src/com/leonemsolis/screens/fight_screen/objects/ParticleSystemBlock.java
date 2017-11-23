@@ -22,9 +22,10 @@ public class ParticleSystemBlock extends ParticleSystem {
     public float minVelocity = 200f;
     public float maxVelocity = 400f;
     public Vector2 gravity;
-    public final int MAX_SIZE = 400;
+    public final int MAX_SIZE = 500;
 
-    public final float blockDist = 100f;
+    public final float MIN_DIST = 30f;
+    public final float MAX_DIST = 200f;
 
     public ArrayList<ParticleBlock> particles;
 
@@ -38,10 +39,10 @@ public class ParticleSystemBlock extends ParticleSystem {
 
         if(rightSide) {
             angle = 0;
-            gravity = new Vector2(0, 0);
+            gravity = new Vector2(-150, 0);
         } else {
             angle = 180;
-            gravity = new Vector2(0, 0);
+            gravity = new Vector2(150, 0);
         }
 
         particles = new ArrayList<ParticleBlock>();
@@ -62,7 +63,7 @@ public class ParticleSystemBlock extends ParticleSystem {
         if(!complete) {
             complete = true;
             for (ParticleBlock p: particles) {
-                if(!p.isComplete()) {
+                if(!p.isComplete() && complete) {
                     complete = false;
                 }
                 p.update(delta);

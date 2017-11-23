@@ -1,6 +1,5 @@
 package com.leonemsolis.screens.fight_screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.leonemsolis.screens.fight_screen.objects.ParticleSystemBlock;
 import com.leonemsolis.screens.fight_screen.objects.ParticleSystemBlood;
@@ -39,7 +38,7 @@ public class FightObjectHandler {
 
     private final boolean heroFirst;
 
-    private boolean isHeroParticlesSpawned, isEnemyParticlesSpawned, isSpecialParticlesSpawned, isBlockParticlesSpawned;
+    private boolean isHeroBloodSpawned, isEnemyBloodSpawned, isHeroSpecialSpawned, isEnemySpecialSpawned, isHeroBlockSpawned, isEnemyBlockSpawned;
 
     public ArrayList<ParticleSystem> particleSystems;
 
@@ -63,24 +62,24 @@ public class FightObjectHandler {
         switch(level) {
             case 1:
                 enemyAtk = 20;
-                enemyDef = 0;
+                enemyDef = 5;
                 enemySpeed = 16;
-                tag = "Angry Dave";
+                tag = "Crazy Alex";
                 break;
             case 2:
                 enemyAtk = 30;
                 enemyDef = 20;
                 enemySpeed = 32;
-                tag = "Bloody Tom";
+                tag = "Bloody Victor";
                 break;
             default:
                 enemyAtk = 40;
                 enemyDef = 30;
                 enemySpeed = 48;
-                tag = "Deadly Rob";
+                tag = "Deadly Roman";
                 break;
         }
-        enemy = new Enemy(tag, enemyAtk, enemyDef, enemySpeed);
+        enemy = new Enemy(tag, enemyAtk, enemyDef, enemySpeed, level);
         hero = new Hero();
         // TODO: 08/11/2017 Balance pools
         heroFirst = hero.speed > enemy.speed;
@@ -188,7 +187,7 @@ public class FightObjectHandler {
                     switchMode(SCREEN_MODE.FIGHT_HERO_TURN);
                     hero.act(0);
                 } else {
-//                    currentTimer -= delta;
+                    currentTimer -= delta;
                 }
                 break;
             case FINISH:
@@ -245,17 +244,12 @@ public class FightObjectHandler {
                 currentTimer = TimeHandler.ENTRY_TIME;
                 break;
             case FIGHT_ENEMY_TURN:
+                resetParticleFlags();
                 currentTimer = TimeHandler.FIGHT_TIME;
-                isEnemyParticlesSpawned = false;
-                isHeroParticlesSpawned = false;
-                isSpecialParticlesSpawned = false;
                 break;
             case FIGHT_HERO_TURN:
+                resetParticleFlags();
                 currentTimer = TimeHandler.FIGHT_TIME;
-                isEnemyParticlesSpawned = false;
-                isHeroParticlesSpawned = false;
-                isSpecialParticlesSpawned = false;
-                isBlockParticlesSpawned = false;
                 break;
             case COMBINATION:
                 aPad.setupLines();
@@ -289,23 +283,52 @@ public class FightObjectHandler {
         }
     }
 
+    public void resetParticleFlags() {
+        isHeroBloodSpawned = false;
+        isEnemyBloodSpawned = false;
+        isHeroSpecialSpawned = false;
+        isEnemySpecialSpawned = false;
+        if(hero.getMode() != CHAR_MODE.COUNTER && hero.getMode() != CHAR_MODE.DEFENCE) {
+            isHeroBlockSpawned = false;
+        }
+        if(enemy.getMode() != CHAR_MODE.COUNTER && enemy.getMode() != CHAR_MODE.DEFENCE) {
+            isEnemyBlockSpawned = false;
+        }
+    }
+
     // Check if need to spawn ParticleSystemBlood, then spawn
     public void proceedParticles() {
-        if(hero.getMode() == CHAR_MODE.ATTACK && !hero.movingForward && hero.dealtDamage && !isHeroParticlesSpawned) {
-            isHeroParticlesSpawned = true;
+        if(hero.getMode() == CHAR_MODE.ATTACK && !hero.movingForward && hero.dealtDamage && !isHeroBloodSpawned) {
+            isHeroBloodSpawned = true;
             particleSystems.add(new ParticleSystemBlood(enemy.frame.x + enemy.frame.width / 2, enemy.frame.y + random.nextFloat() * 55 + 20, Color.BLUE, Color.BLUE, true, enemy.lastTakenDamage));
         }
-        if(enemy.getMode() == CHAR_MODE.ATTACK && !enemy.movingForward && enemy.dealtDamage && !isEnemyParticlesSpawned) {
-            isEnemyParticlesSpawned = true;
+        if(enemy.getMode() == CHAR_MODE.ATTACK && !enemy.movingForward && enemy.dealtDamage && !isEnemyBloodSpawned) {
+            isEnemyBloodSpawned = true;
             particleSystems.add(new ParticleSystemBlood(hero.frame.x + hero.frame.width / 2, hero.frame.y + random.nextFloat() * 55 + 20, Color.RED, Color.RED, false, hero.lastTakenDamage));
         }
-        if(hero.getMode() == CHAR_MODE.SPECIAL && !isSpecialParticlesSpawned) {
-            isSpecialParticlesSpawned = true;
+        if(hero.getMode() == CHAR_MODE.SPECIAL && !isHeroSpecialSpawned) {
+            isHeroSpecialSpawned = true;
             particleSystems.add(new ParticleSystemSpecial(hero.frame.x + hero.frame.width / 2, hero.frame.y + 40, Color.RED, Color.RED));
         }
-        if(hero.getMode() == CHAR_MODE.DEFENCE && !isBlockParticlesSpawned) {
-            isBlockParticlesSpawned = true;
-            particleSystems.add(new ParticleSystemBlock(hero.frame.x + hero.frame.width / 2, hero.frame.y + 40, Color.BLUE, Color.WHITE, true));
+        if(enemy.getMode() == CHAR_MODE.SPECIAL && !isEnemySpecialSpawned) {
+            isEnemySpecialSpawned = true;
+            particleSystems.add(new ParticleSystemSpecial(enemy.frame.x + enemy.frame.width / 2, enemy.frame.y + 40, Color.BLUE, Color.BLUE));
+        }
+        if((hero.getMode() == CHAR_MODE.DEFENCE || hero.getMode() == CHAR_MODE.COUNTER) && !isHeroBlockSpawned) {
+            isHeroBlockSpawned = true;
+            if(hero.getMode() == CHAR_MODE.DEFENCE) {
+                particleSystems.add(new ParticleSystemBlock(hero.frame.x + hero.frame.width / 2, hero.frame.y + 40, Color.BLUE, Color.WHITE, true));
+            } else {
+                particleSystems.add(new ParticleSystemBlock(hero.frame.x + hero.frame.width / 2, hero.frame.y + 40, Color.RED, Color.BLACK, true));
+            }
+        }
+        if((enemy.getMode() == CHAR_MODE.DEFENCE || enemy.getMode() == CHAR_MODE.COUNTER) && !isEnemyBlockSpawned) {
+            isEnemyBlockSpawned = true;
+            if(enemy.getMode() == CHAR_MODE.DEFENCE) {
+                particleSystems.add(new ParticleSystemBlock(enemy.frame.x + enemy.frame.width / 2, enemy.frame.y + 40, Color.BLUE, Color.WHITE, false));
+            } else {
+                particleSystems.add(new ParticleSystemBlock(enemy.frame.x + enemy.frame.width / 2, enemy.frame.y + 40, Color.RED, Color.BLACK, false));
+            }
         }
     }
 

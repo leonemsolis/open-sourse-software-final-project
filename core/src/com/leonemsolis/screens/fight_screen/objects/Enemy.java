@@ -14,9 +14,11 @@ import com.leonemsolis.main.MainGameClass;
 public class Enemy extends Char {
 
     private Hero hero;
+    private int level;
 
-    public Enemy(String tag, int atk, int def, int speed) {
+    public Enemy(String tag, int atk, int def, int speed, int level) {
         super(tag, atk, def, speed, Color.RED);
+        this.level = level;
         frame = new Rectangle(MainGameClass.GAME_WIDTH / 2 + 50, MainGameClass.MID_POINT - 91, 100, 151);
         bigFrame = new Rectangle(MainGameClass.GAME_WIDTH / 2 + 5, MainGameClass.MID_POINT - 145, 145, 290);
         initialX = frame.x;
@@ -33,57 +35,34 @@ public class Enemy extends Char {
             pool -= speed;
         }
         if(mode != CHAR_MODE.STILL) {
-            mode = CHAR_MODE.STILL;
+            if(mode == CHAR_MODE.COUNTER || mode == CHAR_MODE.DEFENCE) {
+                frame.x = initialX;
+                resetScales();
+            }
         }
-        attack(1f);
-//        defence(3);
+        switch (level) {
+            case 1:
+                attack(1f);
+                break;
+            case 2:
+                break;
+            case 3:
+                if(hero.getMode() == CHAR_MODE.DEFENCE) {
+                    attack(1f);
+                }
+                else if(hero.getMode() == CHAR_MODE.COUNTER) {
+                    defence(1f);
+                } else {
+                    attack(1f);
+                }
+                break;
+        }
     }
-
-//    public void update(float delta) {
-//        switch (mode) {
-//            case ENTRY:
-//            case SPECIAL:
-//                if(timer > 0) {
-//                    timer -= delta;
-//                } else {
-//                    stand();
-//                }
-//                break;
-//            case ATTACK:
-//                if(timer > 0) {
-//                    timer -= delta;
-//                    if(isDashing()) {
-//                        if(actionTimer > 0) {
-//                            actionTimer -= delta;
-//                            frame.x -= dashSpeed * delta;
-//                        } else{
-//                            Gdx.app.log("Enemy", "dealt "+ calculateAttackPoints()+ " damage..");
-//                            hero.takeDamage(calculateAttackPoints());
-//                            retreat();
-//                        }
-//                    } else {
-//                        if(actionTimer > 0) {
-//                            actionTimer -= delta;
-//                            frame.x += retreatSpeed * delta;
-//                        } else {
-//                            actionTimer = 0;
-//                            stand();
-//                            frame.x = initialX;
-//                        }
-//                    }
-//                } else {
-//                    stand();
-//                }
-//                break;
-//            default:
-//                break;
-//        }
-//    }
 
     @Override
     public void moveForward(float delta) {
-        if(movingForward && Math.abs(frame.x - initialX) < moveForwardDist) {
-            frame.x -= forwardSpeed * delta;
+        if(movingForward && Math.abs(frame.x - anchorX) < moveForwardDist) {
+            frame.x -= velocity * delta;
         } else {
             movingForward = false;
         }
@@ -91,8 +70,8 @@ public class Enemy extends Char {
 
     @Override
     public void moveBack(float delta) {
-        if(movingBack && Math.abs(frame.x - initialX) > 5) {
-            frame.x += backSpeed * delta;
+        if(movingBack && Math.abs(frame.x - anchorX) < moveBackDist) {
+            frame.x += velocity * delta;
         } else {
             movingBack = false;
         }
@@ -100,6 +79,7 @@ public class Enemy extends Char {
 
     @Override
     public void dealDamage() {
+        Gdx.app.log("Enemy", "dealt "+ calculateAttackPoints()+" damage");
         hero.takeDamage(calculateAttackPoints());
     }
 
