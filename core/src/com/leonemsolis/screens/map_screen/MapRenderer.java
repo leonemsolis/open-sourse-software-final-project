@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.leonemsolis.main.MainGameClass;
+import com.leonemsolis.screens.common_objects.AssetHandler;
 
 /**
  * Created by Leonemsolis on 26/10/2017.
@@ -42,6 +43,9 @@ public class MapRenderer {
     public void render(float delta) {
         Gdx.gl20.glClearColor(0, 0, 0, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.begin();
+            batch.draw(AssetHandler.mapRegion, 0, MainGameClass.MID_POINT - MainGameClass.GAME_HEIGHT / 4, 320, 320);
+        batch.end();
         shape.begin(ShapeRenderer.ShapeType.Filled);
             handler.fight1.render(shape);
             handler.fight2.render(shape);

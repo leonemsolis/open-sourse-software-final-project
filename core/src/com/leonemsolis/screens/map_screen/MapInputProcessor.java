@@ -1,6 +1,10 @@
 package com.leonemsolis.screens.map_screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.leonemsolis.screens.blueprints.InputProcessor;
+
+import java.awt.event.KeyEvent;
 
 /**
  * Created by Leonemsolis on 26/10/2017.
