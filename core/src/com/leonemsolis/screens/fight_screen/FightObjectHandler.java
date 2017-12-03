@@ -187,7 +187,7 @@ public class FightObjectHandler {
                     switchMode(SCREEN_MODE.FIGHT_HERO_TURN);
                     hero.act(0);
                 } else {
-//                    currentTimer -= delta;
+                    currentTimer -= delta;
                 }
                 break;
             case FINISH:

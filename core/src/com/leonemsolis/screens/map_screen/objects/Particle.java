@@ -2,6 +2,7 @@ package com.leonemsolis.screens.map_screen.objects;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.leonemsolis.main.MainGameClass;
 
 /**
  * Created by Leonemsolis on 23/11/2017.
@@ -9,15 +10,16 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Particle {
 
-    public Vector2 position;
+    public Vector2 position, velocity;
     private ParticleSystem system;
 
     private float lifeTime;
 
     public boolean died = false;
 
-    public Particle(ParticleSystem system) {
+    public Particle(ParticleSystem system, float angle) {
         this.system = system;
+        velocity = new Vector2((float)(Math.cos(angle) * system.speed), (float)(Math.sin(angle) * system.speed));
 
         position = new Vector2(system.x, system.y);
 
@@ -30,7 +32,8 @@ public class Particle {
         }
         if(!died) {
             lifeTime -= delta;
-            position.mulAdd(system.velocity, delta);
+            velocity.mulAdd(system.gravity, delta);
+            position.mulAdd(velocity, delta);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.leonemsolis.screens.map_screen;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.leonemsolis.main.MainGameClass;
 import com.leonemsolis.screens.common_objects.DataHandler;
@@ -21,11 +22,12 @@ public class MapObjectHandler {
 
     public MapObjectHandler(MainGameClass mainGameClass) {
         this.mainGameClass = mainGameClass;
-        fight1 = new MapButton(160, MainGameClass.MID_POINT + 40, "Level 1", Color.BLACK);
-        fight2 = new MapButton(200, MainGameClass.MID_POINT - 50, "Level 2", Color.GREEN);
-        boss = new MapButton(240, 30, "Boss", Color.YELLOW);
-        shop = new MapButton(0, 0, "Shop", Color.WHITE);
-        training = new MapButton(90, MainGameClass.MID_POINT - 20, "Train", Color.BROWN);
+        fight1 = new MapButton(185, MainGameClass.MID_POINT - 20, "Level 1", Color.YELLOW);
+        fight2 = new MapButton(96, MainGameClass.MID_POINT + 30, "Level 2", Color.GREEN);
+        boss = new MapButton(30, MainGameClass.MID_POINT - 33, "Boss", Color.WHITE);
+        shop = new MapButton(202, MainGameClass.MID_POINT + 78, "Shop", Color.RED);
+        training = new MapButton(257, MainGameClass.MID_POINT + 46, "Train", Color.WHITE);
+
         particleSystems = new ArrayList<ParticleSystem>();
     }
 

@@ -26,7 +26,7 @@ public class Hero extends Char {
         frame = new Rectangle(10, MainGameClass.MID_POINT - 91, 100, 151);
         bigFrame = new Rectangle(10, MainGameClass.MID_POINT - 145, 145, 290);
         initialX = frame.x;
-        animationStill = new Animation(.6f, AssetHandler.char_still);
+        animationStill = new Animation(.6f, AssetHandler.char_still); //
         animationStill.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
         animationAttack = new Animation(.7f, AssetHandler.char_attack);

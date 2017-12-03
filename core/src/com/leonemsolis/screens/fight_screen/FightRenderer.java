@@ -50,7 +50,9 @@ public class FightRenderer {
     private float shakeTimer = 0;
 
     private float SHAKE_STEP = 3f;
-    private float OFFSET_LIMIT_POW = 2f;
+    private float OFFSET_LIMIT_POW = 4f;
+
+
     private float shakeOffsetX = 0;
     private float shakeOffsetY = 0;
 
@@ -91,11 +93,11 @@ public class FightRenderer {
         if(handler.hero.isShakeRequest()) {
             handler.hero.completeShakeRequest();
             shakeTimer = TimeHandler.SHAKE_TIMER;
-            SHAKE_STEP = handler.hero.lastTakenDamage / 10;
+            //SHAKE_STEP = handler.hero.lastTakenDamage / 10;
         } else if(handler.enemy.isShakeRequest()) {
             handler.enemy.completeShakeRequest();
             shakeTimer = TimeHandler.SHAKE_TIMER;
-            SHAKE_STEP = handler.enemy.lastTakenDamage / 10;
+            //SHAKE_STEP = handler.enemy.lastTakenDamage / 10;
         }
         if(shakeTimer > 0) {
             shakeTimer -= delta;
@@ -122,7 +124,7 @@ public class FightRenderer {
         }
 
         // TODO: 31/10/2017 REMOVE
-        renderTestTimer();
+//        renderTestTimer();
 
         if(handler.currentMode != SCREEN_MODE.ENTRY && handler.currentMode != SCREEN_MODE.FINISH) {
             handler.pauseButton.render(shape);

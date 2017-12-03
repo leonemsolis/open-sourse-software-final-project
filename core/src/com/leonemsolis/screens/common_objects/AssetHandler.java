@@ -9,15 +9,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 
 public class AssetHandler {
-    public static Texture chars;
+    public static Texture chars, map;
     public static TextureRegion char_still[];
     public static TextureRegion char_attack[];
     public static TextureRegion char_defence[];
+    public static TextureRegion mapRegion;
 
     public static TextureRegion test[];
 
     public static void loadAssets() {
         chars = new Texture(Gdx.files.internal("chars.png"));
+        map = new Texture(Gdx.files.internal("map.png"));
 
         char_still = new TextureRegion[2];
 
@@ -52,9 +54,12 @@ public class AssetHandler {
         test[4] = new TextureRegion(chars, 1039, 0, 245, 383);
         test[4].flip(true, true);
 
+        mapRegion = new TextureRegion(map, 0, 0, 781, 809);
+        mapRegion.flip(false, true);
     }
 
     public static void dispose() {
         chars.dispose();
+        map.dispose();
     }
 }

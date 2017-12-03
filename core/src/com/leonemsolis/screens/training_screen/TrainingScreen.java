@@ -28,9 +28,10 @@ public class TrainingScreen implements Screen {
         renderer.dispose();
     }
 
+    //항상 불리는 코드
     @Override
     public void render(float delta) {
-        renderer.render(delta);
+        renderer.render(delta); // 렌더 클래스의 랜더함수를 계속 실행시키기 위한 코드. => 모든 클래스의 랜더 함수에 이 코드가 들어가야한다.
         if(handler.changeMap.isActivated())
             mainGameClass.switchScreen(1);
 
