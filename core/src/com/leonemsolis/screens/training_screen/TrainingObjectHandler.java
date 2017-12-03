@@ -10,19 +10,17 @@ import com.leonemsolis.screens.training_screen.objects.StatusBar;
  */
 
 public class TrainingObjectHandler {
-    public MainGameClass mainGameClass;
+    public SelectButton select, changeMap; // 첫번째 오브젝트 버튼. event가 있는 버튼
+    public StatusBar SPD, DEF, ATK, EXP; // 두번째 오브젝트 버튼. event가 없는 버튼
 
-    public SelectButton select, changeMap; // 첫번째 오브젝트 버튼
-    public StatusBar SPD, DEF, ATK, EXP; // 두번째 오브젝트 버튼
-
-    public TrainingObjectHandler(MainGameClass mainGameClass) {
-        this.mainGameClass = mainGameClass; // 맵 교체를 위해 필요 (아 update함수)
-
-        select = new SelectButton(MainGameClass.GAME_WIDTH / 2, 0); // 위치 : x, y , 크기 : 너비 , 높이
-        changeMap = new SelectButton(MainGameClass.GAME_WIDTH / 3 * 2, MainGameClass.GAME_HEIGHT - 40);
-        EXP = new StatusBar(0, 0, MainGameClass.GAME_WIDTH / 2, 40, Color.BLUE);
-        SPD = new StatusBar(0, 40, MainGameClass.GAME_WIDTH / 3, 40, Color.YELLOW);
-        DEF = new StatusBar(MainGameClass.GAME_WIDTH / 3, 40, MainGameClass.GAME_WIDTH / 3, 40, Color.CORAL);
-        ATK = new StatusBar(MainGameClass.GAME_WIDTH / 3 * 2, 40, MainGameClass.GAME_WIDTH / 3, 40, Color.CHARTREUSE);
+    public TrainingObjectHandler() {
+        // SelectButton 변수
+        select = new SelectButton(MainGameClass.GAME_WIDTH / 2, 0, "Select"); // 생성할 위치를 매개변수로 넘김 : (x, y)
+        changeMap = new SelectButton(MainGameClass.GAME_WIDTH / 3 * 2, MainGameClass.GAME_HEIGHT - 40, MainGameClass.GAME_WIDTH / 3, 40, "Change Map");
+        // StatusBar 변수
+        EXP = new StatusBar(0, 0, MainGameClass.GAME_WIDTH / 2, 40, "EXP", Color.valueOf("3399FF"));
+        SPD = new StatusBar(0, 40, MainGameClass.GAME_WIDTH / 3, 40, "SPD", Color.YELLOW);
+        DEF = new StatusBar(MainGameClass.GAME_WIDTH / 3, 40, MainGameClass.GAME_WIDTH / 3, 40, "DEF", Color.CORAL);
+        ATK = new StatusBar(MainGameClass.GAME_WIDTH / 3 * 2, 40, MainGameClass.GAME_WIDTH / 3, 40, "ATK", Color.CHARTREUSE);
     }
 }
