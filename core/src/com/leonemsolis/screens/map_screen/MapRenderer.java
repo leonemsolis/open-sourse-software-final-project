@@ -27,7 +27,6 @@ public class MapRenderer {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(true, MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
-        camera.update();
 
         batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);

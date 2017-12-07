@@ -13,7 +13,7 @@ public class AssetHandler {
     public static TextureRegion char_still[];
     public static TextureRegion char_attack[];
 
-    public static TextureRegion enemy1_still, enemy2_still, ring1, ring2;
+    public static TextureRegion enemy1_still, enemy2_still, ring1, ring2, punchingBag, miniPunchingBag, shop, helmet, pants, jumpingrope, gloves;
     public static TextureRegion enemy1_attack[];
     public static TextureRegion enemy2_attack[];
 
@@ -77,6 +77,27 @@ public class AssetHandler {
 
         mapRegion = new TextureRegion(atlas, 1056, 1477, 781, 809);
         mapRegion.flip(false, true);
+
+        punchingBag = new TextureRegion(atlas, 883, 894, 97, 378);
+        punchingBag.flip(false, true);
+
+        miniPunchingBag = new TextureRegion(atlas, 1296, 909, 79, 171);
+        miniPunchingBag.flip(false, true);
+
+        shop = new TextureRegion(atlas, 0, 2071, 593, 432);
+        shop.flip(false, true);
+
+        helmet = new TextureRegion(atlas, 1040, 916, 154, 154);
+        helmet.flip(false, true);
+
+        pants = new TextureRegion(atlas, 1420, 927, 176, 144);
+        pants.flip(false, true);
+
+        jumpingrope = new TextureRegion(atlas, 1036, 1105, 175, 175);
+        jumpingrope.flip(false, true);
+
+        gloves = new TextureRegion(atlas, 1231, 1110, 175, 175);
+        gloves.flip(false, true);
     }
 
     public static void dispose() {

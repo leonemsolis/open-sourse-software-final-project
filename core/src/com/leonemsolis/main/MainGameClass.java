@@ -7,6 +7,7 @@ import com.leonemsolis.screens.common_objects.DataHandler;
 import com.leonemsolis.screens.fight_screen.FightScreen;
 import com.leonemsolis.screens.main_screen.MainScreen;
 import com.leonemsolis.screens.map_screen.MapScreen;
+import com.leonemsolis.screens.shop_screen.ShopScreen;
 import com.leonemsolis.screens.training_screen.TrainingScreen;
 
 /**
@@ -41,7 +42,7 @@ public class MainGameClass extends Game {
         GAME_HEIGHT = (int) ((float) DEVICE_HEIGHT / GAME_SCALE);
         MID_POINT = GAME_HEIGHT / 2;
         // Goto certain screen first
-        switchScreen(1);
+        switchScreen(0);
 //        gotoFightScreen(1);
     }
 
@@ -59,6 +60,9 @@ public class MainGameClass extends Game {
                 break;
             case 2:
                 setScreen(new TrainingScreen(this));
+                break;
+            case 3:
+                setScreen(new ShopScreen(this));
                 break;
             default:
                 setScreen(new MainScreen(this));

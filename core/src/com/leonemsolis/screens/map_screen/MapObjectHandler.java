@@ -39,7 +39,7 @@ public class MapObjectHandler {
             mainGameClass.gotoFightScreen(3);
         }
         if(shop.isActivated()) {
-            //goto shop
+            mainGameClass.switchScreen(3);
         }
         if(training.isActivated()) {
             mainGameClass.switchScreen(2);
