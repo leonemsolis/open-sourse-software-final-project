@@ -9,57 +9,77 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 
 public class AssetHandler {
-    public static Texture chars, map;
+    public static Texture atlas;
     public static TextureRegion char_still[];
     public static TextureRegion char_attack[];
-    public static TextureRegion char_defence[];
+
+    public static TextureRegion enemy1_still, enemy2_still, ring1, ring2;
+    public static TextureRegion enemy1_attack[];
+    public static TextureRegion enemy2_attack[];
+
     public static TextureRegion mapRegion;
 
-    public static TextureRegion test[];
+
+
 
     public static void loadAssets() {
-        chars = new Texture(Gdx.files.internal("chars.png"));
-        map = new Texture(Gdx.files.internal("map.png"));
+        atlas = new Texture(Gdx.files.internal("atlas.png"));
 
         char_still = new TextureRegion[2];
 
-        char_still[0] = new TextureRegion(chars, 565, 0, 233, 383);
+        char_still[0] = new TextureRegion(atlas, 565, 0, 233, 374);
         char_still[0].flip(true, true);
 
-        char_still[1] = new TextureRegion(chars, 798, 0, 241, 383);
+        char_still[1] = new TextureRegion(atlas, 798, 0, 241, 374);
         char_still[1].flip(true, true);
 
         char_attack = new TextureRegion[4];
 
-        char_attack[0] = new TextureRegion(chars, 1284, 0, 280, 383);
+        char_attack[0] = new TextureRegion(atlas, 1284, 0, 280, 374);
         char_attack[0].flip(true, true);
 
-        char_attack[1] = new TextureRegion(chars, 0, 0, 283, 383);
+        char_attack[1] = new TextureRegion(atlas, 0, 0, 283, 374);
         char_attack[1].flip(true, true);
 
-        char_attack[2] = new TextureRegion(chars, 1564, 0, 278, 383);
+        char_attack[2] = new TextureRegion(atlas, 1564, 0, 278, 374);
         char_attack[2].flip(true, true);
 
-        char_attack[3] = new TextureRegion(chars, 283, 0, 282, 383);
+        char_attack[3] = new TextureRegion(atlas, 283, 0, 282, 374);
         char_attack[3].flip(true, true);
 
-        test = new TextureRegion[7];
 
-        test[2] = new TextureRegion(chars, 565, 0, 233, 383);
-        test[2].flip(true, true);
 
-        test[3] = new TextureRegion(chars, 798, 0, 241, 383);
-        test[3].flip(true, true);
 
-        test[4] = new TextureRegion(chars, 1039, 0, 245, 383);
-        test[4].flip(true, true);
+        enemy1_still = new TextureRegion(atlas, 0, 375, 350, 508);
+        enemy1_still.flip(true, true);
 
-        mapRegion = new TextureRegion(map, 0, 0, 781, 809);
+        enemy1_attack = new TextureRegion[2];
+        enemy1_attack[0] = new TextureRegion(atlas, 0, 375, 350, 508);
+        enemy1_attack[0].flip(true, true);
+        enemy1_attack[1] = new TextureRegion(atlas, 350, 375, 401, 508);
+        enemy1_attack[1].flip(true, true);
+
+
+        enemy2_still = new TextureRegion(atlas, 751, 375, 417, 508);
+        enemy2_still.flip(true, true);
+
+        enemy2_attack = new TextureRegion[2];
+        enemy2_attack[0] = new TextureRegion(atlas, 751, 375, 417, 508);
+        enemy2_attack[0].flip(true, true);
+        enemy2_attack[1] = new TextureRegion(atlas, 1168, 375, 360, 508);
+        enemy2_attack[1].flip(true, true);
+
+
+        ring1 = new TextureRegion(atlas, 0, 883, 842, 594);
+        ring1.flip(false, true);
+        ring2 = new TextureRegion(atlas, 105, 1477, 720, 506);
+        ring2.flip(false, true);
+
+        mapRegion = new TextureRegion(atlas, 1056, 1477, 781, 809);
         mapRegion.flip(false, true);
     }
 
     public static void dispose() {
-        chars.dispose();
-        map.dispose();
+        atlas.dispose();
     }
 }

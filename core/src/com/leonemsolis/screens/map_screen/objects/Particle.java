@@ -17,9 +17,9 @@ public class Particle {
 
     public boolean died = false;
 
-    public Particle(ParticleSystem system, float angle) {
+    public Particle(ParticleSystem system, float angle, float speed) {
         this.system = system;
-        velocity = new Vector2((float)(Math.cos(angle) * system.speed), (float)(Math.sin(angle) * system.speed));
+        velocity = new Vector2((float)(Math.cos(angle) * speed), (float)(Math.sin(angle) * speed));
 
         position = new Vector2(system.x, system.y);
 

@@ -11,12 +11,16 @@ import java.util.Random;
  */
 
 public class ParticleSystem {
-    public int size = 500;
-    public float ParticlePerSecond = 250;
+    public int size = 600;
+    public float ParticlePerSecond = 5000;
 
-    public float speed = 100f;
+    public float minSpeed = 200f;
+    public float maxSpeed = 600f;
 
-    public float ParticleLife = 4;
+    public float minAngle = 0;
+    public float maxAngle = 180;
+
+    public float ParticleLife = .6f;
 
     public float x, y;
 
@@ -27,18 +31,20 @@ public class ParticleSystem {
     public ParticleSystem(float x, float y) {
         this.x = x;
         this.y = y;
-        gravity = new Vector2(0, 60);
+        gravity = new Vector2(0, 1000);
 
         particles = new ArrayList<Particle>();
     }
 
     public void update(float delta) {
         if(!died) {
-            if(particles.size() < 500) {
+            if(particles.size() < size) {
                 Random random = new Random();
                 int numberOfParticleToCreate = (int)(ParticlePerSecond * delta);
                 for (int i = 0; i < numberOfParticleToCreate; ++i) {
-                    particles.add(new Particle(this, random.nextFloat() * 360));
+                    float particleSpeed = random.nextFloat() * minSpeed + (random.nextFloat() * (maxSpeed - minSpeed));
+                    float particleAngle = random.nextFloat() * minAngle + (random.nextFloat() * (maxAngle - minAngle));
+                    particles.add(new Particle(this, particleAngle, particleSpeed));
                 }
             }
             died = true;

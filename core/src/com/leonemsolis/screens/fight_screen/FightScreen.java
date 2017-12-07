@@ -11,7 +11,7 @@ import com.leonemsolis.screens.fight_screen.objects.SCREEN_MODE;
 
 public class FightScreen implements Screen {
     private MainGameClass mainGameClass;
-    public FightObjectHandler handler;
+    private FightObjectHandler handler;
     private FightRenderer renderer;
     private FightInputProcessor inputProcessor;
 

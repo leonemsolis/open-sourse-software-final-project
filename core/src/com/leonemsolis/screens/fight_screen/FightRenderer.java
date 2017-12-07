@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.leonemsolis.main.MainGameClass;
+import com.leonemsolis.screens.common_objects.AssetHandler;
 import com.leonemsolis.screens.common_objects.ParticleSystem;
 import com.leonemsolis.screens.fight_screen.objects.SCREEN_MODE;
 import com.leonemsolis.screens.fight_screen.objects.TimeHandler;
@@ -64,7 +65,6 @@ public class FightRenderer {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(true, MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
-        camera.update();
 
         shape = new ShapeRenderer();
         shape.setProjectionMatrix(camera.combined);
@@ -102,7 +102,7 @@ public class FightRenderer {
         if(shakeTimer > 0) {
             shakeTimer -= delta;
             shakeCamera();
-        } if(shakeTimer < 0) {
+        } if(shakeTimer <= 0) {
             resetCamera();
         }
 
@@ -142,7 +142,7 @@ public class FightRenderer {
     }
 
     private void renderChars() {
-        handler.enemy.render(shape);
+        handler.enemy.render(batch, runTime);
         handler.hero.render(batch, runTime);
     }
 
@@ -162,11 +162,7 @@ public class FightRenderer {
     }
 
     private void renderEntry() {
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-            shape.setColor(Color.WHITE);
-            shape.rect(0, 0, MainGameClass.GAME_WIDTH, MainGameClass.GAME_HEIGHT);
-        shape.end();
-
+        renderRing();
         renderChars();
     }
 
@@ -205,21 +201,32 @@ public class FightRenderer {
         }
     }
 
+    private void renderRing() {
+        batch.begin();
+        if (handler.level == 1 || handler.level == 2) {
+            batch.draw(AssetHandler.ring1, 0, MainGameClass.MID_POINT - 215, MainGameClass.GAME_WIDTH, 380);
+        } else {
+            batch.draw(AssetHandler.ring2, 0, MainGameClass.MID_POINT - 215, MainGameClass.GAME_WIDTH, 380);
+        }
+        batch.end();
+    }
+
     private void renderTopStats() {
         shape.begin(ShapeRenderer.ShapeType.Filled);
             // Upper cover(beyond upper bound)
             shape.setColor(Color.WHITE);
             shape.rect(0, MainGameClass.MID_POINT - 400, MainGameClass.GAME_WIDTH, 480);
+        shape.end();
+        renderRing();
 
+        shape.begin(ShapeRenderer.ShapeType.Filled);
             // Bottom cover
             shape.setColor(Color.RED);
             shape.rect(0, MainGameClass.MID_POINT + 80, MainGameClass.GAME_WIDTH, 200);
-
             // Hero's HP bar (filler)
             shape.rect(0, 23, (handler.hero.getHP() * MainGameClass.GAME_WIDTH / 2) / 100, 23);
             // Enemy's HP bar (filler)
             shape.rect(MainGameClass.GAME_WIDTH / 2 + (MainGameClass.GAME_WIDTH / 2 - (handler.enemy.getHP() * MainGameClass.GAME_WIDTH / 2) / 100), 23, MainGameClass.GAME_WIDTH, 23);
-
         shape.end();
 
         shape.begin(ShapeRenderer.ShapeType.Line);

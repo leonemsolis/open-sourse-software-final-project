@@ -169,12 +169,12 @@ public abstract class Char extends Object {
 
     public void heal() {
         mode = CHAR_MODE.HEAL;
-        if(HP + 30 >= 100) {
+        if(HP + 40 >= 100) {
             log(1, 100 - HP);
             HP = 100;
         } else {
-            log(1, 30);
-            HP += 30;
+            log(1, 40);
+            HP += 40;
         }
         timer = CharTimeHandler.HEAL_CAST_TIME;
     }

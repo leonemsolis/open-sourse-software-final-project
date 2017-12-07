@@ -48,8 +48,11 @@ public class FightObjectHandler {
 
     public FightScreen screen;
 
+    public int level;
+
     public FightObjectHandler(FightScreen screen, int level) {
         this.screen = screen;
+        this.level = level;
         currentMode = SCREEN_MODE.COMBINATION;
 
         random = new Random();
@@ -300,7 +303,7 @@ public class FightObjectHandler {
     public void proceedParticles() {
         if(hero.getMode() == CHAR_MODE.ATTACK && !hero.movingForward && hero.dealtDamage && !isHeroBloodSpawned) {
             isHeroBloodSpawned = true;
-            particleSystems.add(new ParticleSystemBlood(enemy.frame.x + enemy.frame.width / 2, enemy.frame.y + random.nextFloat() * 55 + 20, Color.BLUE, Color.BLUE, true, enemy.lastTakenDamage));
+            particleSystems.add(new ParticleSystemBlood(enemy.frame.x + enemy.frame.width / 2, enemy.frame.y + random.nextFloat() * 55 + 20, Color.RED, Color.RED, true, enemy.lastTakenDamage));
         }
         if(enemy.getMode() == CHAR_MODE.ATTACK && !enemy.movingForward && enemy.dealtDamage && !isEnemyBloodSpawned) {
             isEnemyBloodSpawned = true;

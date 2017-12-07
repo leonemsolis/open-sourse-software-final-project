@@ -2,8 +2,12 @@ package com.leonemsolis.screens.fight_screen.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Rectangle;
 import com.leonemsolis.main.MainGameClass;
+import com.leonemsolis.screens.common_objects.AssetHandler;
 
 /**
  * Created by Leonemsolis on 24/10/2017.
@@ -16,12 +20,32 @@ public class Enemy extends Char {
     private Hero hero;
     private int level;
 
+    private TextureRegion still;
+    private Animation attackAnimation;
+
     public Enemy(String tag, int atk, int def, int speed, int level) {
         super(tag, atk, def, speed, Color.RED);
         this.level = level;
         frame = new Rectangle(MainGameClass.GAME_WIDTH / 2 + 50, MainGameClass.MID_POINT - 91, 100, 151);
         bigFrame = new Rectangle(MainGameClass.GAME_WIDTH / 2 + 5, MainGameClass.MID_POINT - 145, 145, 290);
         initialX = frame.x;
+        switch (level) {
+            case 1:
+                still = AssetHandler.enemy1_still;
+                attackAnimation = new Animation(.3f, AssetHandler.enemy1_attack);
+                attackAnimation.setPlayMode(Animation.PlayMode.LOOP);
+                break;
+            case 2:
+                still = AssetHandler.enemy2_still;
+                attackAnimation = new Animation(.3f, AssetHandler.enemy2_attack);
+                attackAnimation.setPlayMode(Animation.PlayMode.LOOP);
+                break;
+            case 3:
+                still = AssetHandler.enemy1_still;
+                attackAnimation = new Animation(.3f, AssetHandler.enemy1_attack);
+                attackAnimation.setPlayMode(Animation.PlayMode.LOOP);
+                break;
+        }
     }
 
     public void registerHero(Hero h) {
@@ -80,6 +104,22 @@ public class Enemy extends Char {
                 }
                 break;
         }
+    }
+
+    public void render(SpriteBatch batch, float runTime) {
+        batch.begin();
+        switch (mode) {
+            case ENTRY:
+                batch.draw(still, bigFrame.x, bigFrame.y, bigFrame.width, bigFrame.height);
+                break;
+            case ATTACK:
+                batch.draw(((TextureRegion) attackAnimation.getKeyFrame(runTime)), frame.x, frame.y, frame.width, frame.height);
+                break;
+            default:
+                batch.draw(still, frame.x, frame.y, frame.width, frame.height);
+                break;
+        }
+        batch.end();
     }
 
     @Override
