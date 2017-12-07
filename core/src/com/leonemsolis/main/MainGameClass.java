@@ -7,6 +7,7 @@ import com.leonemsolis.screens.common_objects.DataHandler;
 import com.leonemsolis.screens.fight_screen.FightScreen;
 import com.leonemsolis.screens.main_screen.MainScreen;
 import com.leonemsolis.screens.map_screen.MapScreen;
+import com.leonemsolis.screens.shop_screen.ShopScreen;
 import com.leonemsolis.screens.training_screen.TrainingScreen;
 
 /**
@@ -30,7 +31,7 @@ public class MainGameClass extends Game {
     // Scale - how much Device's screen resolution differ from game
     public static float GAME_SCALE;
 
-
+// Main Game
     @Override
     public void create() {
         DataHandler.loadData();
@@ -59,6 +60,9 @@ public class MainGameClass extends Game {
                 break;
             case 2:
                 setScreen(new TrainingScreen(this));
+                break;
+            case 3:
+                setScreen(new ShopScreen(this));
                 break;
             default:
                 setScreen(new MainScreen(this));
